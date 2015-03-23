@@ -1,38 +1,47 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var passport = require('./services/LoginSignup.js');
+var expressSession = require('express-session');
 
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
+app.use(express.static(__dirname + '/public')); // _dirname = name/path of current directory. this command
+    // configures express to look for static content like images linked in html pages, js files, etc. in public folder.
+app.use(expressSession( { // not including 'resave' and 'saveUninitialized' keys in this json results in deprecation warning
+    secret: 'mySecretKey',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(bodyParser.urlencoded({ extended: false })); // omitting the "{ extended: false }" parameter here results in the
 // warning "body-parser deprecated undefined extended: provide extended option" on executing the 'node app.js' command
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public')); // _dirname = name/path of current directory. this command
-// configures express to look for static content like images linked in html pages, js files, etc. in public folder.
 
-//app.get('/', function(req, res){
-//    res.render( 'index', { title: 'Sign Up' } ); // _dirname = name/path of current directory
-//});
-//app.get('/complete-profile', function(req, res){
-//    res.render( 'profile-update-form', { title: 'Sign Up' } ); // _dirname = name/path of current directory
-//});
-var nano = require('nano');
-app.get('/getMembers', function (req, res) {
-    var localDbServerAddr = 'http://127.0.0.1:5984';
-    var dbServer = nano(localDbServerAddr);
-    var membersDb = dbServer.db.use('members');
-    membersDb.get('5e03e08f4984706160ae73e223000d0b', function (err, courseDoc) {
-        console.log(courseDoc);
-        if( err ) {
-            res.send( "member could not be fetched" );
+app.post('/getMembers', function (req, res, next) {
+    //passport.authenticate('local'), function(req, res) {
+    //res.send(req.user);
+    console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
+    //res.send({member: "success"});
+    passport.authenticate('local', function(err, user, info) {
+        if (err) {
+            console.log('status: 500');
+        } else if (info) {
+            console.log('status: 401, unauthorised');
+        } else {
+            req.login(user, function(err) {
+                if (err) {
+                    console.log('status: 500 could not save session');
+                } else {
+                    res.send({member: req.user});
+                }
+            });
         }
-        else {
-            res.send( courseDoc );
-            res.end();
-        }
-    });
+    })(req, res, next);
 });
 app.get('*', function(req, res) {
     res.render('index.html'); // load the single view file (angular will handle the page changes on the front-end)
