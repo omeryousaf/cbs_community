@@ -13,9 +13,11 @@ memberControllers.controller('Login', ['$scope', '$http',
         $scope.password = '';
 
         $scope.saveMember = function () {
-            var url = 'hhtp://localhost:5984/members';
-            $http.get(url).success(function(data) {
-                $scope.phones = data;
+            var url = 'http://localhost:3000/getMembers';
+            $http.get(url).success(function(response) {
+                console.log("success");
+                console.log(response);
+                $scope.username = 'Wowww!!!';
             });
         };
     }

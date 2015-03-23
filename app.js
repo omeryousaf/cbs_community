@@ -18,6 +18,22 @@ app.use(express.static(__dirname + '/public')); // _dirname = name/path of curre
 //app.get('/complete-profile', function(req, res){
 //    res.render( 'profile-update-form', { title: 'Sign Up' } ); // _dirname = name/path of current directory
 //});
+var nano = require('nano');
+app.get('/getMembers', function (req, res) {
+    var localDbServerAddr = 'http://127.0.0.1:5984';
+    var dbServer = nano(localDbServerAddr);
+    var membersDb = dbServer.db.use('members');
+    membersDb.get('5e03e08f4984706160ae73e223000d0b', function (err, courseDoc) {
+        console.log(courseDoc);
+        if( err ) {
+            res.send( "member could not be fetched" );
+        }
+        else {
+            res.send( courseDoc );
+            res.end();
+        }
+    });
+});
 app.get('*', function(req, res) {
     res.render('index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
