@@ -28,23 +28,27 @@ app.post('/getMembers', function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     //res.send({member: "success"});
     passport.authenticate('local', function(err, user, info) {
-        if (err) {
+        if (err) { // when something goes wrong with the database server or in connecting to it
             console.log('status: 500');
-        } else if (info) {
+            res.status(500).send({ reason: 'database error' });
+        } else if (info) { // when credentials were rejected by authentication module (LoginSignup.js)
             console.log('status: 401, unauthorised');
+            res.status(401).send({ reason: info.message });
         } else {
             req.login(user, function(err) {
                 if (err) {
-                    console.log('status: 500 could not save session');
+                    console.log('status: 500 could not save session'); // what response to send in this case to the front end?
                 } else {
-                    res.send({member: req.user});
+                    res.send({member: req.user}); // verified member
                 }
             });
         }
     })(req, res, next);
 });
+
 app.get('*', function(req, res) {
-    res.render('index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    res.render('views/index.html'); // load the single view file from 'public' folder as that's been configured as the default
+    // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
 });
 
 var server = app.listen(3000, function() {

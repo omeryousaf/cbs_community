@@ -24,7 +24,7 @@ passport.use(
                 } else {
                     //console.log(respBody);
                     if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
-                        return done(null, false, { message: "username must be unique. try again" });
+                        return done(null, false, { message: "username is incorrect. please try again" });
                     } else if (respBody.rows.length === 1) { // exactly one match has been found, verify password now
                         var member = respBody.rows[0].doc;
                         if (member.password === password) { // user is verified
@@ -35,7 +35,7 @@ passport.use(
                             return done(null, false, { message: "password is incorrect" });
                         }
                     } else { // more than one docs exist with same value that is = value of var 'username' here
-                        return done(null, false, { message: "username must be unique. please try again" });
+                        return done(null, false, { message: "more than 1 accounts exist with this username. please report to the admin" });
                     }
                 }
             });

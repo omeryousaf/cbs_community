@@ -10,12 +10,11 @@ memberControllers.controller('Login', ['$scope', '$http',
 
         $scope.saveMember = function () {
             var url = 'http://localhost:3000/getMembers';
-            $http.post(url, {username: 'omer', password: 'abd'}).success(function(response) {
-                console.log("got response from node.. yay!!");
-                console.log(response.member);
-                $scope.username = 'Wowww!!!';
+            console.log("credentials: " + $scope.username + ' ' + $scope.password);
+            $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
+                console.log("login successful, username: " + response.member.username);
             }).error(function (err) {
-                console.log(err);
+                console.log("login failed, reason: " + err.reason);
             });
         };
     }

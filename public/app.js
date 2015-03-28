@@ -11,7 +11,7 @@ baghiansfromtheheart.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/login', {
-                templateUrl: 'login.html',
+                templateUrl: 'views/login.html',
                 controller: 'Login'
             }).
             otherwise({
