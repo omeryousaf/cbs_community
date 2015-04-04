@@ -14,6 +14,14 @@ baghiansfromtheheart.config(['$routeProvider',
                 templateUrl: 'views/login.html',
                 controller: 'Login'
             }).
+            when('/signup', {
+                templateUrl: 'views/signup.html',
+                controller: 'Signup'
+            }).
+            when('/complete-profile', {
+                templateUrl: 'views/member-profile-form.html',
+                controller: 'MemberProfile'
+            }).
             otherwise({
                 redirectTo: '/'
             });
