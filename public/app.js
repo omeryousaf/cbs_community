@@ -6,6 +6,15 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'memberControllers'
 ]);
 
+// define configurations here
+baghiansfromtheheart.factory('ConfigService', [
+    function() {
+        return {
+            serverIp : 'http://localhost:3000'
+        };
+    }
+]);
+
 
 baghiansfromtheheart.config(['$routeProvider',
     function($routeProvider) {

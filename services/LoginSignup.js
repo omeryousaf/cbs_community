@@ -1,6 +1,7 @@
 /**
  * Created by omeryousaf on 23/03/15.
  */
+var config = require('../nodejs_config/config.js');
 
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
@@ -15,7 +16,7 @@ passport.use(
             console.log("inside authentication..");
             // control coming from login
             var nano = require('nano');
-            var localDbServerAddr = 'http://127.0.0.1:5984';
+            var localDbServerAddr = config.App.CouchServerIp;
             var dbServer = nano(localDbServerAddr);
             var membersDb = dbServer.db.use('members');
             membersDb.view('cbs', 'isDuplicateUsername', {key: username, include_docs: true}, function(err, respBody) {
@@ -45,13 +46,11 @@ passport.use(
 
 passport.serializeUser(
     function (user, done) {
-        console.log('haallloooooo....');
         done(null, user);
     }
 );
 passport.deserializeUser(
     function (username, done) {
-        console.log('haallloooooo123....');
         done(null, {
             username: username
         });

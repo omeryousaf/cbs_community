@@ -3,8 +3,10 @@
  */
 var memberControllers = angular.module('memberControllers', []);
 
-memberControllers.controller('Signup', ['$scope', '$http',
-    function ($scope, $http) {
+// get the UI to ensure filling of mandatory fields before calling the backend
+// check username availability in an ajax way, i-e on blur of the username field if it has a value
+memberControllers.controller('Signup', ['ConfigService', '$scope', '$http',
+    function (ConfigService, $scope, $http) {
         $scope.name = '';
         $scope.email = '';
         $scope.phone = '';
@@ -27,13 +29,25 @@ memberControllers.controller('Signup', ['$scope', '$http',
         $scope.init();
 
         $scope.register = function () {
-
+            // check username availability through ajax and finally save new member record
+            // call a view of couchdb that tells if the current username is available i-e not in use by anyone already
+            var url = ConfigService.serverIp + '/isUsernameUnique';
+            console.log('username for signup: ' + $scope.username);
+            $http.post(url, {username: $scope.username}).success(function(response) {
+                if (response.isUnique === true) {
+                    alert('username is unique. congratulations!');
+                } else {
+                    alert('username must be unique, pleae try again.');
+                }
+            }).error(function (err) {
+                alert('error occurred while checking availablity of username: ' + $scope.username);
+            });
         };
     }
 ]);
 
-memberControllers.controller('Login', ['$scope', '$http',
-    function ($scope, $http) {
+memberControllers.controller('Login', ['ConfigService', '$scope', '$http',
+    function (ConfigService, $scope, $http) {
         $scope.username = '';
         $scope.password = '';
 
@@ -42,28 +56,13 @@ memberControllers.controller('Login', ['$scope', '$http',
             url('/complete-profile');
         };
         $scope.saveMember = function () {
-            var url = 'http://localhost:3000/getMembers';
+            var url = ConfigService.serverIp + '/getMembers';
             console.log("credentials: " + $scope.username + ' ' + $scope.password);
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
                 console.log("login successful, username: " + response.member.username);
             }).error(function (err) {
                 console.log("login failed, reason: " + err.reason);
             });
-        };
-    }
-]);
-
-memberControllers.controller('MemberProfile', ['$scope', '$http',
-    function ($scope, $http) {
-        $scope.name = '';
-        $scope.email = '';
-        $scope.yearOfJoining = '';
-        $scope.boardingHouse = '';
-        $scope.username = '';
-        $scope.password = '';
-
-        $scope.validateAndSave = function () {
-
         };
     }
 ]);

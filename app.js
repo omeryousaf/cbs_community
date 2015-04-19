@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var passport = require('./services/LoginSignup.js');
 var expressSession = require('express-session');
+var routes = require('./routes/index.js');
 
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // omitting the "{ extended
 // warning "body-parser deprecated undefined extended: provide extended option" on executing the 'node app.js' command
 app.use(bodyParser.json());
 
+app.post('/isUsernameUnique', routes.isUsernameUnique);
 app.post('/getMembers', function (req, res, next) {
     //passport.authenticate('local'), function(req, res) {
     //res.send(req.user);
