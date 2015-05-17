@@ -5,8 +5,8 @@ var memberControllers = angular.module('memberControllers', []);
 
 // get the UI to ensure filling of mandatory fields before calling the backend
 // check username availability in an ajax way, i-e on blur of the username field if it has a value
-memberControllers.controller('Signup', ['ConfigService', '$scope', '$http',
-    function (ConfigService, $scope, $http) {
+memberControllers.controller('Signup', ['ConfigService', '$scope', '$http', '$location',
+    function (ConfigService, $scope, $http, $location) {
         $scope.name = '';
         $scope.email = '';
         $scope.phone = '';
@@ -28,16 +28,37 @@ memberControllers.controller('Signup', ['ConfigService', '$scope', '$http',
         };
         $scope.init();
 
+        $scope.redirectToLogin = function () {
+            $location.path('/login');
+        }
+
         $scope.register = function () {
             // check username availability through ajax and finally save new member record
             // call a view of couchdb that tells if the current username is available i-e not in use by anyone already
             var url = ConfigService.serverIp + '/isUsernameUnique';
             console.log('username for signup: ' + $scope.username);
-            $http.post(url, {username: $scope.username}).success(function(response) {
-                if (response.isUnique === true) {
-                    alert('username is unique. congratulations!');
-                } else {
-                    alert('username must be unique, pleae try again.');
+            var newUser = {
+                name: $scope.name,
+                email: $scope.email,
+                phone: $scope.phone,
+                yearOfJoining: $scope.yearOfJoining,
+                boardingHouse: $scope.boardingHouse,
+                username: $scope.username,
+                password: $scope.password
+            };
+            $http.post(url, {newUser: newUser}).success(function(response) {
+                if (response.error) { // some error occurred while running the username uniqueness checking service
+                    alert('error code: ' + response.error.code + ',         ' + 'description: ' + response.error.description);
+                } else if (response.isUnique === true) { // username input by membership candidate is unique
+                    if (response.reason) { // error occurred while persisting membership candidate's signup data
+                        alert('username is unique but encountered an error while saving ur signup credentials.');
+                    } else { // success. candidate's signup data persisted. candidate is now a member
+                        alert('signup successful, congratulations! you will now be routed to the page where you can login with the credentials just created');
+                        // redirect to login page
+                        $scope.redirectToLogin();
+                    }
+                } else { // username input by candidate is NOT unique
+                    alert('username must be unique, please try again.');
                 }
             }).error(function (err) {
                 alert('error occurred while checking availablity of username: ' + $scope.username);
@@ -55,13 +76,13 @@ memberControllers.controller('Login', ['ConfigService', '$scope', '$http',
             var url = $location.url();
             url('/complete-profile');
         };
-        $scope.saveMember = function () {
+        $scope.login = function () {
             var url = ConfigService.serverIp + '/getMembers';
             console.log("credentials: " + $scope.username + ' ' + $scope.password);
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
-                console.log("login successful, username: " + response.member.username);
+                alert("login successful, username: " + response.member.username);
             }).error(function (err) {
-                console.log("login failed, reason: " + err.reason);
+                alert("login failed, reason: " + err.reason);
             });
         };
     }
