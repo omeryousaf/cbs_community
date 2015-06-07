@@ -1,0 +1,16 @@
+.button-gen-layout {
+    border-radius: 0px;
+    background-color: #616061;
+    width: inherit;
+}
+.button-gen-layout:hover {
+    background-image: none;
+    background-color: #616061;
+}
+.button-gen-layout:focus {
+    outline: none;
+    background-color: #616061;
+}
+.select-gen-layout {
+    border-radius: 0px;
+}

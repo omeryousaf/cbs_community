@@ -1,17 +1,73 @@
 <div class="container">
-    <div class="col-xs-6">
-        <div ng-controller="Signup">
-            <input type="text" ng-model="name" placeholder="name" required /> <br>
-            <input type="text" ng-model="email" placeholder="email" required /> <br>
-            <input type="text" ng-model="yearOfJoining" placeholder="yearOfJoining" required />
-            <select ng-model="yearOfJoining" ng-options="year for year in years"></select> <br>
-            <input type="text" ng-model="boardingHouse" placeholder="boardingHouse" required />
-            <select ng-model="boardingHouse" ng-options="houseName for houseName in boardingHouseNames"></select> <br>
-            <input type="text" ng-model="phone" placeholder="phone" required /> <br>
-            <input type="text" ng-model="username" placeholder="username" required /> <br>
-            <input type="password" ng-model="password" placeholder="password" required /> <br>
-            <div class="pull-right">
-                <input type="submit" value="register" ng-click="register()"/>
+    <div ng-controller="Signup">
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label for="name" class="pull-right">full name</label>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <input type="text" id="name" ng-model="name" placeholder="name" required />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label class="pull-right">email</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <input type="text" ng-model="email" placeholder="email" required />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label class="pull-right">year of joining</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <input type="text" ng-model="yearOfJoining" placeholder="yearOfJoining" required />
+                <select class="select-gen-layout" ng-model="yearOfJoining" ng-options="year for year in years"></select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label class="pull-right">boarding house</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <input type="text" ng-model="boardingHouse" placeholder="boardingHouse" required />
+                <select class="select-gen-layout" ng-model="boardingHouse" ng-options="houseName for houseName in boardingHouseNames"></select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label class="pull-right">cell number</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <input type="text" ng-model="phone" placeholder="phone" required /> <br>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label class="pull-right">username</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <input type="text" ng-model="username" placeholder="username" required />
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-3 col-md-3">
+                <label class="pull-right">password</label>
+            </div>
+            <div class="col-xs-4 col-md-4">
+                <input type="password" ng-model="password" placeholder="password" required /> <br>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-4 col-md-4 col-xs-offset-3 col-md-offset-3">
+                <input class="btn btn-primary pull-right button-gen-layout" value="register" ng-click="register()"/>
             </div>
         </div>
     </div>
