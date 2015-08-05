@@ -1,0 +1,31 @@
+<div class="container">
+    <div ng-controller="Profile">
+        <!-- twitter layout -->
+        <div class="row">
+            <h3>Profile</h3>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-md-3"> <!-- image column -->
+                <div class="row image-upload">
+                    <div ngf-drop ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
+                         ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)">
+                        <img src="../images/default-profile-3.png" class="profile-img"/>
+                    </div>
+                </div>
+                <div class="row">
+                    Thumbnail: <img class="profile-image-thumbnail" ngf-src="files[0]" ngf-default-src="'../images/default-profile-3.png'" ngf-accept="'.png,.jpg'">
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6"> <!-- feeds by member column -->
+                <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
+                <textarea id="new-post" class="new-post"> </textarea>
+                <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
+                <!-- previous posts by the user should go below -->
+                <div class="prev-posts"></div>
+            </div>
+            <div class="col-xs-3 col-md-3"> <!-- any other interesting stuff -->
+
+            </div>
+        </div>
+    </div>
+</div>

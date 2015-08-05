@@ -1,8 +1,20 @@
-
-<div ng-controller="Login">
-    <input type="text" ng-model="username" placeholder="username" required /> <br>
-    <input type="password" ng-model="password" placeholder="password" required /> <br>
-    <input type="submit" value="login" ng-click="login()"/> <br>
-    <label style="display: inline">If you have not joined already, click to </label> <!-- "display: inline" keeps the label from putting a line end after it -->
-    <a href="#/signup">Become a Member</a>
+<div class="container">
+    <div ng-controller="Login">
+        <div class="row">
+            <h3>Login</h3>
+        </div>
+        <div class="row">
+            <input type="text" ng-model="username" placeholder="username" required />
+        </div>
+        <div class="row">
+            <input type="password" ng-model="password" placeholder="password" required />
+        </div>
+        <div class="row">
+            <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="login" ng-click="login()"/>
+        </div>
+        <div class="row">
+            <label style="display: inline">If you have not joined already, click to </label> <!-- "display: inline" keeps the label from putting a line end after it -->
+            <a href="#/signup">Become a Member</a>
+        </div>
+    </div>
 </div>

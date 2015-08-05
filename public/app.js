@@ -3,7 +3,8 @@
  */
 var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
-    'memberControllers'
+    'memberControllers',
+    'ngFileUpload'
 ]);
 
 // define configurations here
@@ -14,7 +15,6 @@ baghiansfromtheheart.factory('ConfigService', [
         };
     }
 ]);
-
 
 baghiansfromtheheart.config(['$routeProvider',
     function($routeProvider) {
@@ -27,9 +27,9 @@ baghiansfromtheheart.config(['$routeProvider',
                 templateUrl: 'views/signup.html',
                 controller: 'Signup'
             }).
-            when('/complete-profile', {
-                templateUrl: 'views/member-profile-form.html',
-                controller: 'MemberProfile'
+            when('/profile', {
+                templateUrl: 'views/profile.html',
+                controller: 'Profile'
             }).
             otherwise({
                 redirectTo: '/'

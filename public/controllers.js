@@ -67,23 +67,63 @@ memberControllers.controller('Signup', ['ConfigService', '$scope', '$http', '$lo
     }
 ]);
 
-memberControllers.controller('Login', ['ConfigService', '$scope', '$http',
-    function (ConfigService, $scope, $http) {
+memberControllers.controller('Login', ['ConfigService', '$scope', '$http', '$location', 'Upload',
+    function (ConfigService, $scope, $http, $location, Upload) {
         $scope.username = '';
         $scope.password = '';
 
-        $scope.navigateToMemberProfileForm = function () {
-            var url = $location.url();
-            url('/complete-profile');
+        $scope.navigateToMemberProfile = function () {
+            $location.path('/profile');
         };
         $scope.login = function () {
-            var url = ConfigService.serverIp + '/getMembers';
+            var url = ConfigService.serverIp + '/authenticateLogin';
             console.log("credentials: " + $scope.username + ' ' + $scope.password);
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
                 alert("login successful, username: " + response.member.username);
+                $scope.navigateToMemberProfile();
             }).error(function (err) {
                 alert("login failed, reason: " + err.reason);
             });
         };
+    }
+]);
+
+memberControllers.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload',
+    function (ConfigService, $scope, $http, Upload) {
+        tinymce.init({
+            selector: "#new-post",
+            plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+            ],
+
+            toolbar1: "fontselect fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify",
+            toolbar2: "bullist numlist | outdent indent | link image media | hr removeformat | subscript superscript | emoticons | fullscreen",
+
+            menubar: false,
+            toolbar_items_size: 'small',
+
+            templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+            ]
+        });
+
+        $scope.onFileSelected = function (files, events) {
+            if ( files ){
+                console.log("some file uploading...");
+                var url = ConfigService.serverIp + '/upload-profile-image';
+                Upload.upload({
+                    url: url,
+                    fields: {'hmm': 'nice'},
+                    file: files[0]
+                }).success(function(response) {
+                    console.log('image uploaded successfully! response from server: ', response.serverResponse);
+                }).error(function (err) {
+                    alert('error occurred while checking uploading image: ' + err);
+                });
+            }
+        }
     }
 ]);

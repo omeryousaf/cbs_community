@@ -30,7 +30,7 @@ passport.use(
                         var member = respBody.rows[0].doc;
                         if (member.password === password) { // user is verified
                             console.log("passwords matched!!!- " + member.password + ' : ' + password);
-                            return done(null, {username: member.username} );
+                            return done(null, {username: member.username, memberId: member.id} );
                         } else { // password is incorrect
                             console.log("passwords differ!!! - " + member.password + ' : ' + password);
                             return done(null, false, { message: "password is incorrect" });
@@ -46,14 +46,13 @@ passport.use(
 
 passport.serializeUser(
     function (user, done) {
-        done(null, user);
+        var sessionUser = { _id: user.id, name: user.username };
+        done(null, sessionUser);
     }
 );
 passport.deserializeUser(
-    function (username, done) {
-        done(null, {
-            username: username
-        });
+    function (sessionUser, done) {
+        done(null, sessionUser);
     }
 );
 module.exports = passport;

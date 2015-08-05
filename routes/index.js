@@ -2,8 +2,29 @@ var express = require('express');
 var router = express.Router();
 var config = require('../nodejs_config/config.js');
 var nano = require('nano')(config.App.CouchServerIp);
+var authenticator = require('../services/authentication.js');
+var profileEditor = require('../services/profile_edit.js')(nano);
 
-
+router.authenticateLogin = function (req, res, next) {
+    console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
+    authenticator.authenticate('local', function(err, user, info) {
+        if (err) { // when something goes wrong with the database server or in connecting to it
+            console.log('status: 500');
+            res.status(500).send({ reason: 'database error' });
+        } else if (info) { // when credentials were rejected by authentication module (authentication.js)
+            console.log('status: 401, unauthorised');
+            res.status(401).send({ reason: info.message });
+        } else {
+            req.login(user, function(err) {
+                if (err) {
+                    console.log('status: 500 could not save session'); // what response to send in this case to the front end?
+                } else {
+                    res.send({member: req.user}); // verified member
+                }
+            });
+        }
+    })(req, res, next);
+};
 /* checks for uniqueness of username and saves member credentials if username is unique
  *       params: req, res
  *       username = req.body.newUser.username
@@ -30,5 +51,7 @@ router.isUsernameUnique = function(req, res) {
         }
     });
 };
-
+router.uploadProfileImage = function (req, res) {
+    profileEditor.updatePicture( req, res );
+}
 module.exports = router;

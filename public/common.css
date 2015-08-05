@@ -14,3 +14,13 @@
 .select-gen-layout {
     border-radius: 0px;
 }
+.margin-top-10 {
+    margin-top: 10px;
+}
+.profile-img {
+        height: 180px;
+}
+.profile-image-thumbnail {
+    width: 100px;
+    padding-top: 10px;
+}
