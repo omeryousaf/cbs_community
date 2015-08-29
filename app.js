@@ -30,7 +30,7 @@ app.post('/authenticateLogin', routes.authenticateLogin);
 app.post('/upload-profile-image', multipartMiddleware, routes.uploadProfileImage);
 
 app.get('*', function(req, res) {
-    res.render('views/index.html'); // load the single view file from 'public' folder as that's been configured as the default
+    res.render('index.html'); // load the single view file from 'public' folder as that's been configured as the default
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
 });
 
