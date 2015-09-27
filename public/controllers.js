@@ -112,6 +112,7 @@ memberControllers.controller('Profile', ['ConfigService', '$scope', '$http', 'Up
 
         $scope.onFileSelected = function (files, events) {
             if ( files ){
+                $scope.files = files; // for the view to replace the prev value of the ng-model var "files" with its newest value, we must assign the model the new value here
                 console.log("some file uploading...");
                 var url = ConfigService.serverIp + '/upload-profile-image';
                 Upload.upload({

@@ -1,0 +1,15 @@
+{
+  "name": "cbs_community",
+  "version": "0.0.0",
+  "homepage": "https://github.com/omeryousaf/cbs_community",
+  "authors": [
+    "Omer Yousaf <u.yusaf@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "ng-file-upload": "~8.0.1"
+  }
+}
