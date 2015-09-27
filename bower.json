@@ -3,13 +3,27 @@
   "version": "0.0.0",
   "homepage": "https://github.com/omeryousaf/cbs_community",
   "authors": [
-    "Omer Yousaf <u.yusaf@gmail.com>"
+    "Omer Yousaf <u.yusaf@gmail.com>",
+    "Zagham Mehmood"
   ],
   "moduleType": [
     "globals"
   ],
   "license": "MIT",
+  "description": "chand bagh school",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "ng-file-upload": "~8.0.1"
+    "angular": "~1.4.4",
+    "angular-route": "~1.4.4",
+    "bootstrap": "~3.3.5",
+    "ng-file-upload": "~8.0.1",
+    "tinymce": "~4.2.4"
   }
 }
