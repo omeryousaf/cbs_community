@@ -34,6 +34,9 @@ app.get('*', function(req, res) {
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
 });
 
-var server = app.listen(3000, function() {
-    console.log('Listening on port %d', server.address().port);
-});
+app.set('port', process.env.PORT || 3000);
+//var server = app.listen( app.get('port'), function() {
+//    console.log('Listening on port %d', server.address().port);
+//});
+
+module.exports = app;
