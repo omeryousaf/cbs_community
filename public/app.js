@@ -21,16 +21,13 @@ baghiansfromtheheart.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/login', {
-                templateUrl: 'views/login.html',
-                controller: 'Login'
+                templateUrl: 'views/login.html'
             }).
             when('/signup', {
-                templateUrl: 'views/signup.html',
-                controller: 'Signup'
+                templateUrl: 'views/signup.html'
             }).
             when('/profile/:id', {
-                templateUrl: 'views/profile.html',
-                controller: 'Profile'
+                templateUrl: 'views/profile.html'
             }).
             otherwise({
                 redirectTo: '/'
