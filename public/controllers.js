@@ -135,8 +135,8 @@ memberControllers.controller('Profile', ['ConfigService', '$scope', '$http', 'Up
                     fields: { 'memberId': $routeParams.id },
                     file: files[0]
                 }).success(function(response) {
-                    $scope.image = response.filePath;
-                    files[0] = null;
+                    $scope.image = $scope.imageBackupPath = response.filePath;
+                    files[0] = "";
                     $scope.preview = "";
                     console.log('image uploaded successfully! response from server: ', response.serverResponse);
                 }).error(function (err) {

@@ -11,11 +11,10 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
 
     profileUpdator.updatePicture = function(req, res) {
         var memberId = req.body.memberId;
-        console.log('\n\nreq.session', req.session, '\n\n');
-        console.log('\n\nreq.session.passport.user', req.session.passport.user, '\n\n');
-        console.log('\n\n\n\nreq.user', req.user, '\n\n\n\n');
+        console.log('\nreq.session', req.session, '\n');
+        console.log('\nreq.session.passport.user', req.session.passport.user, '\n');
+        console.log('\nreq.user', req.user, '\n');
         // write file in a local folder
-        console.log('\n\nreq.files', req.files, '\n\n');
         var imagePath = req.files.file.path;
         var imageName = req.files.file.originalFilename;
         var error;
@@ -23,10 +22,11 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
             if (!err) {
                 fs.readFile( imagePath, function (err, file) {
                     if (!err) {
-                        console.log('read file');
+                        console.log('uploading image to couch server...');
                         doc.currentImage = imageName;
                         membersDb.multipart.insert( doc, [{name: imageName, data: file, content_type: 'image'}], doc._id, function(err, body) {
                             if (!err) {
+                                console.log('image uploaded!!!');
                                 var imageCouchPath = config.App.CouchServerIp + '/' + 'members/' + doc._id + '/' + imageName;
                                 setTimeout( function () {
                                     res.send({ 'serverResponse': 'image uploaded!!!', 'filePath': imageCouchPath });
