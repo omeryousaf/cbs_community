@@ -11,7 +11,8 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
 baghiansfromtheheart.factory('ConfigService', [
     function() {
         return {
-            serverIp : 'http://localhost:3000'
+            serverIp : 'http://localhost:3000',
+            couchIp : 'http://127.0.0.1:5984'
         };
     }
 ]);
@@ -27,7 +28,7 @@ baghiansfromtheheart.config(['$routeProvider',
                 templateUrl: 'views/signup.html',
                 controller: 'Signup'
             }).
-            when('/profile', {
+            when('/profile/:id', {
                 templateUrl: 'views/profile.html',
                 controller: 'Profile'
             }).

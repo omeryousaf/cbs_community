@@ -7,14 +7,14 @@
         <div class="row">
             <div class="col-xs-3 col-md-3"> <!-- image column -->
                 <div class="row image-upload">
-                    <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
+                    <div ngf-drop ngf-select ng-model="image" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
                          ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image by ngf-accept="'.png,.jpg'" -->
-                        <img src="../images/default-profile-3.png" class="profile-img"/>
+                        <img src={{image}} class="profile-img"/>
                     </div>
                 </div>
                 <div class="row">
-                    <img ngf-src="files[0]" class="profile-image-thumbnail" />
-                    <br>
+                    <br><label>{{preview}}</label><br>
+                    <img ngf-src="files[0]" class="profile-image-preview" /><br>
                     <label>{{files[0].name}}</label>
                 </div>
             </div>

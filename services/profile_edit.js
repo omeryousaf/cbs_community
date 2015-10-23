@@ -1,15 +1,63 @@
 /**
  * Created by omeryousaf on 02/08/15.
  */
+var fs = require('fs.extra');
+var config = require('../nodejs_config/config.js');
+
 module.exports = function ( nano ) { // var nano is passed in from caller routes/index
     var profileUpdator = {};
+
+    var membersDb = nano.db.use('members');
+
     profileUpdator.updatePicture = function(req, res) {
-        console.log('req.body', req.body);
-        console.log('req.files.file.originalFilename: ', req.files.file.originalFilename);
+        var memberId = req.body.memberId;
         console.log('\n\nreq.session', req.session, '\n\n');
-        console.log('\n\n\nreq.session.passport.user', req.session.passport.user, '\n\n\n');
+        console.log('\n\nreq.session.passport.user', req.session.passport.user, '\n\n');
         console.log('\n\n\n\nreq.user', req.user, '\n\n\n\n');
-        res.send({ 'serverResponse': 'image uploaded!!!' });
-    }
+        // write file in a local folder
+        console.log('\n\nreq.files', req.files, '\n\n');
+        var imagePath = req.files.file.path;
+        var imageName = req.files.file.originalFilename;
+        var error;
+        membersDb.get( memberId, { revs_info: true }, function(err, doc) {
+            if (!err) {
+                fs.readFile( imagePath, function (err, file) {
+                    if (!err) {
+                        console.log('read file');
+                        doc.currentImage = imageName;
+                        membersDb.multipart.insert( doc, [{name: imageName, data: file, content_type: 'image'}], doc._id, function(err, body) {
+                            if (!err) {
+                                var imageCouchPath = config.App.CouchServerIp + '/' + 'members/' + doc._id + '/' + imageName;
+                                setTimeout( function () {
+                                    res.send({ 'serverResponse': 'image uploaded!!!', 'filePath': imageCouchPath });
+                                }, 5000);
+                            } else {
+                                error = err;
+                            }
+                        });
+                    } else {
+                        error = err;
+                    }
+                });
+            } else {
+                error = err;
+            }
+        });
+        if ( error ) {
+            res.send({ 'error': error });
+        }
+    };
+
+    profileUpdator.getMember = function ( req, res ) {
+        console.log('goin to fetch member');
+        membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
+            if (!err) {
+                res.send({'doc': doc});
+            } else {
+                res.send({'error': err});
+            }
+        });
+    };
+
     return profileUpdator;
 };

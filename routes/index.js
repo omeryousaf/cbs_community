@@ -15,11 +15,12 @@ router.authenticateLogin = function (req, res, next) {
             console.log('status: 401, unauthorised');
             res.status(401).send({ reason: info.message });
         } else {
+            console.log('\nindex::user: ', user, '\n');
             req.login(user, function(err) {
                 if (err) {
                     console.log('status: 500 could not save session'); // what response to send in this case to the front end?
                 } else {
-                    res.send({member: req.user}); // verified member
+                    res.send({member: user}); // verified member
                 }
             });
         }
@@ -51,7 +52,13 @@ router.isUsernameUnique = function(req, res) {
         }
     });
 };
+
 router.uploadProfileImage = function (req, res) {
     profileEditor.updatePicture( req, res );
-}
+};
+
+router.getMember = function ( req, res ) {
+    profileEditor.getMember( req, res );
+};
+
 module.exports = router;

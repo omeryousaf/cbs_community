@@ -67,20 +67,20 @@ memberControllers.controller('Signup', ['ConfigService', '$scope', '$http', '$lo
     }
 ]);
 
-memberControllers.controller('Login', ['ConfigService', '$scope', '$http', '$location', 'Upload',
-    function (ConfigService, $scope, $http, $location, Upload) {
+memberControllers.controller('Login', ['ConfigService', '$scope', '$http', '$location',
+    function (ConfigService, $scope, $http, $location) {
         $scope.username = '';
         $scope.password = '';
 
-        $scope.navigateToMemberProfile = function () {
-            $location.path('/profile');
+        $scope.navigateToMemberProfile = function ( data ) {
+            $location.path('/profile/' + data.id );
         };
         $scope.login = function () {
             var url = ConfigService.serverIp + '/authenticateLogin';
-            console.log("credentials: " + $scope.username + ' ' + $scope.password);
+            console.log("input credentials: " + $scope.username + ' ' + $scope.password);
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
-                alert("login successful, username: " + response.member.username);
-                $scope.navigateToMemberProfile();
+                console.log('\nlogin successful!!\nuser: ', response.member, '\n');
+                $scope.navigateToMemberProfile( { id: response.member.memberId } );
             }).error(function (err) {
                 alert("login failed, reason: " + err.reason);
             });
@@ -88,8 +88,8 @@ memberControllers.controller('Login', ['ConfigService', '$scope', '$http', '$loc
     }
 ]);
 
-memberControllers.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload',
-    function (ConfigService, $scope, $http, Upload) {
+memberControllers.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
+    function (ConfigService, $scope, $http, Upload, $routeParams) {
         tinymce.init({
             selector: "#new-post",
             plugins: [
@@ -110,16 +110,34 @@ memberControllers.controller('Profile', ['ConfigService', '$scope', '$http', 'Up
             ]
         });
 
+        $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
+        $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
+            if ( member.doc.currentImage ) {
+                $scope.image = ConfigService.couchIp + '/members/' + $routeParams.id  + '/' + member.doc.currentImage;
+                $scope.imageBackupPath = $scope.image;
+            } else {
+                $scope.image = "../images/default-profile-3.png";
+            }
+        }).error(function (err) {
+            $scope.image = "../images/default-profile-3.png";
+        });
+
+
         $scope.onFileSelected = function (files, events) {
             if ( files ){
                 $scope.files = files; // for the view to replace the prev value of the ng-model var "files" with its newest value, we must assign the model the new value here
+                $scope.preview = "Preview";
+                $scope.image = $scope.imageBackupPath;
                 console.log("some file uploading...");
                 var url = ConfigService.serverIp + '/upload-profile-image';
                 Upload.upload({
                     url: url,
-                    fields: {'hmm': 'nice'},
+                    fields: { 'memberId': $routeParams.id },
                     file: files[0]
                 }).success(function(response) {
+                    $scope.image = response.filePath;
+                    files[0] = null;
+                    $scope.preview = "";
                     console.log('image uploaded successfully! response from server: ', response.serverResponse);
                 }).error(function (err) {
                     alert('error occurred while checking uploading image: ' + err);

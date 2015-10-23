@@ -30,7 +30,7 @@ passport.use(
                         var member = respBody.rows[0].doc;
                         if (member.password === password) { // user is verified
                             console.log("passwords matched!!!- " + member.password + ' : ' + password);
-                            return done(null, {username: member.username, memberId: member.id} );
+                            return done(null, {username: member.username, memberId: member._id} );
                         } else { // password is incorrect
                             console.log("passwords differ!!! - " + member.password + ' : ' + password);
                             return done(null, false, { message: "password is incorrect" });
