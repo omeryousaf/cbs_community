@@ -1,8 +1,8 @@
 /**
  * Created by shujaatali on 01/02/16.
  */
-var profileController = angular.module('profileController',[]);
-profileController.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
+var controller = angular.module('profileController',[]);
+controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
     function (ConfigService, $scope, $http, Upload, $routeParams) {
         tinymce.init({
             selector: "#new-post",

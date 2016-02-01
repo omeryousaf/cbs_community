@@ -1,11 +1,11 @@
 /**
  * Created by omeryousaf on 16/03/15.
  */
-var memberControllers = angular.module('memberControllers', []);
+var controller = angular.module('memberControllers', []);
 
 // get the UI to ensure filling of mandatory fields before calling the backend
 // check username availability in an ajax way, i-e on blur of the username field if it has a value
-memberControllers.controller('Signup', ['ConfigService', '$scope', '$http', '$location',
+controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location',
     function (ConfigService, $scope, $http, $location) {
         $scope.name = '';
         $scope.email = '';
@@ -67,7 +67,7 @@ memberControllers.controller('Signup', ['ConfigService', '$scope', '$http', '$lo
     }
 ]);
 
-memberControllers.controller('Login', ['ConfigService', '$scope', '$http', '$location',
+controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
     function (ConfigService, $scope, $http, $location) {
         $scope.username = '';
         $scope.password = '';
