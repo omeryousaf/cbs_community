@@ -60,3 +60,10 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         }
     }
 ]);
+
+controller.controller('navigation',function(){
+    this.tab=1;
+    this.setTab = function(tabSelected){
+        this.tab=tabSelected;
+    };
+});
