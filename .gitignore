@@ -5,3 +5,4 @@ node_modules/
 public/bower_components/
 uploads/
 npm-debug.log
+tests/
