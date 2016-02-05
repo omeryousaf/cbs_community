@@ -4,6 +4,7 @@
 var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
     'memberControllers',
+    'profileController',
     'ngFileUpload'
 ]);
 
@@ -21,7 +22,7 @@ baghiansfromtheheart.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/login', {
-                templateUrl: 'views/login.html'
+                templateUrl: 'views/login.html' //The controller for handling this route is mentioned in the ng-controller directive in the html file
             }).
             when('/signup', {
                 templateUrl: 'views/signup.html'
