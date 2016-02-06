@@ -12,8 +12,7 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
 baghiansfromtheheart.factory('ConfigService', [
     function() {
         return {
-            serverIp : 'http://localhost:3000',
-            couchIp : 'http://127.0.0.1:5984'
+            serverIp : 'http://localhost:3000'
         };
     }
 ]);

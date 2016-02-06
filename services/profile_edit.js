@@ -27,7 +27,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
                         membersDb.multipart.insert( doc, [{name: imageName, data: file, content_type: 'image'}], doc._id, function(err, body) {
                             if (!err) {
                                 console.log('image uploaded!!!');
-                                var imageCouchPath = config.App.CouchServerIp + '/' + 'members/' + doc._id + '/' + imageName;
+                                var imageCouchPath = config.App.serverIp + '/profileimage?docid=' + doc._id + '&picname=' + imageName;
                                 setTimeout( function () {
                                     res.send({ 'serverResponse': 'image uploaded!!!', 'filePath': imageCouchPath });
                                 }, 5000);
@@ -57,6 +57,10 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
                 res.send({'error': err});
             }
         });
+    };
+
+    profileUpdator.getProfileImage = function ( docId, attachmentName ) {
+        return membersDb.attachment.get(docId, attachmentName);
     };
 
     return profileUpdator;

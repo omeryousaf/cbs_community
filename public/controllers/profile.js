@@ -27,7 +27,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
         $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
             if ( member.doc.currentImage ) {
-                $scope.image = ConfigService.couchIp + '/members/' + $routeParams.id  + '/' + member.doc.currentImage;
+                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + $routeParams.id + '&picname=' + member.doc.currentImage;
                 $scope.imageBackupPath = $scope.image;
             } else {
                 $scope.image = "../images/default-profile-3.png";
