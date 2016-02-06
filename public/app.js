@@ -3,7 +3,7 @@
  */
 var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
-    'memberControllers',
+    'loginSignupController',
     'profileController',
     'ngFileUpload'
 ]);
