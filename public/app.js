@@ -5,6 +5,7 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
     'loginSignupController',
     'profileController',
+    'membersController',
     'ngFileUpload'
 ]);
 
@@ -28,6 +29,9 @@ baghiansfromtheheart.config(['$routeProvider',
             }).
             when('/profile/:id', {
                 templateUrl: 'views/profile.html'
+            }).
+            when('/members', {
+                templateUrl: 'views/members.html'
             }).
             otherwise({
                 redirectTo: '/'

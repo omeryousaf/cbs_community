@@ -1,0 +1,10 @@
+<div class="container">
+    <div ng-controller="Members">
+        <div class="row">
+            <h3>Community</h3>
+                <span ng-repeat="member in members">
+                    <ul>{{member.doc.name}}, {{member.doc.boardingHouse}}, {{member.doc.email}}</ul>
+                </span>
+        </div>
+    </div>
+</div>

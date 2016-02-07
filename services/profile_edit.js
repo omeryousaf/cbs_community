@@ -49,7 +49,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
     };
 
     profileUpdator.getMember = function ( req, res ) {
-        console.log('goin to fetch member');
+        console.log('goin to fetch your profile');
         membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
             if (!err) {
                 res.send({'doc': doc});

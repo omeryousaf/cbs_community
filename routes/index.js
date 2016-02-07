@@ -4,6 +4,7 @@ var config = require('../nodejs_config/config.js');
 var nano = require('nano')(config.App.CouchServerIp);
 var authenticator = require('../services/authentication.js');
 var profileEditor = require('../services/profile_edit.js')(nano);
+var membersService = require('../services/members.js')(nano);
 
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
@@ -15,7 +16,7 @@ router.authenticateLogin = function (req, res, next) {
             console.log('status: 401, unauthorised');
             res.status(401).send({ reason: info.message });
         } else {
-            console.log('\nindex::user: ', user, '\n');
+            console.log('\nroutes::index::user: ', user, '\n');
             req.login(user, function(err) {
                 if (err) {
                     console.log('status: 500 could not save session'); // what response to send in this case to the front end?
@@ -62,7 +63,12 @@ router.getMember = function ( req, res ) {
 };
 
 router.getProfileImage = function ( req, res ) {
+    console.log('\ngetProfileImage req.user', req.user, '\n');
     profileEditor.getProfileImage(req.query.docid, req.query.picname).pipe(res);
+};
+
+router.getMembers = function ( req, res ) {
+    membersService.getMembers( req, res );
 };
 
 module.exports = router;

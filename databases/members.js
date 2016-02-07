@@ -14,6 +14,13 @@ ddoc.views = {
                 emit(doc.username, true);
             }
         }
+    },
+    getAllMembers: {
+        map: function (doc) {
+            if (doc.username) {
+                emit(doc.username, { name: doc.name, email: doc.email, boardingHouse: doc.boardingHouse});
+            }
+        }
     }
 }
 
