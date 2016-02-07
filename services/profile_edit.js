@@ -11,9 +11,6 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
 
     profileUpdator.updatePicture = function(req, res) {
         var memberId = req.body.memberId;
-        console.log('\nreq.session', req.session, '\n');
-        console.log('\nreq.session.passport.user', req.session.passport.user, '\n');
-        console.log('\nreq.user', req.user, '\n');
         // write file in a local folder
         var imagePath = req.files.file.path;
         var imageName = req.files.file.originalFilename;
