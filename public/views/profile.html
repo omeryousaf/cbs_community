@@ -1,19 +1,20 @@
 
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <div  ng-controller="navigation as nav">
-        <ul class="nav nav-tabs">
-            <li ng-class="{active: nav.tab==1}" ng-click="nav.setTab(1)"><a href="#profile">Profile</a></li>
-            <li ng-class="{active: nav.tab==2}" ng-click="nav.setTab(2)"><a href="#education">Education</a></li>
-            <li ng-class="{active: nav.tab==3}" ng-click="nav.setTab(3)"><a href="#work">Work</a></li>
-        </ul>
-    </div>
-    </div>
-    <div class="col-md-4"></div>
+
+<div ng-controller="Profile as pro">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div>
+                <ul class="nav nav-tabs">
+                    <li ng-class="{active: pro.tab==1}" ng-click="pro.setTab(1)"><a href="#profile">Profile</a></li>
+                    <li ng-class="{active: pro.tab==2}" ng-click="pro.setTab(2)"><a href="#education">Education</a></li>
+                    <li ng-class="{active: pro.tab==3}" ng-click="pro.setTab(3)"><a href="#work">Work</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
 
     </div>
-<div ng-controller="Profile as pro">
         <div class="row">
             <div class="col-xs-3 col-md-3"> <!-- image column -->
                 <div class="row image-upload">
