@@ -58,12 +58,20 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 });
             }
         }
+
+        this.tab=1;
+        this.setTab = function(tabSelected){
+            this.tab=tabSelected;
+
+        };
     }
 ]);
 
-controller.controller('navigation',function(){
+controller.controller('navigation',['$location',function($location){
     this.tab=1;
     this.setTab = function(tabSelected){
         this.tab=tabSelected;
+
     };
-});
+}]);
+

@@ -1,5 +1,19 @@
 
-    <div ng-controller="Profile">
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div  ng-controller="navigation as nav">
+        <ul class="nav nav-tabs">
+            <li ng-class="{active: nav.tab==1}" ng-click="nav.setTab(1)"><a href="#profile">Profile</a></li>
+            <li ng-class="{active: nav.tab==2}" ng-click="nav.setTab(2)"><a href="#education">Education</a></li>
+            <li ng-class="{active: nav.tab==3}" ng-click="nav.setTab(3)"><a href="#work">Work</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="col-md-4"></div>
+
+    </div>
+<div ng-controller="Profile as pro">
         <div class="row">
             <div class="col-xs-3 col-md-3"> <!-- image column -->
                 <div class="row image-upload">
@@ -14,13 +28,15 @@
                     <label>{{files[0].name}}</label>
                 </div>
             </div>
-            <div class="col-xs-6 col-md-6"> <!-- feeds by member column -->
+            <div ng-class="{'col-xs-6 col-md-6': pro.tab ==1}" ng-show="{{pro.tab==1}}""> <!-- feeds by member column -->
                 <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
                 <textarea id="new-post" class="new-post"> </textarea>
                 <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
                 <!-- previous posts by the user should go below -->
                 <div class="prev-posts"></div>
             </div>
+            <div ng-class="{'col-xs-6 col-md-6': pro.tab ==2}" ng-show="{{pro.tab==2}}">Work</div>
+            <div ng-class="{'col-xs-6 col-md-6': pro.tab ==3}" ng-show="{{pro.tab==3}}">Education</div>
             <div class="col-xs-3 col-md-3"> <!-- any other interesting stuff -->
 
             </div>
