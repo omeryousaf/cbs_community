@@ -62,8 +62,8 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         this.tab=1;
         this.setTab = function(tabSelected){
             this.tab=tabSelected;
-
         };
+
     }
 ]);
 
