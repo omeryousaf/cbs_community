@@ -4,25 +4,6 @@
 var controller = angular.module('profileController',[]);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
     function (ConfigService, $scope, $http, Upload, $routeParams) {
-        tinymce.init({
-            selector: "#new-post",
-            plugins: [
-                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
-            ],
-
-            toolbar1: "fontselect fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify",
-            toolbar2: "bullist numlist | outdent indent | link image media | hr removeformat | subscript superscript | emoticons | fullscreen",
-
-            menubar: false,
-            toolbar_items_size: 'small',
-
-            templates: [
-                {title: 'Test template 1', content: 'Test 1'},
-                {title: 'Test template 2', content: 'Test 2'}
-            ]
-        });
 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
         $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
