@@ -22,7 +22,6 @@
     "angular": "~1.4.4",
     "angular-route": "~1.4.4",
     "bootstrap": "~3.3.5",
-    "ng-file-upload": "~8.0.1",
-    "tinymce": "~4.2.4"
+    "ng-file-upload": "~8.0.1"
   }
 }
