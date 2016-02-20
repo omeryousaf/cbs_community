@@ -3,7 +3,7 @@
         <div class="row">
             <h3>Community</h3>
                 <span ng-repeat="member in members">
-                    <ul>{{member.doc.name}}, {{member.doc.boardingHouse}}, {{member.doc.email}}</ul>
+                    <ul><img src={{(member.doc.currentImage!=""&&member.doc.currentImage!=undefined)?serverIp+'/profileimage?docid='+member.doc._id+'&picname='+member.doc.currentImage:"../images/default-profile-3.png"}} class="circular-img"/> {{member.doc.name}}, {{member.doc.boardingHouse}}, {{member.doc.email}}</ul>
                 </span>
         </div>
     </div>
