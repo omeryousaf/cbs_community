@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.profile-element-padding{
+  padding-top: 10px;
+  padding-left: 110px;
+}

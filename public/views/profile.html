@@ -16,7 +16,8 @@
 
     </div>
         <div class="row">
-            <div class="col-xs-3 col-md-3"> <!-- image column -->
+            <h1>{{member}}</h1>
+            <div class="col-md-3 col-md-3"> <!-- image column -->
                 <div class="row image-upload">
                     <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
                          ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image by ngf-accept="'.png,.jpg'" -->
@@ -29,17 +30,25 @@
                     <label>{{files[0].name}}</label>
                 </div>
             </div>
-            <div ng-class="{'col-xs-6 col-md-6' : pro.tab ==1, 'hidden':pro.tab !=1}" > <!-- feeds by member column -->
+            <div ng-class="{'col-md-6 col-md-6 profile-element-padding' : pro.tab ==1, 'hidden':pro.tab !=1}" > <!-- feeds by member column -->
                 <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
                 <textarea id="new-post" class="new-post"> </textarea>
                 <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
                 <!-- previous posts by the user should go below -->
                 <div class="prev-posts"></div>
             </div>
-            <div ng-class="{'col-xs-6 col-md-6': pro.tab ==2, 'hidden':pro.tab!=2}" >Work</div>
-            <div ng-class="{'col-xs-6 col-md-6': pro.tab ==3, 'hidden':pro.tab!=3 }">Education</div>
-            <div class="col-xs-3 col-md-3"> <!-- any other interesting stuff -->
-
+            <div ng-class="{'col-md-6 col-md-6 profile-element-padding': pro.tab ==2, 'hidden':pro.tab!=2}" >
+                <div class="row">
+                    <div class="col-md-6">High School</div>
+                    <div class="col-md-6">{{education}}</div>
+                </div>
             </div>
+            <div ng-class="{'col-md-6 col-md-6 profile-element-padding': pro.tab ==3, 'hidden':pro.tab!=3 }">
+                <div class="row">
+                    <div class="col-md-6">Work</div>
+                    <div class="col-md-6">{{work}}</div>
+                </div></div>
+
         </div>
 
+</div>
