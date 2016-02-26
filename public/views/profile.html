@@ -44,10 +44,15 @@
                 </div>
             </div>
             <div ng-class="{'col-md-6 col-md-6 profile-element-padding': pro.tab ==3, 'hidden':pro.tab!=3 }">
-                <div class="row">
-                    <div class="col-md-6">Work</div>
-                    <div class="col-md-6">{{work}}</div>
-                </div></div>
+                <div id="row">
+                    <div class="col-md-12"><h3>Work</h3></div>
+                </div>
+                <div class="row"  ng-repeat="exp in work">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">* {{exp}}</div>
+                </div>
+
+            </div>
 
         </div>
 
