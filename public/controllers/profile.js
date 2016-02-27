@@ -4,6 +4,12 @@
 var controller = angular.module('profileController',[]);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
     function (ConfigService, $scope, $http, Upload, $routeParams) {
+        $scope.tabArray = [
+            {name:"Profile","value":1},
+            {name:"Education","value":2},
+            {name:"Work","value":3},
+            {name:"About","value":4}
+        ];
         tinymce.init({
             selector: "#new-post",
             plugins: [
