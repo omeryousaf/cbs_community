@@ -32,32 +32,36 @@
                     <label>{{files[0].name}}</label>
                 </div>
             </div>
-            <div ng-class="{'col-md-6 profile-element-padding' : pro.tab ==1, 'hidden':pro.tab !=1}" > <!-- feeds by member column -->
-                <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
-                <textarea id="new-post" class="new-post"> </textarea>
-                <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
-                <!-- previous posts by the user should go below -->
-                <div class="prev-posts"></div>
-            </div>
-            <div ng-class="{'col-md-6 profile-element-padding': pro.tab ==2, 'hidden':pro.tab!=2}" >
-                <div class="row">
-                    <div class="col-md-6">High School</div>
-                    <div class="col-md-6">{{education}}</div>
+            <div  ng-class="{'col-md-6 profile-element-padding' : tabs.value ==pro.tab, 'hidden':pro.tab !=tabs.value}" ng-repeat="tabs in tabArray">
+
+                <div ng-show="pro.tab==1">
+
+                    <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
+                    <textarea id="new-post" class="new-post"> </textarea>
+                    <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
+                    <!-- previous posts by the user should go below -->
+                    <div class="prev-posts"></div>
                 </div>
-            </div>
-            <div ng-class="{'col-md-6 profile-element-padding': pro.tab ==3, 'hidden':pro.tab!=3 }">
-                <div id="row">
-                    <div class="col-md-12"><h3>Work</h3></div>
+                <div ng-show="pro.tab==2">
+                    <div class="row">
+                        <div class="col-md-6">High School</div>
+                        <div class="col-md-6">{{education}}</div>
+                    </div>
                 </div>
-                <div class="row"  ng-repeat="exp in work">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9">* {{exp}}</div>
+                <div ng-show="pro.tab==3">
+                    <div id="row">
+                        <div class="col-md-12"><h3>Work</h3></div>
+                    </div>
+                    <div class="row"  ng-repeat="exp in work">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9">* {{exp}}</div>
+                    </div>
+                </div>
+                <div ng-show="pro.tab==4">
+                    About
                 </div>
 
             </div>
-            <div ng-class="{'col-md-6 profile-element-padding': pro.tab ==4, 'hidden':pro.tab!=4 }">
-
-                </div>
 
         </div>
 
