@@ -9,6 +9,7 @@ controller.controller('Members', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.members = result.members;
         }).error(function (err) {
             console.log('\nerror: ', err, '\n');
+            alert(err.error.message);
         });
     }
 ]);

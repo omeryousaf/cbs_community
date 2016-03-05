@@ -46,7 +46,8 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
     };
 
     profileUpdator.getMember = function ( req, res ) {
-        console.log('goin to fetch your profile');
+        console.log('fetching user profile...');
+        console.log('\nreq.user: ', req.user, '\n');
         membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
             if (!err) {
                 res.send({'doc': doc});
