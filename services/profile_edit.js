@@ -53,11 +53,11 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
         membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
             if (!err) {
 
-                if(req.params.id==req.user._id){
-                    doc['flag']=1;
+                if(req.params.id === req.user._id){
+                    doc['canEdit']=1;
                 }
                 else{
-                    doc['flag']=0;
+                    doc['canEdit']=0;
                 }
                 res.send({'doc': doc});
             } else {

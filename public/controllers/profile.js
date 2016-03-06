@@ -32,18 +32,20 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
         $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
-            if(member.doc.flag==1){
-                console.log("Flag is set");
-                $scope.canEdit=1;
+            if(member.doc.canEdit==1){
+                console.log("can edit");
+                $scope.canEdit=member.doc.canEdit;
             }
             else{
-                console.log("No edit window");
-                $scope.canEdit=0;
+                console.log("can't edit");
+                $scope.canEdit=member.doc.canEdit;
             }
             if(member.doc.username){
                 $scope.username=member.doc.username;
             }
-
+            if(member.doc.name){
+                $scope.name=member.doc.name;
+            }
             if(member.doc.work){
                 $scope.work=member.doc.work;
 

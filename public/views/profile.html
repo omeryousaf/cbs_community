@@ -1,18 +1,13 @@
 
 
-<div ng-controller="Profile as pro">
-
+<div ng-controller="Profile as profile">
     <div class="row">
-
         <div class="col-md-4">
-
             <div class="row">
-                <h3>{{username}}</h3>
+                <h3>{{name}}</h3>
                 <h2 ng-show="canEdit==1">edit</h2>
             </div> <!--row-->
-
             <div class="row">
-
                 <div class="col-md-3"> <!-- image column -->
                     <div class="row image-upload">
                         <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
@@ -20,48 +15,36 @@
                             <img src={{image}} class="profile-img"/>
                         </div>
                     </div> <!--row image-upload-->
-
                     <div class="row">
                         <br><label>{{preview}}</label><br>
                         <img ngf-src="files[0]" class="profile-image-preview" /><br>
                         <label>{{files[0].name}}</label>
                     </div> <!--row-->
-
                 </div> <!-- col-md-3 -->
-
             </div>  <!--row-->
-
         </div> <!--col-md-4-->
-
         <div class="col-md-4">
-
             <div class="row">
-
                 <ul class="nav nav-tabs">
-                    <li ng-repeat="tabs in tabArray" ng-class="{active: tabs.value==pro.tab}" ng-click="pro.setTab(tabs.value)"><a href="">{{tabs.name}}</a></li>
-
+                    <li ng-repeat="tab in tabArray" ng-class="{active: tab.value==profile.tab}" ng-click="profile.setTab(tab.value)"><a href="">{{tab.name}}</a></li>
                 </ul>
-
             </div> <!--row-->
-
             <div class="row">
-                <div  ng-class="{'profile-element-padding' : tabs.value ==pro.tab, 'hidden':pro.tab !=tabs.value}" ng-repeat="tabs in tabArray">
-
-                    <div ng-show="pro.tab==1">
-
+                <div  ng-class="{'profile-element-padding' : tab.value ==profile.tab, 'hidden':profile.tab !=tab.value}" ng-repeat="tab in tabArray">
+                    <div ng-show="profile.tab==1">
                         <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
                         <textarea id="new-post" class="new-post"> </textarea>
                         <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
                         <!-- previous posts by the user should go below -->
                         <div class="prev-posts"></div>
                     </div>
-                    <div ng-show="pro.tab==2">
+                    <div ng-show="profile.tab==2">
                         <div class="row">
                             <div class="col-md-6">High School</div>
                             <div class="col-md-6">{{education}}</div>
                         </div>
                     </div>
-                    <div ng-show="pro.tab==3">
+                    <div ng-show="profile.tab==3">
                         <div id="row">
                             <div class="col-md-12"><h3>Work</h3></div>
                         </div>
@@ -70,18 +53,12 @@
                             <div class="col-md-9">* {{exp}}</div>
                         </div>
                     </div>
-                    <div ng-show="pro.tab==4">
+                    <div ng-show="profile.tab==4">
                         About
                     </div>
-
                 </div>
             </div> <!--row-->
-
         </div> <!--col-md-4-->
-
         <div class="col-md-4"></div> <!--col-md-4-->
-
     </div>
-
-
 </div>
