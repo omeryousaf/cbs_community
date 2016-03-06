@@ -52,6 +52,13 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
         console.log('goin to fetch member');
         membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
             if (!err) {
+
+                if(req.params.id==req.user._id){
+                    doc['flag']=1;
+                }
+                else{
+                    doc['flag']=0;
+                }
                 res.send({'doc': doc});
             } else {
                 res.send({'error': err});
