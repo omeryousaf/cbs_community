@@ -3,8 +3,9 @@
  */
 var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
-    'memberControllers',
+    'loginSignupController',
     'profileController',
+    'membersController',
     'ngFileUpload'
 ]);
 
@@ -12,8 +13,7 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
 baghiansfromtheheart.factory('ConfigService', [
     function() {
         return {
-            serverIp : 'http://localhost:3000',
-            couchIp : 'http://127.0.0.1:5984'
+            serverIp : 'http://localhost:3000'
         };
     }
 ]);
@@ -22,13 +22,16 @@ baghiansfromtheheart.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/login', {
-                templateUrl: 'views/login.html' //The controller for handling this route is mentioned in the ng-controller directive in the mentioned html file
+                templateUrl: 'views/login.html' //The controller for handling this route is mentioned in the ng-controller directive in the html file
             }).
             when('/signup', {
                 templateUrl: 'views/signup.html'
             }).
             when('/profile/:id', {
                 templateUrl: 'views/profile.html'
+            }).
+            when('/members', {
+                templateUrl: 'views/members.html'
             }).
             otherwise({
                 redirectTo: '/'

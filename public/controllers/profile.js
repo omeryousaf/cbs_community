@@ -50,7 +50,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 $scope.education = "No education defined!";
             }
             if ( member.doc.currentImage ) {
-                $scope.image = ConfigService.couchIp + '/members/' + $routeParams.id  + '/' + member.doc.currentImage;
+                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + $routeParams.id + '&picname=' + member.doc.currentImage;
                 $scope.imageBackupPath = $scope.image;
             } else {
                 $scope.image = "../images/default-profile-3.png";

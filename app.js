@@ -29,6 +29,8 @@ app.post('/isUsernameUnique', routes.isUsernameUnique);
 app.post('/authenticateLogin', routes.authenticateLogin);
 app.post('/upload-profile-image', multipartMiddleware, routes.uploadProfileImage);
 app.get('/getMember/:id', routes.getMember);
+app.get('/profileimage', routes.getProfileImage);
+app.get('/members', routes.getMembers);
 
 app.get('*', function(req, res) {
     res.render('index.html'); // load the single view file from 'public' folder as that's been configured as the default

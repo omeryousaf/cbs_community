@@ -1,7 +1,7 @@
 /**
  * Created by omeryousaf on 16/03/15.
  */
-var controller = angular.module('memberControllers', []);
+var controller = angular.module('loginSignupController', []);
 
 // get the UI to ensure filling of mandatory fields before calling the backend
 // check username availability in an ajax way, i-e on blur of the username field if it has a value
