@@ -4,41 +4,20 @@
 var controller = angular.module('profileController',[]);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
     function (ConfigService, $scope, $http, Upload, $routeParams) {
+
         $scope.tabArray = [
             {name:"Profile","value":1},
             {name:"Education","value":2},
             {name:"Work","value":3},
             {name:"About","value":4}
         ];
-        tinymce.init({
-            selector: "#new-post",
-            plugins: [
-                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
-            ],
-
-            toolbar1: "fontselect fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify",
-            toolbar2: "bullist numlist | outdent indent | link image media | hr removeformat | subscript superscript | emoticons | fullscreen",
-
-            menubar: false,
-            toolbar_items_size: 'small',
-
-            templates: [
-                {title: 'Test template 1', content: 'Test 1'},
-                {title: 'Test template 2', content: 'Test 2'}
-            ]
-        });
 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
+
         $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
-
             $scope.canEdit=member.doc.canEdit;
-
-           
             if(member.doc.work){
                 $scope.work=member.doc.work;
-
             }
             else{
                 $scope.work = "No work defined!";
@@ -83,10 +62,10 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         }
 
         this.tab=1;
+
         this.setTab = function(tabSelected){
             this.tab=tabSelected;
         };
-
     }
 ]);
 
