@@ -51,7 +51,10 @@
                             <div class="col-md-9">* {{exp}}</div>
 
                         </div>
-                        <div ng-bind-html="more_work"></div><button ng-click="appendWork()">Add Work</button>
+                        <div class="row">
+                            <div class="col-md-6"><div ng-bind-html="more_work"></div></div><div class="col-md-6"><button ng-click="appendWork()" class="btn btn-success">Add Work</button></div>
+                        </div>
+
                     </div>
                     <div ng-show="profile.tab==4">
                         About

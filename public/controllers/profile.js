@@ -70,7 +70,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.more_work=""
         $scope.appendWork = function(){
 
-            $scope.more_work=$sce.trustAsHtml($scope.more_work+"<input type='text'>"+"</br>");
+            $scope.more_work=$sce.trustAsHtml($scope.more_work+"<input type='text' class='form-control'>"+"</br>");
         }
     }
 ]);
