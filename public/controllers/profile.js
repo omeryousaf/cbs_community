@@ -2,8 +2,8 @@
  * Created by shujaatali on 01/02/16.
  */
 var controller = angular.module('profileController',[]);
-controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
-    function (ConfigService, $scope, $http, Upload, $routeParams) {
+controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams','$sce',
+    function (ConfigService, $scope, $http, Upload, $routeParams, $sce) {
 
         $scope.tabArray = [
             {name:"Profile","value":1},
@@ -66,6 +66,12 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         this.setTab = function(tabSelected){
             this.tab=tabSelected;
         };
+
+        $scope.more_work=""
+        $scope.appendWork = function(){
+
+            $scope.more_work=$sce.trustAsHtml($scope.more_work+"<input type='text'>"+"</br>");
+        }
     }
 ]);
 

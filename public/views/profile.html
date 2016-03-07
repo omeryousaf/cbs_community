@@ -49,7 +49,9 @@
                         <div class="row"  ng-repeat="exp in work">
                             <div class="col-md-3"></div>
                             <div class="col-md-9">* {{exp}}</div>
+
                         </div>
+                        <div ng-bind-html="more_work"></div><button ng-click="appendWork()">Add Work</button>
                     </div>
                     <div ng-show="profile.tab==4">
                         About
