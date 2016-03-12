@@ -6,8 +6,7 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'loginSignupController',
     'profileController',
     'membersController',
-    'ngFileUpload',
-    'ngSanitize'
+    'ngFileUpload'
 ]);
 
 // define configurations here

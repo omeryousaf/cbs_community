@@ -2,8 +2,8 @@
  * Created by shujaatali on 01/02/16.
  */
 var controller = angular.module('profileController',[]);
-controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams','$sce',
-    function (ConfigService, $scope, $http, Upload, $routeParams, $sce) {
+controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
+    function (ConfigService, $scope, $http, Upload, $routeParams) {
 
         $scope.tabArray = [
             {name:"Profile","value":1},
