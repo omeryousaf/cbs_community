@@ -51,9 +51,10 @@
                             <div class="col-md-9">* {{exp}}</div>
 
                         </div>
-                        <div class="row">
-                            <div class="col-md-6"><div ng-bind-html="more_work"></div></div><div class="col-md-6"><button ng-click="appendWork()" class="btn btn-success">Add Work</button></div>
+                        <div class="row " ng-repeat="ids in moreWork">
+                            <div class="col-md-6"><input type="text" class="form-control more-work-fields" ><button class="btn btn-danger del-more-work-btn" id="{{ids.id}}" ng-click="removeField(this)">-</button></br></div>
                         </div>
+                        <button ng-click="appendWork()" class="btn btn-success">+</button>
 
                     </div>
                     <div ng-show="profile.tab==4">

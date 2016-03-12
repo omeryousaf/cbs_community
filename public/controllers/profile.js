@@ -11,6 +11,9 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             {name:"Work","value":3},
             {name:"About","value":4}
         ];
+        $scope.more_work_counter=0; //counter to add objects containing ids inside moreWork array and add dynamic ids to the more buttons fields
+        $scope.moreWork = [{id:$scope.more_work_counter}]; //added the very first id which is 0 at index 0
+
 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
 
@@ -67,11 +70,31 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             this.tab=tabSelected;
         };
 
-        $scope.more_work=""
+
+
         $scope.appendWork = function(){
 
-            $scope.more_work=$sce.trustAsHtml($scope.more_work+"<input type='text' class='form-control'>"+"</br>");
+            $scope.more_work_counter++;
+            $scope.moreWork.push({
+                id:$scope.more_work_counter
+            });
         }
+
+        $scope.removeField = function(id){
+           // console.log("id of button is "+id.ids.id);
+            objInArray = this.ids.id; //getting the id of the "-" button from html page and storing in a variable in other words getting the index for $scope.moreWork array
+
+
+            $scope.moreWork.splice(objInArray,1);
+            //rearranging ids in moreWork array so that index will match up with the ids.
+
+            for(i=0;i<$scope.moreWork.length;i++){
+                $scope.moreWork[i].id=i;
+            }
+            $scope.more_work_counter=$scope.moreWork.length-1;
+        }
+
+
     }
 ]);
 
