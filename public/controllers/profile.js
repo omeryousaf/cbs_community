@@ -76,13 +76,12 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
             $scope.more_work_counter++;
             $scope.moreWork.push({
-                id:$scope.more_work_counter
+                id:$scope.more_work_counter //adding a new id for new - button
             });
         }
 
         $scope.removeField = function(id){
-           // console.log("id of button is "+id.ids.id);
-            objInArray = this.ids.id; //getting the id of the "-" button from html page and storing in a variable in other words getting the index for $scope.moreWork array
+            objInArray = id.ids.id; //getting the id of the "-" button from html page and storing in a variable in other words getting the index for $scope.moreWork array
 
 
             $scope.moreWork.splice(objInArray,1);
