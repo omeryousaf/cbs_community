@@ -51,8 +51,8 @@
                             <div class="col-md-9">* {{exp}}</div>
 
                         </div>
-                        <div class="row " ng-repeat="ids in moreWork">
-                            <div class="col-md-6"><input type="text" class="form-control more-work-fields" ><button class="btn btn-danger del-more-work-btn" id="{{ids.id}}" ng-click="removeField(this)">-</button></br></div>
+                        <div class="row " ng-repeat="id in moreWork">
+                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Comapny Name"> <input type="text" class="form-control more-work-fields" placeholder="Designation"> <input type="text" class="form-control more-work-fields" placeholder="Industry"> <input type="text" class="form-control more-work-fields" placeholder="Location"><button class="btn btn-danger del-more-work-btn" id="{{ids.id}}" ng-click="removeField(this)">-</button></br></div>
                         </div>
                         <button ng-click="appendWork()" class="btn btn-success">+</button>
 
