@@ -21,6 +21,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.canEdit=member.doc.canEdit;
             if(member.doc.work){
                 $scope.work=member.doc.work;
+
             }
             else{
                 $scope.work = "No work defined!";

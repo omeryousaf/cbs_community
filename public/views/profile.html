@@ -47,12 +47,19 @@
                             <div class="col-md-12"><h3>Work</h3></div>
                         </div>
                         <div class="row"  ng-repeat="exp in work">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-9">* {{exp}}</div>
+                            <div class="row">
+                                <div class="col-md-6"><input type="text" class="form-control" value="{{exp.companyName}}"></div>
+                                <div class="col-md-6"><input type="text" class="form-control" value="{{exp.designation}}"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6"><input type="text" class="form-control" value="{{exp.industry}}"></div>
+                                <div class="col-md-6"> <input type="text" class="form-control" value="{{exp.location}}"></div>
+                            </div>
+
 
                         </div>
                         <div class="row " ng-repeat="item in moreWork">
-                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Comapny Name"> <input type="text" class="form-control more-work-fields" placeholder="Designation"> <input type="text" class="form-control more-work-fields" placeholder="Industry"> <input type="text" class="form-control more-work-fields" placeholder="Location"><button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br></div>
+                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name"> <input type="text" class="form-control more-work-fields" placeholder="Designation"> <input type="text" class="form-control more-work-fields" placeholder="Industry"> <input type="text" class="form-control more-work-fields" placeholder="Location"><button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br></div>
                         </div>
                         <button ng-click="appendWork()" class="btn btn-success">+</button>
 
