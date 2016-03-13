@@ -80,8 +80,8 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             });
         }
 
-        $scope.removeField = function(id){
-            var indexInArray = id.ids.id; //getting the id of the "-" button from html page and storing in a variable in other words getting the index for $scope.moreWork array
+        $scope.removeField = function(htmlEelemt){
+            var indexInArray = htmlEelemt.ids.id; //getting the id of the "-" button from html page and storing in a variable in other words getting the index for $scope.moreWork array
 
 
             $scope.moreWork.splice(indexInArray,1);
