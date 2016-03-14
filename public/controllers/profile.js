@@ -13,6 +13,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         ];
         $scope.more_work_counter=0; //counter to add objects containing ids inside moreWork array and add dynamic ids to the more buttons fields
         $scope.moreWork = [{id:$scope.more_work_counter}]; //added the very first id which is 0 at index 0
+        $scope.controlBtnMoreWork =0; //used to show hide the plus (more work) button
 
 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
@@ -93,6 +94,9 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.more_work_counter=$scope.moreWork.length-1;
         }
 
+        $scope.showMoreWork = function(operation){
+            $scope.controlBtnMoreWork=operation;
+        }
 
     }
 ]);
