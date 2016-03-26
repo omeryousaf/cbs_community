@@ -46,16 +46,17 @@
                             <div class="col-md-12"><h3>Work</h3></div>
                         </div>
 
-                        <div class="row"  ng-repeat="exp in work">
+                        <div class="row"  ng-repeat="exp in work" ng-show="controlBtnMoreWork==0" ng-hide="controlBtnMoreWork==1">
                             <div class="row">
-                                <div class="col-md-6"><input type="text" class="form-control" value="{{exp.companyName}}"></div>
-                                <div class="col-md-6"><input type="text" class="form-control" value="{{exp.designation}}"></div>
+                                <div class="col-md-6"><span>Company Name</span><input type="text"  class="form-control" value="{{exp.companyName}}" disabled></div>
+                                <div class="col-md-6"><span>Designation</span><input type="text"  class="form-control" value="{{exp.designation}}" disabled></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6"><input type="text" class="form-control" value="{{exp.industry}}"></div>
-                                <div class="col-md-6"> <input type="text" class="form-control" value="{{exp.location}}"></div>
+                                <div class="col-md-6"><span>Industry</span><input type="text" class="form-control" value="{{exp.industry}}" disabled></div>
+                                <div class="col-md-6"> <span>Location</span><input type="text" class="form-control" value="{{exp.location}}" disabled></div>
                             </div>
 
+                            <hr>
 
                         </div>
 
@@ -64,9 +65,16 @@
                         </div>
 
                         <div class="row " ng-repeat="item in moreWork" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">
-                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name"> <input type="text" class="form-control more-work-fields" placeholder="Designation"> <input type="text" class="form-control more-work-fields" placeholder="Industry"> <input type="text" class="form-control more-work-fields" placeholder="Location"><button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br></div>
+                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name" value="{{item.copmanyName}}">
+                                <input type="text" class="form-control more-work-fields" placeholder="Designation" value="{{item.designation}}">
+                                <input type="text" class="form-control more-work-fields" placeholder="Industry" value="{{item.industry}}">
+                                <input type="text" class="form-control more-work-fields" placeholder="Location" value="{{item.location}}">
+                                <button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br>
+                            </div>
                         </div>
-                        <button ng-click="appendWork()" class="btn btn-success" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">+</button> <button class="btn btn-success" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">Save</button><button class="btn btn-danger" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0" ng-click="showMoreWork(0)">Cancel</button>
+                        <button ng-click="appendWork()" class="btn btn-success" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">+</button>
+                        <button class="btn btn-success save-cancel-btn" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">Save</button>
+                        <button class="btn btn-danger save-cancel-btn" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0" ng-click="showMoreWork(0)">Cancel</button>
 
                     </div>
                     <div ng-show="profile.tab==4">

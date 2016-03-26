@@ -12,7 +12,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             {name:"About","value":4}
         ];
         $scope.more_work_counter=0; //counter to add objects containing ids inside moreWork array and add dynamic ids to the more buttons fields
-        $scope.moreWork = [{id:$scope.more_work_counter}]; //added the very first id which is 0 at index 0
+        $scope.moreWork = new Array(); //added the very first id which is 0 at index 0
         $scope.controlBtnMoreWork =0; //used to show hide the plus (more work) button
 
 
@@ -22,6 +22,17 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.canEdit=member.doc.canEdit;
             if(member.doc.work){
                 $scope.work=member.doc.work;
+                var i;
+                for(i=0; i< $scope.work.length; i++){
+                    $scope.moreWork.push( {id:i,
+                        copmanyName: $scope.work[i].companyName,
+                        designation : $scope.work[i].designation,
+                        industry: $scope.work[i].industry,
+                        location: $scope.work[i].location
+                                    });
+
+                }
+
 
             }
             else{

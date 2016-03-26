@@ -23,3 +23,8 @@ a {
   margin-top: 2%;
   margin-bottom: 2%;
 }
+
+.save-cancel-btn{
+  width: 70px;
+  margin-left: 5px;
+}
