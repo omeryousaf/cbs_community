@@ -72,4 +72,9 @@ router.getMembers = function ( req, res ) {
     membersService.getMembers( req, res );
 };
 
+router.saveProgressRoute = function (req,res) {
+  console.log(req.body);
+    return true;
+};
+
 module.exports = router;

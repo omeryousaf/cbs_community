@@ -109,6 +109,14 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.controlBtnMoreWork=operation;
         }
 
+        $scope.saveProgress = function(){
+            var url = ConfigService.serverIp + '/saveProgress';
+            $http.post(url, {game:"MADMAX" }).success(function(response){
+                console.log(response);
+            }).error(function(err){
+                console.log(err);
+            });
+        }
     }
 ]);
 
