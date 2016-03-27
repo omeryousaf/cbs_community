@@ -73,7 +73,7 @@ router.getMembers = function ( req, res ) {
 };
 
 router.saveProgressRoute = function (req,res) {
-  console.log(req.body);
+  console.log(req.body.editedWork);
     return true;
 };
 

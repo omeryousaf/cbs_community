@@ -111,7 +111,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
         $scope.saveProgress = function(){
             var url = ConfigService.serverIp + '/saveProgress';
-            $http.post(url, {game:"MADMAX" }).success(function(response){
+            $http.post(url,{editedWork: $scope.moreWork}).success(function(response){
                 console.log(response);
             }).error(function(err){
                 console.log(err);
