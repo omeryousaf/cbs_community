@@ -88,7 +88,11 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.appendWork = function(){
             $scope.more_work_counter++;
             $scope.moreWork.push({
-                id:$scope.more_work_counter //adding a new id for new - button
+                id:$scope.more_work_counter, //adding a new id for new - button
+                companyName: '',
+                designation : '',
+                industry: '',
+                location: ''
             });
         }
 

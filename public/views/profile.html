@@ -65,10 +65,10 @@
                         </div>
 
                         <div class="row " ng-repeat="item in moreWork" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">
-                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name" value="{{item.copmanyName}}">
-                                <input type="text" class="form-control more-work-fields" placeholder="Designation" value="{{item.designation}}">
-                                <input type="text" class="form-control more-work-fields" placeholder="Industry" value="{{item.industry}}">
-                                <input type="text" class="form-control more-work-fields" placeholder="Location" value="{{item.location}}">
+                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name" value="item.copmanyName" ng-model="item.companyName">
+                                <input type="text" class="form-control more-work-fields" placeholder="Designation" value="item.designation" ng-model="item.designation">
+                                <input type="text" class="form-control more-work-fields" placeholder="Industry" value="item.industry" ng-model="item.industry">
+                                <input type="text" class="form-control more-work-fields" placeholder="Location" value="item.location" ng-model="item.location">
                                 <button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br>
                             </div>
                         </div>
