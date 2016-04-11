@@ -25,7 +25,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 var i;
                 for(i=0; i< $scope.work.length; i++){
                     $scope.moreWork.push( {id:i,
-                        copmanyName: $scope.work[i].companyName,
+                        companyName: $scope.work[i].companyName,
                         designation : $scope.work[i].designation,
                         industry: $scope.work[i].industry,
                         location: $scope.work[i].location
@@ -117,6 +117,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             var url = ConfigService.serverIp + '/saveProgress';
             $http.put(url,{editedWork: $scope.moreWork}).success(function(response){
                 console.log(response);
+                console.log("****");
             }).error(function(err){
                 console.log(err);
             });
