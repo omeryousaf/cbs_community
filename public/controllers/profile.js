@@ -11,7 +11,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             {name:"Work","value":3},
             {name:"About","value":4}
         ];
-        $scope.more_work_counter=0; //counter to add objects containing ids inside moreWork array and add dynamic ids to the more buttons fields
+        $scope.more_work_counter; //counter to add objects containing ids inside moreWork array and add dynamic ids to the more buttons fields
         $scope.moreWork = new Array(); //added the very first id which is 0 at index 0
         $scope.controlBtnMoreWork =0; //used to show hide the plus (more work) button
 
@@ -32,11 +32,12 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                                     });
 
                 }
-
+                $scope.more_work_counter = $scope.work.length-1;
 
             }
             else{
                 $scope.work = "No work defined!";
+                $scope.more_work_counter = 0;
             }
             if(member.doc.education){
                 $scope.education = member.doc.education;
