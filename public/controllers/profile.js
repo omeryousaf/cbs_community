@@ -36,7 +36,15 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
             }
             else{
-                $scope.work = "No work defined!";
+                $scope.work = [
+                    {
+                        companyName:"No Company defined",
+                        designation:"No Designation Defined",
+                        industry:"No Industry Defined",
+
+                        location:"No Location defined"
+                    }
+                ];
                 $scope.more_work_counter = 0;
             }
             if(member.doc.education){
@@ -95,6 +103,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 industry: '',
                 location: ''
             });
+
         }
 
         $scope.removeField = function(htmlEelemt){
@@ -111,14 +120,31 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         }
 
         $scope.showMoreWork = function(operation){
-            $scope.controlBtnMoreWork=operation;
+            $scope.controlBtnMoreWork= operation;
+            if(operation===0){
+
+                $scope.moreWork = [];
+                for(i=0; i< $scope.work.length; i++){
+                    $scope.moreWork.push($scope.work[i]);
+
+                }
+
+
+            }
         }
 
         $scope.saveProgress = function(){
             var url = ConfigService.serverIp + '/saveProgress';
             $http.put(url,{editedWork: $scope.moreWork}).success(function(response){
-                console.log(response);
-                console.log("****");
+                $scope.work = [];
+                for(i=0;i<response.value.length;i++){
+                    $scope.work.push(response.value[i]);
+                }
+
+                $scope.controlBtnMoreWork=0;
+
+
+
             }).error(function(err){
                 console.log(err);
             });

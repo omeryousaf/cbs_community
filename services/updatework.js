@@ -7,8 +7,8 @@ exports.updateWorks = function(editedWork,res){
         {field: "work", value: editedWork}, function (error, response) {
             if (error) console.log(error);
             else{
-                console.log(response);
-                res.send();
+
+                res.send(response);
 
             }
         });
