@@ -41,7 +41,6 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                         companyName:"No Company defined",
                         designation:"No Designation Defined",
                         industry:"No Industry Defined",
-
                         location:"No Location defined"
                     }
                 ];
@@ -91,9 +90,6 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         this.setTab = function(tabSelected){
             this.tab=tabSelected;
         };
-
-
-
         $scope.appendWork = function(){
             $scope.more_work_counter++;
             $scope.moreWork.push({
@@ -108,11 +104,8 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
         $scope.removeField = function(htmlEelemt){
             var indexInArray = htmlEelemt.item.id; //getting the id of the "-" button from html page and storing in a variable in other words getting the index for $scope.moreWork array
-
-
             $scope.moreWork.splice(indexInArray,1);
             //rearranging ids in moreWork array so that index will match up with the ids.
-
             for(var i=0;i<$scope.moreWork.length;i++){
                 $scope.moreWork[i].id=i;
             }
@@ -122,14 +115,10 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.showMoreWork = function(operation){
             $scope.controlBtnMoreWork= operation;
             if(operation===0){
-
                 $scope.moreWork = [];
                 for(i=0; i< $scope.work.length; i++){
                     $scope.moreWork.push($scope.work[i]);
-
                 }
-
-
             }
         }
 
@@ -140,11 +129,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 for(i=0;i<response.value.length;i++){
                     $scope.work.push(response.value[i]);
                 }
-
                 $scope.controlBtnMoreWork=0;
-
-
-
             }).error(function(err){
                 console.log(err);
             });
