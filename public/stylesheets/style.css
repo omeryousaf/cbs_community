@@ -28,3 +28,11 @@ a {
   width: 70px;
   margin-left: 5px;
 }
+
+.wokr_profile_labels{
+  color: gray;
+  font-weight: bold;
+}
+.work_values{
+  padding-left: 50px;
+}

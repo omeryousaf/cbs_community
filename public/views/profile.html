@@ -42,18 +42,26 @@
                         </div>
                     </div>
                     <div ng-show="profile.tab==3">
-                        <div id="row">
-                            <div class="col-md-12"><h3>Work</h3></div>
-                        </div>
+                       
 
                         <div class="row"  ng-repeat="exp in work" ng-show="controlBtnMoreWork==0" ng-hide="controlBtnMoreWork==1">
                             <div class="row">
-                                <div class="col-md-6"><span>Company Name</span><input type="text"  class="form-control" value="{{exp.companyName}}" disabled></div>
-                                <div class="col-md-6"><span>Designation</span><input type="text"  class="form-control" value="{{exp.designation}}" disabled></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6"><span>Industry</span><input type="text" class="form-control" value="{{exp.industry}}" disabled></div>
-                                <div class="col-md-6"> <span>Location</span><input type="text" class="form-control" value="{{exp.location}}" disabled></div>
+                                <div class="col-md-12">
+                                    <table>
+                                        <tr>
+                                            <td><span class="wokr_profile_labels">Company Name</span></td><td><span class="work_values">{{exp.companyName}}</span></td>
+                                        </tr>
+                                    <tr>
+                                        <td><span class="wokr_profile_labels">Designation</span></td><td><span class="work_values">{{exp.designation}}</span></td>
+                                    </tr>
+                                     <tr>
+                                        <td><span class="wokr_profile_labels">Industry</span></td><td><span class="work_values">{{exp.industry}}</span></td>
+                                    </tr>
+                                        <tr>
+                                            <td><span class="wokr_profile_labels">Location</span></td><td><span class="work_values" >{{exp.location}}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
 
                             <hr>
