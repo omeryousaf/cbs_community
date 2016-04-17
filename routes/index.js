@@ -64,7 +64,6 @@ router.getMember = function ( req, res ) {
 };
 
 router.getProfileImage = function ( req, res ) {
-    console.log('\ngetProfileImage req.user', req.user, '\n');
     profileEditor.getProfileImage(req.query.docid, req.query.picname).pipe(res);
 };
 
