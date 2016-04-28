@@ -73,7 +73,7 @@ router.getMembers = function ( req, res ) {
 };
 
 router.saveProgressRoute = function (req,res) {
-    updateService.updateWorks(req.body.editedWork,res);
+    updateService.updateWorks(req,res);
 
 };
 

@@ -124,7 +124,8 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
         $scope.saveProgress = function(){
             var url = ConfigService.serverIp + '/saveProgress';
-            $http.put(url,{editedWork: $scope.moreWork}).success(function(response){
+            console.log(ConfigService.serverIp);
+            $http.put(url,{editedWork: $scope.moreWork, userId : $routeParams.id}).success(function(response){
                 $scope.work = [];
                 for(i=0;i<response.value.length;i++){
                     $scope.work.push(response.value[i]);
