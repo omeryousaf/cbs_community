@@ -7,11 +7,11 @@ exports.updateWorks = function(req,res){
     db.atomic("cbs", "updateWork", req.user._id,
         {field: "work", value: req.body.editedWork}, function (error, response) {
             if (error) {
-                res.status(err.status || 500);
+                res.status(error.status || 500).send(error);
+                console.log(error.stack);
             }
             else{
                 res.send(response);
-
             }
         });
 }
