@@ -29,7 +29,7 @@ ddoc.updates = {
         var body = JSON.parse(req.body);
         var field = body.field;
         var value = body.value;
-        var message = 'field = ' + field;
+        var message = req.body;
         doc[field] = value;
         return [doc, message];    }
 }
