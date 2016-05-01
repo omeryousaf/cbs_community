@@ -71,13 +71,9 @@ router.getMembers = function ( req, res ) {
     membersService.getMembers( req, res );
 };
 
-<<<<<<< HEAD
-module.exports = router;
-=======
 router.saveProgressRoute = function (req,res) {
     updateService.updateWorks(req,res);
 
 };
 
 module.exports = router;
->>>>>>> dev
