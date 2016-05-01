@@ -6,3 +6,33 @@ body {
 a {
   color: #00B7FF;
 }
+
+.profile-element-padding{
+  padding-top: 10px;
+  
+}
+
+.more-work-fields{
+  width: 75%;
+  float: left;
+  margin-right: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.del-more-work-btn{
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.save-cancel-btn{
+  width: 70px;
+  margin-left: 5px;
+}
+
+.wokr_profile_labels{
+  color: gray;
+  font-weight: bold;
+}
+.work_values{
+  padding-left: 50px;
+}
