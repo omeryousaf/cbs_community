@@ -127,12 +127,12 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             console.log(ConfigService.serverIp);
             $http.put(url,{editedWork: $scope.moreWork, userId : $routeParams.id}).success(function(response){
                 $scope.work = [];
-                for(i=0;i<response.value.length;i++){
+                for(var i=0;i<response.value.length;i++){
                     $scope.work.push(response.value[i]);
                 }
                 $scope.controlBtnMoreWork=0;
             }).error(function(err){
-                console.log(err);
+                alert("Could not Complete you request at the moment, Please try again later");
             });
         }
     }
