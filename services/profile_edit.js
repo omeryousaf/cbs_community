@@ -47,7 +47,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
         }).catch( function ( error) {
             console.log('\n', error.stack, '\n');
             res.send({
-                error: err.stack
+                error: error.stack
             });
         });
     };
