@@ -116,7 +116,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.controlBtnMoreWork= operation;
             if(operation===0){
                 $scope.moreWork = [];
-                for(i=0; i< $scope.work.length; i++){
+                for(var i=0; i< $scope.work.length; i++){
                     $scope.moreWork.push($scope.work[i]);
                 }
             }
