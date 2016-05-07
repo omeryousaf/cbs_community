@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Palindrome Challenge</title>
+</head>
+<body>
+<button onClick="palindrome()">Run</button>
+</body>
+<script>
+    function palindrome(){
+        var s="abba";
+        var tempString1 = new Array();
+        var tempString2 = new Array();;
+        var palindromeCounter=0;
+        var toLimitToCheck=1;
+        var checker=0;
+        var reverse;
+        if(s.length>1){
+            for(var i=0; i<s.length;i++){
+                reverse=toLimitToCheck;
+                for(var j=0;j<=toLimitToCheck;j++){
+                    tempString1[j]=s[j];
+                    tempString2[j]=s[reverse];
+                    reverse--;
+                }
+
+                for(var a =0; a<=tempString1.length;a++){
+                if(tempString1[a]=tempString2[a])
+                    checker++;
+                }
+
+                toLimitToCheck++;
+
+            }
+        }
+        else {
+            console.log("Invalid String");
+        }
+
+        console.log(palindromeCounter);
+
+    }
+</script>
+</html>
