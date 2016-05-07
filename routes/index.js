@@ -6,6 +6,7 @@ var authenticator = require('../services/authentication.js');
 var profileEditor = require('../services/profile_edit.js')(nano);
 var membersService = require('../services/members.js')(nano);
 var updateService = require('../services/updatework.js');
+var forGetPassword = require('../services/forGetPasswordService');
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     authenticator.authenticate('local', function(err, user, info) {
@@ -35,7 +36,7 @@ router.authenticateLogin = function (req, res, next) {
 router.isUsernameUnique = function(req, res) {
     var membersDb = nano.db.use('members');
     // call the view to check uniqueness of username
-    membersDb.view('cbs', 'isDuplicateUsername', {key: req.body.newUser.username, include_docs: true}, function(err, respBody) {
+    membersDb.view('cbs', 'getMemberByUsername', {key: req.body.newUser.username, include_docs: true}, function(err, respBody) {
         if (err) { // error in calling this view
             console.log('error', err);
             res.send({isUnique: false, reason: 'routes::index::isUsernameUnique: error-calling-view', error: err});
@@ -75,6 +76,9 @@ router.getMembers = function ( req, res ) {
 router.saveProgressRoute = function (req,res) {
     updateService.updateWorks(req,res);
 
+};
+router.forGetPassword = function(req,res){
+    forGetPassword.checkUserName(req,res);
 };
 
 module.exports = router;

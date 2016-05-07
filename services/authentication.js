@@ -19,7 +19,7 @@ passport.use(
             var localDbServerAddr = config.App.CouchServerIp;
             var dbServer = nano(localDbServerAddr);
             var membersDb = dbServer.db.use('members');
-            membersDb.view('cbs', 'isDuplicateUsername', {key: username, include_docs: true}, function(err, respBody) {
+            membersDb.view('cbs', 'getMemberByUsername', {key: username, include_docs: true}, function(err, respBody) {
                 if (err) {
                     return done(err);
                 } else {

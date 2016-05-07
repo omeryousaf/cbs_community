@@ -71,6 +71,7 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
     function (ConfigService, $scope, $http, $location) {
         $scope.username = '';
         $scope.password = '';
+        $scope.forgottenUsername = '';
 
         $scope.navigateToMemberProfile = function ( data ) {
             $location.path('/profile/' + data.id );
@@ -85,6 +86,14 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
                 alert("login failed, reason: " + err.reason);
             });
         };
+        $scope.forGetPassword = function(){
+            var url = ConfigService.serverIp + '/forgetPassword';
+            $http.post(url, {username: $scope.forgottenUsername}).success(function(response) {
+                console.log(response);
+            }).error(function (err) {
+                alert("Some Error occured: " + err.reason);
+            });
+        }
     }
 ]);
 

@@ -8,7 +8,7 @@ var couchapp = require('couchapp')
 ddoc =  { _id:'_design/cbs' }
 
 ddoc.views = {
-    isDuplicateUsername: {
+    getMemberByUsername: {
         map: function (doc) {
             if (doc.username) {
                 emit(doc.username, true);
