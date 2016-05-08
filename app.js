@@ -32,7 +32,7 @@ app.get('/getMember/:id', routes.getMember);
 app.get('/profileimage', routes.getProfileImage);
 app.get('/members', routes.getMembers);
 app.put('/saveProgress',routes.saveProgressRoute);
-app.post('/forgetPassword',routes.forGetPassword);
+app.post('/forgetPassword',routes.forgetPassword);
 
 app.get('*', function(req, res) {
     res.render('index.html'); // load the single view file from 'public' folder as that's been configured as the default

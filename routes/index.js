@@ -6,7 +6,7 @@ var authenticator = require('../services/authentication.js');
 var profileEditor = require('../services/profile_edit.js')(nano);
 var membersService = require('../services/members.js')(nano);
 var updateService = require('../services/updatework.js');
-var forGetPassword = require('../services/forGetPasswordService');
+var forGetPassword = require('../services/forgetPasswordService');
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     authenticator.authenticate('local', function(err, user, info) {
@@ -77,8 +77,8 @@ router.saveProgressRoute = function (req,res) {
     updateService.updateWorks(req,res);
 
 };
-router.forGetPassword = function(req,res){
-    forGetPassword.checkUserName(req,res);
+router.forgetPassword = function(req,res){
+    forgetPassword.checkUserName(req,res);
 };
 
 module.exports = router;
