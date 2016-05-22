@@ -1,12 +1,11 @@
 /**
  * Created by shujaatali on 01/02/16.
  */
-var controller = angular.module('profileController',[]);
-controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams',
-    function (ConfigService, $scope, $http, Upload, $routeParams) {
+var controller = angular.module('profileController',['ui.bootstrap']);
+controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams', '$uibModal',
+    function (ConfigService, $scope, $http, Upload, $routeParams, $uibModal) {
 
-        var cropHandle;
-        $scope.showProfileImage = true;
+        var cropHandle, editModal;
         $scope.tabArray = [
             {name:"Profile","value":1},
             {name:"Education","value":2},
@@ -81,8 +80,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                     $scope.image = $scope.imageBackupPath = response.filePath + '?' + new Date().valueOf();
                     $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
                     console.log('image uploaded successfully! response from server: ', response.serverResponse);
-                    cropHandle.croppie('destroy');
-                    $scope.showProfileImage = true;
+                    destroyCropPanel();
                 }).error(function (err) {
                     alert('error occurred while uploading image: ' + err);
                     console.log( '\n', err, '\n');
@@ -92,11 +90,14 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             });
         };
 
-        $scope.cancelCrop = function () {
+        var destroyCropPanel = function () {
             cropHandle.croppie('destroy');
-            $scope.showProfileImage = true;
+            editModal.dismiss('canceled');
         };
 
+        $scope.cancelCrop = function () {
+            destroyCropPanel();
+        };
 
         $scope.onFileSelected = function (files, events) {
             if ( files ){
@@ -107,19 +108,23 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 $scope.filename = files[0].name;
                 var reader = new FileReader();
                 reader.onloadend = function (e) {
-                    // hide existing profile image and open newly uploaded one in crop-edit mode
-                    $scope.showProfileImage = false;
+                    // open newly uploaded image in crop-edit panel
                     if( cropHandle) {
                         cropHandle.croppie('destroy');
                     }
-                    cropHandle = $('.image-upload').croppie({
-                        url: e.target.result,
-                        viewport: {
-                            width: 200,
-                            height: 200
-                        }
+                    editModal = $uibModal.open({
+                        templateUrl: 'displayPicEditModal.html',
+                        scope: $scope
                     });
-                    $scope.$apply();// without this ng-show in profile.html were not taking effect properly when their values were changed
+                    editModal.rendered.then(function () {
+                        cropHandle = $('.image-upload').croppie({
+                            url: e.target.result,
+                            viewport: {
+                                width: 200,
+                                height: 200
+                            }
+                        });
+                    });
                 };
                 reader.readAsDataURL( files[0]);
             }

@@ -2,21 +2,28 @@
     <div ng-controller="Profile as profile">
         <div class="row">
             <!-- twitter layout -->
+            <script type="text/ng-template" id="displayPicEditModal.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Choose Display Area of Image</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="image-upload"></div>
+                    <label class="filename-label">{{files[0].name}}</label><br>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-inverse" ng-click="confirmCrop()">apply</button>
+                    <button class="btn btn-warning" ng-click="cancelCrop()">cancel</button>
+                </div>
+            </script>
             <div class="row">
                 <h3>Profile</h3>
             </div>
             <div class="col-xs-3 col-md-3"> <!-- image column -->
                 <div class="row">
                     <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
-                         ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)" ng-show=showProfileImage> <!-- narrow acceptable image by ngf-accept="'.png,.jpg'" -->
+                         ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image by ngf-accept="'.png,.jpg'" -->
                         <img src={{image}} class="profile-img"/>
                     </div>
-                </div>
-                <div class="row" ng-show=!showProfileImage><!-- how to make the uploaded image name label and apply/cancel buttons appear below crop-edit panel ? -->
-                    <div class="image-upload"></div>
-                    <label class="filename-label">{{files[0].name}}</label><br>
-                    <button class="btn btn-inverse" ng-click="confirmCrop()">apply</button>
-                    <button class="btn btn-warning" ng-click="cancelCrop()">cancel</button>
                 </div>
             </div>
             <div class="col-xs-6 col-md-6">
