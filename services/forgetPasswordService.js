@@ -17,25 +17,27 @@ db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: tru
             return 0;
         } else {
             var member = respBody.rows[0].doc;
-            var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'shhhhh');
+            var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'CBS_Community');
             console.log(token);
-            var decode = jwt.verify(token,'shhhhh');
-            console.log(decode);
+            var resetPassLink = config.App.serverIp+'/resetPassword/'+token;
+           // var decode = jwt.verify(token,'shhhhh');
+            //console.log(decode);
+           // var tott=toString(token);
 
-            //var data = {
-            //    from: 'Mailgun Sandbox <postmaster@sandboxe91368ca64a2490d9d308fd1d4df5971.mailgun.org>',
-            //    to: 'm.ali.hussan.hussain@gmail.com',
-            //    subject: 'testing',
-            //    text: 'Testing some Mailgun awesomness!'
-            //};
-            //
-            //
-            //mailgun.messages().send(data, function (error, body) {
-            //    if(error)
-            //    console.log(error)
-            //    else
-            //    console.log(body);
-            //});
+            var data = {
+                from: 'Mailgun Sandbox <postmaster@sandboxe91368ca64a2490d9d308fd1d4df5971.mailgun.org>',
+                to: 'm.ali.hussan.hussain@gmail.com',
+                subject: 'Forgot Password Reset Link',
+                text: 'Hi, Please click below metioned link to reset you password '+resetPassLink
+            };
+
+
+            mailgun.messages().send(data, function (error, body) {
+                if(error)
+                console.log(error)
+                else
+                console.log(body);
+            });
         }
 
     }
