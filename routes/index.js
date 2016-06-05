@@ -7,6 +7,7 @@ var profileEditor = require('../services/profile_edit.js')(nano);
 var membersService = require('../services/members.js')(nano);
 var updateService = require('../services/updatework.js');
 var forgetPassword = require('../services/forgetPasswordService');
+var resetPassword = require('../services/resetPassword');
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     authenticator.authenticate('local', function(err, user, info) {
@@ -81,7 +82,7 @@ router.forgetPassword = function(req,res){
     forgetPassword.checkUserName(req,res);
 };
 router.resetPassword = function(req,res){
-  console.log(req.params.id);
+    resetPassword.tryResettingPass(req.params.id,res);
 };
 
 module.exports = router;
