@@ -31,7 +31,8 @@ ddoc.updates = {
         var value = body.value;
         var message = req.body;
         doc[field] = value;
-        return [doc, message];    }
+        return [doc, message];
+    }
 }
 
 
