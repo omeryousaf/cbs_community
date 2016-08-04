@@ -33,6 +33,9 @@ baghiansfromtheheart.config(['$routeProvider',
             when('/members', {
                 templateUrl: 'views/members.html'
             }).
+            when('/resetPassword/:id',{
+                templateUrl: 'views/resetpassword.html'
+            }).
             otherwise({
                 redirectTo: '/'
             });

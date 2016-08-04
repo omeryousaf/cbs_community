@@ -7,11 +7,11 @@ var mailgun = require('mailgun-js')({apiKey: config.App.mailGunApiKey, domain: c
 exports.checkUserName = function(req,res){
 
     var db = require('nano-blue')(config.App.CouchServerIp+'/members');
-db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: true}, function(err, respBody) {
-    if (err) {
+        db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: true}, function(err, respBody) {
+        if (err) {
         return err;
-    } else {
-        //console.log(respBody);
+             } else {
+         //console.log(respBody);
         if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
 
             return 0;
@@ -19,7 +19,7 @@ db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: tru
             var member = respBody.rows[0].doc;
             var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'CBS_Community');
             console.log(token);
-            var resetPassLink = config.App.serverIp+'/resetPassword/'+token;
+            var resetPassLink = config.App.serverIp+'/#/resetPassword/'+token;
            // var decode = jwt.verify(token,'shhhhh');
             //console.log(decode);
            // var tott=toString(token);

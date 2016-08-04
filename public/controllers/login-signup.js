@@ -94,6 +94,17 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
                 alert("Some Error occured: " + err.reason);
             });
         }
+
+        $scope.chand= function(){
+            if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){
+                var currentUrl = window.location.href;
+                alert(currentUrl);
+
+            }
+            else{
+                alert("You're Passwords do not match or you have left the Passwords empty")
+            }
+        };
     }
 ]);
 
