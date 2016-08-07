@@ -12,19 +12,15 @@ exports.checkUserName = function(req,res){
         if (err) {
         return err;
              } else {
-         //console.log(respBody);
-        if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
-
+            if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
             return 0;
         } else {
             var member = respBody.rows[0].doc;
-            var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'CBS_Community');
+            var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'CBS_Community',{
+                expiresIn : "2 days"
+            });
             console.log(token);
             var resetPassLink = config.App.serverIp+'/#/resetPassword/'+token;
-           // var decode = jwt.verify(token,'shhhhh');
-            //console.log(decode);
-           // var tott=toString(token);
-
             var data = {
                 from: 'Mailgun Sandbox <postmaster@sandboxe91368ca64a2490d9d308fd1d4df5971.mailgun.org>',
                 to: 'm.ali.hussan.hussain@gmail.com',
@@ -45,5 +41,15 @@ exports.checkUserName = function(req,res){
 })};
 
 exports.resetPassword = function(req,res){
-    console.log(req.body.userId);
+    //console.log(req.body.userId);
+    var decoded = jwt.verify(req.body.userId, 'CBS_Community', function(err,decode){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(decoded);
+        }
+    });
+
+
 };
