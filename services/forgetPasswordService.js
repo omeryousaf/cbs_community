@@ -17,7 +17,7 @@ exports.checkUserName = function(req,res){
         } else {
             var member = respBody.rows[0].doc;
             var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'CBS_Community',{
-                expiresIn : "2 days"
+                expiresIn : 259200
             });
             console.log(token);
             var resetPassLink = config.App.serverIp+'/#/resetPassword/'+token;
@@ -45,9 +45,21 @@ exports.resetPassword = function(req,res){
     var decoded = jwt.verify(req.body.userId, 'CBS_Community', function(err,decode){
         if(err){
             console.log(err);
+
         }
         else{
-            console.log(decoded);
+            console.log(decode.id);
+            db.atomic("cbs", "resetPassword", decode.id,
+                {field: "password", value: req.body.pass}, function (error, response) {
+                    if (error) {
+                        res.status(error.status || 500).send(error);
+                        console.log(error.stack);
+                    }
+                    else{
+                        res.send(response);
+                    }
+                });
+
         }
     });
 
