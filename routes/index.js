@@ -81,6 +81,8 @@ router.saveProgressRoute = function (req,res) {
 router.forgetPassword = function(req,res){
     forgetPassword.checkUserName(req,res);
 };
-
+router.resetPassword = function(req,res){
+    forgetPassword.resetPassword(req,res);
+};
 
 module.exports = router;

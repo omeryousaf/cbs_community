@@ -67,8 +67,8 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
     }
 ]);
 
-controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
-    function (ConfigService, $scope, $http, $location) {
+controller.controller('Login', ['ConfigService', '$scope', '$http', '$location','$routeParams',
+    function (ConfigService, $scope, $http, $location,$routeParams) {
         $scope.username = '';
         $scope.password = '';
         $scope.forgottenUsername = '';
@@ -97,8 +97,14 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
 
         $scope.chand= function(){
             if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){
-                var currentUrl = window.location.href;
-                alert(currentUrl);
+                var url = ConfigService.serverIp + '/resetPassword';
+                $scope.userId = $routeParams.id;
+                $http.post(url, {pass: $scope.pass1,userId: $scope.userId}).success(function(response) {
+                    console.log(response);
+                }).error(function (err) {
+                    alert("Some Error occured: " + err.reason);
+                });
+
 
             }
             else{

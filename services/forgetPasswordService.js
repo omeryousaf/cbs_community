@@ -4,9 +4,10 @@
 var config = require('../nodejs_config/config.js');
 var jwt = require('jsonwebtoken');
 var mailgun = require('mailgun-js')({apiKey: config.App.mailGunApiKey, domain: config.App.mailGunDomain});
+var db = require('nano-blue')(config.App.CouchServerIp+'/members');
 exports.checkUserName = function(req,res){
 
-    var db = require('nano-blue')(config.App.CouchServerIp+'/members');
+
         db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: true}, function(err, respBody) {
         if (err) {
         return err;
@@ -42,3 +43,7 @@ exports.checkUserName = function(req,res){
 
     }
 })};
+
+exports.resetPassword = function(req,res){
+    console.log(req.body.userId);
+};
