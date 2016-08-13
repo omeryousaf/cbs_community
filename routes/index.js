@@ -5,7 +5,7 @@ var nano = require('nano')(config.App.CouchServerIp);
 var authenticator = require('../services/authentication.js');
 var profileEditor = require('../services/profile_edit.js')(nano);
 var membersService = require('../services/members.js')(nano);
-
+var updateService = require('../services/updatework.js');
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     authenticator.authenticate('local', function(err, user, info) {
@@ -64,12 +64,16 @@ router.getMember = function ( req, res ) {
 };
 
 router.getProfileImage = function ( req, res ) {
-    console.log('\ngetProfileImage req.user', req.user, '\n');
     profileEditor.getProfileImage(req.query.docid, req.query.picname).pipe(res);
 };
 
 router.getMembers = function ( req, res ) {
     membersService.getMembers( req, res );
+};
+
+router.saveProgressRoute = function (req,res) {
+    updateService.updateWorks(req,res);
+
 };
 
 module.exports = router;
