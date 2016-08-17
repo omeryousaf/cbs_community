@@ -33,7 +33,7 @@ exports.checkUserName = function(req,res){
                 if(error)
                 console.log(error)
                 else
-                console.log(body);
+                res.send(body.message);
             });
         }
 

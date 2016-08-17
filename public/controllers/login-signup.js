@@ -89,13 +89,13 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
         $scope.forGetPassword = function(){
             var url = ConfigService.serverIp + '/forgetPassword';
             $http.post(url, {username: $scope.forgottenUsername}).success(function(response) {
-                console.log(response);
+                alert(response);
             }).error(function (err) {
                 alert("Some Error occured: " + err.reason);
             });
         }
 
-        $scope.chand= function(){
+        $scope.checkPass= function(){
             if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){
                 var url = ConfigService.serverIp + '/resetPassword';
                 $scope.userId = $routeParams.id;
