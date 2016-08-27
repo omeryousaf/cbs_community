@@ -16,7 +16,7 @@ exports.checkUserName = function(req,res){
             return 0;
         } else {
             var member = respBody.rows[0].doc;
-            var token = jwt.sign({ id: respBody.rows[0].doc._id }, 'CBS_Community',{
+            var token = jwt.sign({ id: respBody.rows[0].doc._id }, config.App.secratKey,{
                 expiresIn : 259200
             });
             console.log(token);
@@ -42,7 +42,7 @@ exports.checkUserName = function(req,res){
 
 exports.resetPassword = function(req,res){
     //console.log(req.body.userId);
-    var decoded = jwt.verify(req.body.userId, 'CBS_Community', function(err,decode){
+    var decoded = jwt.verify(req.body.userId, config.App.secratKey, function(err,decode){
         if(err){
             console.log(err);
 
