@@ -31,7 +31,7 @@ exports.checkUserName = function(req,res){
 
             mailgun.messages().send(data, function (error, body) {
                 if(error)
-                console.log(error)
+                res.send(error);
                 else
                 res.send(body.message);
             });
@@ -44,16 +44,16 @@ exports.resetPassword = function(req,res){
     //console.log(req.body.userId);
     var decoded = jwt.verify(req.body.userId, config.App.secretKey, function(err,decode){
         if(err){
-            console.log(err);
+            res.send(err);
 
         }
         else{
-            console.log(decode.id);
+
             db.atomic("cbs", "resetPassword", decode.id,
                 {field: "password", value: req.body.pass}, function (error, response) {
                     if (error) {
                         res.status(error.status || 500).send(error);
-                        console.log(error.stack);
+
                     }
                     else{
                         res.send(response);
