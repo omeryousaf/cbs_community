@@ -30,7 +30,7 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
 
         $scope.redirectToLogin = function () {
             $location.path('/login');
-        }
+        };
 
         $scope.register = function () {
             // check username availability through ajax and finally save new member record
@@ -86,14 +86,14 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
                 alert("login failed, reason: " + err.reason);
             });
         };
-        $scope.forGetPassword = function(){
+        $scope.resetPassword = function(){
             var url = ConfigService.serverIp + '/forgetPassword';
             $http.post(url, {username: $scope.forgottenUsername}).success(function(response) {
                 alert(response);
             }).error(function (err) {
                 alert("Some Error occured: " + err.reason);
             });
-        }
+        };
 
         $scope.checkPass= function(){
             if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){

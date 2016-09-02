@@ -21,7 +21,7 @@
 
     <form ng-controller="Login">
         <div class="row">
-            <labe style="display: inline">Forgot password</labe> <a  data-toggle="modal" data-target="#myModal" href="">Click Here</a>
+            <label style="display: inline">Forgot password</label> <a  data-toggle="modal" data-target="#myModal" href="">Click Here</a>
 
                 <!-- Forgot Password Model -->
                 <div class="modal fade" id="myModal" role="dialog">
@@ -37,7 +37,7 @@
                                 <input type="text" ng-model="forgottenUsername" placeholder="Enter User Name" class="form-control">
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-default" ng-click="forGetPassword()">Send</button>
+                                <button class="btn btn-default" ng-click="resetPassword()">Send</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
