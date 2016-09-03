@@ -95,7 +95,7 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
             });
         };
 
-        $scope.checkPass= function(){
+        $scope.updateNewPassword= function(){
             if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){
                 var url = ConfigService.serverIp + '/resetPassword';
                 $scope.userId = $routeParams.id;
