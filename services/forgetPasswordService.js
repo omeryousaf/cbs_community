@@ -13,7 +13,7 @@ exports.checkUserName = function(req,res){
             res.send(err);
         } else {
             if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
-            res.send(0);
+            res.send("Provided user name does not exist in the system");
         } else {
             var member = respBody.rows[0].doc;
             var token = jwt.sign({ id: member._id }, config.App.secretKey,{

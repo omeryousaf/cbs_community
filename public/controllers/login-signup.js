@@ -89,6 +89,9 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
         $scope.resetPassword = function(){
             var url = ConfigService.serverIp + '/forgetPassword';
             $http.post(url, {username: $scope.forgottenUsername}).success(function(response) {
+                $(function () {
+                    $('#myModal').modal('toggle');
+                });
                 alert(response);
             }).error(function (err) {
                 alert("Some Error occured: " + err.reason);
