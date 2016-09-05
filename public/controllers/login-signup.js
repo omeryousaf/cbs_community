@@ -67,8 +67,8 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
     }
 ]);
 
-controller.controller('Login', ['ConfigService', '$scope', '$http', '$location','$routeParams',
-    function (ConfigService, $scope, $http, $location,$routeParams) {
+controller.controller('Login', ['ConfigService', '$scope', '$http', '$location','$routeParams','$window',
+    function (ConfigService, $scope, $http, $location,$routeParams,$window) {
         $scope.username = '';
         $scope.password = '';
         $scope.forgottenUsername = '';
@@ -100,7 +100,8 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
                 var url = ConfigService.serverIp + '/resetPassword';
                 $scope.userId = $routeParams.id;
                 $http.post(url, {pass: $scope.pass1,userId: $scope.userId}).success(function(response) {
-                    console.log(response);
+                    $window.location.href = '#/login';
+                    $window.alert("Password has been reset successfully");
                 }).error(function (err) {
                     alert("Some Error occured: " + err.reason);
                 });
