@@ -10,16 +10,15 @@ exports.checkUserName = function(req,res){
 
         db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: true}, function(err, respBody) {
         if (err) {
-        return err;
-             } else {
+            return err;
+        } else {
             if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
             return 0;
         } else {
             var member = respBody.rows[0].doc;
-            var token = jwt.sign({ id: respBody.rows[0].doc._id }, config.App.secretKey,{
+            var token = jwt.sign({ id: member._id }, config.App.secretKey,{
                 expiresIn : 259200
             });
-            console.log(token);
             var resetPassLink = config.App.serverIp+'/#/resetPassword/'+token;
             var data = {
                 from: 'Mailgun Sandbox <postmaster@sandboxe91368ca64a2490d9d308fd1d4df5971.mailgun.org>',
