@@ -10,10 +10,10 @@ exports.checkUserName = function(req,res){
 
         db.view('cbs', 'getMemberByUsername', {key: req.body.username, include_docs: true}, function(err, respBody) {
         if (err) {
-            return err;
+            res.send(err);
         } else {
             if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
-            return 0;
+            res.send(0);
         } else {
             var member = respBody.rows[0].doc;
             var token = jwt.sign({ id: member._id }, config.App.secretKey,{
@@ -30,9 +30,18 @@ exports.checkUserName = function(req,res){
 
             mailgun.messages().send(data, function (error, body) {
                 if(error)
-                res.send(error);
+                {
+                    res.send(error);
+                }
+
                 else
-                res.send(body.message);
+                {
+                    var email = member.email;
+                    var finalEmail = "***"+email.substring(3);
+                    var message = "An email has been sent to "+finalEmail+" please follow the instructions sent there.";
+                    res.send(message);
+                }
+
             });
         }
 
@@ -40,7 +49,6 @@ exports.checkUserName = function(req,res){
 })};
 
 exports.resetPassword = function(req,res){
-    //console.log(req.body.userId);
     var decoded = jwt.verify(req.body.userId, config.App.secretKey, function(err,decode){
         if(err){
             res.send(err);
