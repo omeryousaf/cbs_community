@@ -9,6 +9,7 @@ module.exports = function ( nano ) {
         membersDb.view('cbs', 'getAllMembers', {include_docs: true}, function(err, respBody) {
             if (err) {
                 res.send({ error: err });
+
             } else {
                 //console.log(respBody);
                 res.send({ members: respBody.rows });

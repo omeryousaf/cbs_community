@@ -6,7 +6,6 @@ we are using connect-multiparty as file upload middleware instead of multer sinc
 
 
 # How to setup development local environment
-
 1. Install node on your system
 2. Use npm to install bower, couchapp (Note: use sudo before each command if you are linux user)
   - npm install bower -g
@@ -24,6 +23,4 @@ we are using connect-multiparty as file upload middleware instead of multer sinc
 8. Hit http://localhost:3000 in browser
 9. you can also use "nodemon"
     -to run application using nodemon
-
     -nodemon app
-

@@ -46,9 +46,7 @@ passport.use(
 
 passport.serializeUser(
     function (user, done) {
-
         var sessionUser = { _id: user.memberId, username: user.username };
-
         done(null, sessionUser);
     }
 );
