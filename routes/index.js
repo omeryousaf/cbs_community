@@ -77,7 +77,7 @@ router.saveProgressRoute = function (req,res) {
     updateService.updateWorks(req,res);
 
 };
-router.forgetPassword = function(req,res){
+router.forgotPassword = function(req,res){
     forgetPassword.checkUserName(req,res);
 };
 router.resetPassword = function(req,res){

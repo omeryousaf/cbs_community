@@ -32,7 +32,7 @@ app.get('/getMember/:id', routes.getMember);
 app.get('/profileimage', routes.getProfileImage);
 app.get('/members', routes.getMembers);
 app.put('/saveProgress',routes.saveProgressRoute);
-app.post('/forgetPassword',routes.forgetPassword);
+app.post('/forgotPassword',routes.forgotPassword);
 app.post('/resetPassword',routes.resetPassword);
 
 
