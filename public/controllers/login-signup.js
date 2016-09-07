@@ -30,7 +30,7 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
 
         $scope.redirectToLogin = function () {
             $location.path('/login');
-        }
+        };
 
         $scope.register = function () {
             // check username availability through ajax and finally save new member record
@@ -67,10 +67,11 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
     }
 ]);
 
-controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
-    function (ConfigService, $scope, $http, $location) {
+controller.controller('Login', ['ConfigService', '$scope', '$http', '$location','$routeParams','$window',
+    function (ConfigService, $scope, $http, $location,$routeParams,$window) {
         $scope.username = '';
         $scope.password = '';
+        $scope.forgottenUsername = '';
 
         $scope.navigateToMemberProfile = function ( data ) {
             $location.path('/profile/' + data.id );
@@ -84,6 +85,35 @@ controller.controller('Login', ['ConfigService', '$scope', '$http', '$location',
             }).error(function (err) {
                 alert("login failed, reason: " + err.reason);
             });
+        };
+        $scope.forgotPassword = function(){
+            var url = ConfigService.serverIp + '/forgotPassword';
+            $http.post(url, {username: $scope.forgottenUsername}).success(function(response) {
+                $(function () {
+                    $('#myModal').modal('toggle');
+                });
+                alert(response);
+            }).error(function (err) {
+                alert("Some Error occured: " + err.reason);
+            });
+        };
+
+        $scope.updateNewPassword= function(){
+            if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){
+                var url = ConfigService.serverIp + '/resetPassword';
+                $scope.userId = $routeParams.id;
+                $http.post(url, {pass: $scope.pass1,userId: $scope.userId}).success(function(response) {
+                    $window.location.href = '#/login';
+                    $window.alert("Password has been reset successfully");
+                }).error(function (err) {
+                    alert("Some Error occured: " + err.reason);
+                });
+
+
+            }
+            else{
+                alert("You're Passwords do not match or you have left the Passwords empty")
+            }
         };
     }
 ]);
