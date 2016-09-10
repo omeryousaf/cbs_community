@@ -14,15 +14,10 @@
 12. ui improvement
 
 # ADMIN PANEL
-1. Registration requests management (single view)
-2. Approve/disapprove a pending request
-3. View all pending requests
-4. User management (single view)
-5. View all users
-6. Search with filters
-7. View user details in a popup window
-8. Actions per user: block
-9. Send email announcements to registered users or filtered group, show in app notifications (single view)
+1. View all users
+2. User management (single view, popup window, user details, block/unblock)
+3. Search with filters
+5. Send email announcements to registered users or filtered group, show in app notifications (single view)
 
 # Chatroom
 1. Be able to chat with anyone from all online users
