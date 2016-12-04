@@ -41,15 +41,3 @@ baghiansfromtheheart.config(['$routeProvider',
             });
     }
 ]);
-
-// putting code used by multiple controllers here
-baghiansfromtheheart.factory('UtilityFunctions', [ '$location',
-    function( $location ) {
-        return {
-            visitMemberProfile: function ( data ) {
-                //alert(data._id);
-                $location.path('/profile/' + ( data._id || data.id ) );
-            }
-        };
-    }
-]);
