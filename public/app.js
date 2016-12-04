@@ -36,7 +36,7 @@ baghiansfromtheheart.config(['$routeProvider',
             when('/resetPassword/:id',{
                 templateUrl: 'views/resetpassword.html'
             }).
-            when('/adminPanel/:id',{
+            when('/adminPanel/',{
                 templateUrl: 'views/adminPanel.html'
             }).
             otherwise({
