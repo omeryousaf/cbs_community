@@ -6,7 +6,8 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'loginSignupController',
     'profileController',
     'membersController',
-    'ngFileUpload'
+    'ngFileUpload',
+    'adminPanel'
 ]);
 
 // define configurations here
