@@ -1,7 +1,7 @@
 <div ng-controller="admin as admin">
-    <div ng-repeat="member in members">
+    <div >
         <table>
-            <tr><td>{{member.doc.name}}</td><td><h5 ng-if="member.doc.isBlocked==0">banned</h5></td></tr>
+            <tr ng-repeat="member in members"><td>{{member.doc.name}}</td><td><h5 ng-if="member.doc.isBlocked==0">banned</h5><h5 ng-if="member.doc.isBlocked!=0">Not banned</h5></td></tr>
         </table>
     </div>
 </div>
