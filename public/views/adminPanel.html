@@ -1,7 +1,9 @@
 <div ng-controller="admin as admin">
     <div >
-        <table>
-            <tr ng-repeat="member in members"><td>{{member.doc.name}}</td><td><h5 ng-if="member.doc.isBlocked==0">banned</h5><h5 ng-if="member.doc.isBlocked!=0">Not banned</h5></td></tr>
+        <table class="table table-hover">
+            <tr><th>Name</th>
+            <th>Status</th></tr>
+            <tr ng-repeat="member in members"><td>{{member.doc.name}}</td><td><input type="checkbox"  id = {{member.id}}></td></tr>
         </table>
     </div>
 </div>
