@@ -41,6 +41,15 @@ ddoc.updates = {
         doc[field] = value;
 
         return [doc, message];
+    },
+    updateStatus :function(doc,req){
+        var body = JSON.parse(req.body);
+        var field = body.field;
+        var value = body.value;
+        var message = req.body;
+        doc[field] = value;
+
+        return [doc, message];
     }
 }
 
