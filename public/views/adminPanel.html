@@ -3,7 +3,7 @@
         <table class="table table-hover">
             <tr><th>Name</th>
             <th>Status</th></tr>
-            <tr ng-repeat="member in members"><td>{{member.doc.name}}</td><td><input type="checkbox"  id = {{member.id}}></td></tr>
+            <tr ng-repeat="member in members"><td>{{member.doc.name}}</td><td><input type="checkbox"  id = {{member.id}} ng-click="ban(this)"></td></tr>
         </table>
     </div>
 </div>
