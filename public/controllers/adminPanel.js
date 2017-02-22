@@ -12,23 +12,17 @@ controller.controller('admin', ['ConfigService', '$scope', '$http', 'Upload', '$
         $scope.banUnban = function(elm){
             var url = ConfigService.serverIp + '/updateStatus';
             var memberID = elm.member.id;
-            if(elm.member.doc.isBlocked == 1)
-            {
-                $http.put(url,{blocked: 0, userId : memberID}).success(function(response){
-                    console.log(response);
-                }).error(function(err){
-                    alert("Could not Complete you request at the moment, Please try again later");
+            var status = elm.member.doc.isBlocked == true ? false : true;
+            console.log('jane se pahale',status);
+            $http.put(url,{blocked: status, userId : memberID}).success(function(response){
+                elm.member.doc.isBlocked = response.value;
+            }).error(function(err){
+                elm.member.doc.isBlocked = false;
+                    // alert("Could not Complete you request at the moment, Please try again later");
                 });
-            }
 
-            else
-            {
-                $http.put(url,{blocked: 1, userId : memberID}).success(function(response){
-                    console.log(response);
-                }).error(function(err){
-                    alert("Could not Complete you request at the moment, Please try again later");
-                });
-            }
+
+
 
         }
     }]);

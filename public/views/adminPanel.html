@@ -5,7 +5,7 @@
             <th>Status</th></tr>
             <tr ng-repeat="member in members">
                 <td>{{member.doc.name}}</td>
-                <td><input type="checkbox"  id = {{member.id}} ng-click="banUnban(this)"></td>
+                <td><input type="checkbox"  id = {{member.id}} ng-click="banUnban(this)" ng-checked="member.doc.isBlocked==true" ></td>
 
             </tr>
         </table>

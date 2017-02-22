@@ -23,14 +23,16 @@ passport.use(
                 if (err) {
                     return done(err);
                 } else {
-                    //console.log(respBody);
                     if (respBody.rows.length === 0) { // a doc with this 'username' does not exist in db
                         return done(null, false, { message: "username is incorrect. please try again" });
                     } else if (respBody.rows.length === 1) { // exactly one match has been found, verify password now
                         var member = respBody.rows[0].doc;
                         if (member.password === password) { // user is verified
-                            console.log("passwords matched!!!- " + member.password + ' : ' + password);
-                            return done(null, {username: member.username, memberId: member._id} );
+                            return done(null, {
+                                username: member.username,
+                                memberId: member._id,
+                                isBlocked: member.isBlocked
+                            });
                         } else { // password is incorrect
                             console.log("passwords differ!!! - " + member.password + ' : ' + password);
                             return done(null, false, { message: "password is incorrect" });
