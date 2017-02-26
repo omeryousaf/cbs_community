@@ -9,16 +9,16 @@ controller.controller('admin', ['ConfigService', '$scope', '$http', 'Upload', '$
             console.log('\nerror: ', err, '\n');
             alert(err.error.message);
         });
-        $scope.banUnban = function(elm){
+        $scope.banUnban = function(member){
             var url = ConfigService.serverIp + '/updateStatus';
-            var memberID = elm.member.id;
-            var status = elm.member.doc.isBlocked == true ? false : true;
+            var memberID = member.id;
             console.log('jane se pahale',status);
-            $http.put(url,{blocked: status, userId : memberID}).success(function(response){
-                elm.member.doc.isBlocked = response.value;
+            $http.put(url,{blocked: member.doc.isBlocked, userId : memberID}).success(function(response){
+                member.doc.isBlocked = response.value;
             }).error(function(err){
-                elm.member.doc.isBlocked = false;
-                    // alert("Could not Complete you request at the moment, Please try again later");
+                member.doc.isBlocked = false;
+
+                     // alert("Could not Complete you request at the moment, Please try again later");
                 });
 
 
