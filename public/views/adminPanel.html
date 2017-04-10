@@ -1,12 +1,13 @@
 <div ng-controller="admin as admin">
-    <div >
+    <div>
+        <h2>Admin Panel</h2>
         <table class="table table-hover">
             <tr><th>Name</th>
             <th>Status</th></tr>
             <tr ng-repeat="member in members | orderBy">
                 <td>{{member.doc.name}}</td>
 
-                <td><input type="checkbox"  id = {{member.id}} ng-click="banUnban(member)" ng-model="member.doc.isBlocked" ></td>
+                <td><input type="checkbox"  id = {{member.id}} ng-click="blockUnblock(member)" ng-model="member.doc.isBlocked" ></td>
             </tr>
         </table>
     </div>

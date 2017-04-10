@@ -23,7 +23,6 @@ router.authenticateLogin = function (req, res, next) {
                     console.log('status: 500 could not save session'); // what response to send in this case to the front end?
                     res.status(500).send({ reason: 'could not save session' });
                 } else {
-                    console.log(user);
                     if(user.isBlocked){
                         res.status(401).send({ reason: 'You are Blocked, contact admin' });
                     }
