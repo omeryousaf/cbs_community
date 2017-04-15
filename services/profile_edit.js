@@ -53,18 +53,17 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
     };
 
     profileUpdator.getMember = function ( req, res ) {
-        console.log('\nreq.user: ', req.user, '\n');
-        membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
+        membersDb.get( req.params.id, {
+            revs_info: true
+        }, function (err, doc) {
             if (!err) {
-                if(req.params.id === req.user._id){
-                    doc['canEdit']=1;
-                }
-                else{
-                    doc['canEdit']=0;
-                }
-                res.send({'doc': doc});
+                res.send({
+                    'doc': doc
+                });
             } else {
-                res.send({'error': err});
+                res.send({
+                    'error': err
+                });
             }
         });
     };
