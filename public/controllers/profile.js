@@ -2,8 +2,8 @@
  * Created by shujaatali on 01/02/16.
  */
 var controller = angular.module('profileController',['ui.bootstrap']);
-controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams', '$uibModal',
-    function (ConfigService, $scope, $http, Upload, $routeParams, $uibModal) {
+controller.controller('Profile', ['ConfigService', 'UserSessionService', '$scope', '$http', 'Upload', '$routeParams', '$uibModal',
+    function (ConfigService, UserSessionService, $scope, $http, Upload, $routeParams, $uibModal) {
 
         var cropHandle, editModal;
         $scope.tabArray = [
@@ -19,7 +19,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
 
         $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
-            $scope.canEdit=member.doc.canEdit;
+            $scope.canEdit = member.doc._id === UserSessionService.getUserSession ();
             if(member.doc.work){
                 $scope.work=member.doc.work;
                 var i;

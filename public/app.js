@@ -6,7 +6,8 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'loginSignupController',
     'profileController',
     'membersController',
-    'ngFileUpload'
+    'ngFileUpload',
+    'ngCookies'
 ]);
 
 // define configurations here
@@ -15,6 +16,20 @@ baghiansfromtheheart.factory('ConfigService', [
         return {
             serverIp : 'http://localhost:3000'
         };
+    }
+]).factory('UserSessionService', [
+    '$cookies', function($cookies) {
+        return {
+            setUserSession: function( userId ) {
+                $cookies.put('user_id', userId);
+            },
+            getUserSession: function() {
+                return $cookies.get('user_id');
+            },
+            clearUserSession: function() {
+                $cookies.remove('user_id');
+            }
+        }
     }
 ]);
 

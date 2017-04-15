@@ -67,8 +67,8 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
     }
 ]);
 
-controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '$http', '$location','$routeParams','$window',
-    function (ConfigService, UtilityFunctions, $scope, $http, $location, $routeParams, $window) {
+controller.controller('Login', ['ConfigService', 'UserSessionService', 'UtilityFunctions', '$scope', '$http', '$location','$routeParams','$window',
+    function (ConfigService, UserSessionService, UtilityFunctions, $scope, $http, $location, $routeParams, $window) {
         $scope.username = '';
         $scope.password = '';
         $scope.forgottenUsername = '';
@@ -78,6 +78,8 @@ controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '
             console.log("input credentials: " + $scope.username + ' ' + $scope.password);
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
                 console.log('\nlogin successful!!\nuser: ', response.member, '\n');
+                UserSessionService.clearUserSession();
+                UserSessionService.setUserSession( response.member.memberId );
                 UtilityFunctions.visitMemberProfile( { id: response.member.memberId } );
             }).error(function (err) {
                 alert("login failed, reason: " + err.reason);
