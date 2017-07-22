@@ -8,7 +8,7 @@ controller.controller('admin', ['ConfigService', '$scope', '$http', 'Upload', '$
             alert(err.error.message);
         });
         $scope.blockUnblock = function(member){
-            var url = ConfigService.serverIp + '/updateStatus';
+            var url = ConfigService.serverIp + '/updateUserBlockingStatus';
             var memberID = member.id;
             $http.put(url,{blocked: member.doc.isBlocked, userId : memberID}).success(function(response){
                 member.doc.isBlocked = response.value;

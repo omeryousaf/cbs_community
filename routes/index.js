@@ -7,7 +7,7 @@ var profileEditor = require('../services/profile_edit.js')(nano);
 var membersService = require('../services/members.js')(nano);
 var updateService = require('../services/updatework.js');
 var forgetPassword = require('../services/forgetPasswordService');
-var updateStatus = require('../services/updateStatus');
+var updateUserBlockingStatus = require('../services/updateUserBlockingStatus');
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     authenticator.authenticate('local', function(err, user, info) {
@@ -80,8 +80,8 @@ router.saveProgressRoute = function (req,res) {
     updateService.updateWorks(req,res);
 
 };
-router.updateStatus = function(req,res){
-    updateStatus.updateStatus(req,res);
+router.updateUserBlockingStatus = function(req,res){
+    updateUserBlockingStatus.updateStatus(req,res);
 };
 router.forgotPassword = function(req,res){
     forgetPassword.checkUserName(req,res);
