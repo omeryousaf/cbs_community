@@ -25,7 +25,7 @@ ddoc.views = {
 }
 
 ddoc.updates = {
-    updateWork: function (doc, req) {
+    updateFields: function (doc, req) {
         var body = JSON.parse(req.body);
         var field = body.field;
         var value = body.value;
@@ -42,15 +42,6 @@ ddoc.updates = {
 
         return [doc, message];
     },
-    updateStatus :function(doc,req){
-        var body = JSON.parse(req.body);
-        var field = body.field;
-        var value = body.value;
-        var message = req.body;
-        doc[field] = value;
-
-        return [doc, message];
-    }
 }
 
 
