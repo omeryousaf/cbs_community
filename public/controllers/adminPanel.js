@@ -5,7 +5,6 @@ controller.controller('admin', ['ConfigService', '$scope', '$http', 'Upload', '$
         $http.get( ConfigService.serverIp + '/members' ).success( function ( result ) {
             $scope.members = result.members;
         }).error(function (err) {
-            console.log('\nerror: ', err, '\n');
             alert(err.error.message);
         });
         $scope.blockUnblock = function(member){
@@ -14,12 +13,11 @@ controller.controller('admin', ['ConfigService', '$scope', '$http', 'Upload', '$
             $http.put(url,{blocked: member.doc.isBlocked, userId : memberID}).success(function(response){
                 member.doc.isBlocked = response.value;
             }).error(function(err){
-                member.doc.isBlocked = false;
-                 alert("Could not Complete you request at the moment, Please try again later");
+                console.log('is blocked status',member.doc.isBlocked);
+                if(member.doc.isBlocked == false)
+                    member.doc.isBlocked = true;
+                else member.doc.isBlocked = false;
+                alert("Could not Complete you request at the moment, Please try again later error: "+err);
                 });
-
-
-
-
         }
     }]);
