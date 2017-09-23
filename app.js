@@ -6,6 +6,11 @@ var expressSession = require('express-session');
 var routes = require('./routes/index.js');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
+var path = require('path');
+
+global.appRoot = path.resolve(__dirname);
+
+var config = require( path.join( global.appRoot, '/nodejs_config/config.js'));
 
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
@@ -41,7 +46,7 @@ app.get('*', function(req, res) {
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
 });
 
-app.set('port', process.env.PORT || 3000);
-var server = app.listen( app.get('port'), function() {
+app.set('port', process.env.PORT || config.App.server.port);
+var server = app.listen( app.get('port'), "0.0.0.0", function() {
     console.log('Express server listening on port %d', server.address().port);
 });

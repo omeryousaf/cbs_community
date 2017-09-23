@@ -19,7 +19,7 @@ exports.checkUserName = function(req,res){
             var token = jwt.sign({ id: member._id }, config.App.secretKey,{
                 expiresIn : 259200
             });
-            var resetPassLink = config.App.serverIp+'/#/resetPassword/'+token;
+            var resetPassLink = config.App.server.ip + ':' + config.App.server.port + '/#/resetPassword/'+token;
             var data = {
                 from: 'Mailgun Sandbox <postmaster@sandboxe91368ca64a2490d9d308fd1d4df5971.mailgun.org>',
                 to: 'm.ali.hussan.hussain@gmail.com',
