@@ -47,6 +47,6 @@ app.get('*', function(req, res) {
 });
 
 app.set('port', process.env.PORT || config.App.server.port);
-var server = app.listen( app.get('port'), "0.0.0.0", function() {
+var server = app.listen( app.get('port'), function() {
     console.log('Express server listening on port %d', server.address().port);
 });
