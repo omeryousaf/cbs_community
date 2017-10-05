@@ -2,6 +2,7 @@
  * Created by omeryousaf on 02/08/15.
  */
 var fs = require('fs');
+var gm = require('gm');
 var config = require('../nodejs_config/config.js');
 var Promise = require( 'bluebird');
 var readFile = Promise.promisify(fs.readFile);
@@ -13,16 +14,38 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
 
     var membersDb = nano.db.use('members');
 
+    profileUpdator.createImageAccordingToEditSpecs = function ( file, imageTransformData, writeDestPath ) {
+        // download image and apply transformations passed from frontend, 'imageTransformData' must include following: rotation, x, y,
+        // width, and height. upload the resulting image
+        return new Promise( function (resolve, reject) {
+            gm.subClass({
+                imageMagick: true
+            })( file.path )
+                .rotate( 'white', imageTransformData.rotate )
+                .scale( imageTransformData.scaleToWidth, imageTransformData.scaleToHeight )
+                .crop( imageTransformData.width, imageTransformData.height, imageTransformData.x, imageTransformData.y )
+                .write( writeDestPath, function (error) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve();
+                    }
+                });
+        });
+    };
+
     profileUpdator.updatePicture = function(req, res) {
         var memberId = req.body.memberId;
         // write file in a local folder
-        var imageName = req.body.filename;
+        var imageNameTokens = req.body.filename.split('.');
+        // add a random number to filename so that simultaneous image uploads can be handled easily / uniquely
+        var imageExt = '.' + imageNameTokens.pop();
+        var imageName = imageNameTokens.join('.') + '-' + new Date().getTime() + imageExt;
         var imagePath = 'uploads/' + imageName;
-        var base64Data = req.body.encodedImage.replace(/^data:image\/png;base64,/, "");
         /* TASKS:
         * 1 - can we make all async calls using promises here ?
         * */
-        return writeFile( imagePath, base64Data, 'base64').then( function () {
+        return profileUpdator.createImageAccordingToEditSpecs( req.files.file, req.body.imageTransformData, imagePath ).then ( function () {
             return readFile( imagePath);
         }).then( function ( file) {
             membersDb.get( memberId, { revs_info: true }, function(err, doc) {
@@ -32,7 +55,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
                     doc.currentImage = imageName;
                     membersDb.multipart.insert( doc, [{name: imageName, data: file, content_type: 'image'}], doc._id, function(err, body) {
                         if ( !err ) {
-                            var imageCouchPath = config.App.serverIp + '/profileimage?docid=' + doc._id + '&picname=' + imageName;
+                            var imageCouchPath = config.App.server.ip + ':' + config.App.server.port + '/profileimage?docid=' + doc._id + '&picname=' + imageName;
                             res.send({
                                 serverResponse: 'image uploaded!!!',
                                 filePath: imageCouchPath

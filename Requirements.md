@@ -12,6 +12,7 @@
 10. make tabs more functional (3 tabs: about, education, work)
 11. multiple clicks on any button should not send requests over and over
 12. ui improvement
+13. tell username availablility in realtime
 
 # ADMIN PANEL
 1. View all users

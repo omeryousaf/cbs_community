@@ -4,13 +4,22 @@
             <!-- twitter layout -->
             <script type="text/ng-template" id="displayPicEditModal.html">
                 <div class="modal-header">
-                    <h3 class="modal-title">Choose Display Area of Image</h3>
+                    <h5 class="modal-title">Choose Display Area of Image</h5>
                 </div>
                 <div class="modal-body">
-                    <div class="image-upload"></div>
-                    <label class="filename-label">{{files[0].name}}</label><br>
+                    <div class="js_image_upload image-container">
+                        <img id="js_profile_pic" src="{{newUploadedImage}}" alt="image could not be loaded.. please try again!" />
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    <div class="center-align-above-xs left-align-xs"> <!-- image rotate options -->
+                        <button class="btn btn-clear" ng-click="rotateImage('L')">
+                            <span class="fa fa-rotate-left"></span>
+                        </button>
+                        <button class="btn btn-clear" ng-click="rotateImage('R')">
+                            <span class="fa fa-rotate-right"></span>
+                        </button>
+                    </div>
                     <button class="btn btn-inverse" ng-click="confirmCrop()">apply</button>
                     <button class="btn btn-warning" ng-click="cancelCrop()">cancel</button>
                 </div>
@@ -21,7 +30,7 @@
             <div class="col-xs-3 col-md-3"> <!-- image column -->
                 <div class="row">
                     <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
-                         ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image by ngf-accept="'.png,.jpg'" -->
+                         ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image types by ngf-accept="'.png,.jpg'" -->
                         <img src={{image}} class="profile-img"/>
                     </div>
                 </div>
