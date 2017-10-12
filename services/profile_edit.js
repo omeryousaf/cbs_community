@@ -41,7 +41,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
         // add a random number to filename so that simultaneous image uploads can be handled easily / uniquely
         var imageExt = '.' + imageNameTokens.pop();
         var imageName = imageNameTokens.join('.') + '-' + new Date().getTime() + imageExt;
-        var imagePath = 'uploads/' + imageName;
+        var imagePath = global.appRoot + '/uploads/' + imageName;
         /* TASKS:
         * 1 - can we make all async calls using promises here ?
         * */
