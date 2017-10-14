@@ -9,6 +9,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             name: "layout.html",
             url: "views/layout.html"
         };
+        $scope.topNavActiveTab = ConfigService.topNavActiveTab.myProfile;
 
         var editModal, photoToEdit;
         $scope.tabArray = [
@@ -57,7 +58,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 $scope.education = "No education defined!";
             }
             if ( member.doc.currentImage ) {
-                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + $routeParams.id + '&picname=' + member.doc.currentImage;
+                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + member.doc._id + '&picname=' + member.doc.currentImage;
                 $scope.imageBackupPath = $scope.image;
             } else {
                 $scope.image = "../images/default-profile-3.png";
@@ -79,7 +80,6 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             return Upload.upload({
                 url: url,
                 fields: {
-                    memberId: $routeParams.id,
                     filename: $scope.filename,
                     imageTransformData: imageTransformData,
                     file: $scope.files[0]
@@ -264,7 +264,9 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
         $scope.saveProgress = function(){
             var url = ConfigService.serverIp + '/saveProgress';
-            $http.put(url,{editedWork: $scope.moreWork, userId : $routeParams.id}).success(function(response){
+            $http.put(url, {
+                editedWork: $scope.moreWork
+            }).success(function(response){
                 $scope.work = [];
                 for(var i=0;i<response.value.length;i++){
                     $scope.work.push(response.value[i]);

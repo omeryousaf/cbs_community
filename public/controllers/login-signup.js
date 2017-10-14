@@ -78,7 +78,7 @@ controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '
             console.log("input credentials: " + $scope.username + ' ' + $scope.password);
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
                 console.log('\nlogin successful!!\nuser: ', response.member, '\n');
-                UtilityFunctions.visitMemberProfile( { id: response.member.memberId } );
+                UtilityFunctions.visitMemberProfile();
             }).error(function (err) {
                 alert("login failed, reason: " + err.reason);
             });

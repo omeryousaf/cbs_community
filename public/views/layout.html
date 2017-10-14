@@ -9,10 +9,14 @@
     </div>
     <div class="collapse navbar-collapse " id="topNav">
         <ul class="navbar-nav nav">
-            <li><a href="#/profile" class="navbar-link">My Profile</a></li>
+            <li ng-class="{active: topNavActiveTab == 'myProfile'}">
+                <a href="#/profile/me" class="navbar-link">My Profile</a>
+            </li>
         </ul>
         <ul class="navbar-nav nav navbar-right">
-            <li><a href="#/members" class="navbar-link">Directory</a></li>
+            <li ng-class="{active: topNavActiveTab == 'directory'}">
+                <a href="#/members" class="navbar-link">Directory</a>
+            </li>
         </ul>
     </div>
 </nav>

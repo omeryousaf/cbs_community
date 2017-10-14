@@ -13,7 +13,11 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
 baghiansfromtheheart.factory('ConfigService', [
     function() {
         return {
-            serverIp : 'http://localhost:3000'
+            serverIp : 'http://localhost:3000',
+            topNavActiveTab: {
+                myProfile: 'myProfile',
+                directory: 'directory'
+            }
         };
     }
 ]);

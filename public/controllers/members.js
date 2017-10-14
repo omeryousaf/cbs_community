@@ -9,6 +9,8 @@ controller.controller('Members', ['ConfigService', 'UtilityFunctions', '$scope',
             name: "layout.html",
             url: "views/layout.html"
         };
+        $scope.topNavActiveTab = ConfigService.topNavActiveTab.directory;
+
         $scope.serverIp = ConfigService.serverIp;
         $http.get( ConfigService.serverIp + '/members' ).success( function ( result ) {
             $scope.members = result.members;

@@ -35,7 +35,6 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
     };
 
     profileUpdator.updatePicture = function(req, res) {
-        var memberId = req.body.memberId;
         // write file in a local folder
         var imageNameTokens = req.body.filename.split('.');
         // add a random number to filename so that simultaneous image uploads can be handled easily / uniquely
@@ -48,7 +47,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
         return profileUpdator.createImageAccordingToEditSpecs( req.files.file, req.body.imageTransformData, imagePath ).then ( function () {
             return readFile( imagePath);
         }).then( function ( file) {
-            membersDb.get( memberId, { revs_info: true }, function(err, doc) {
+            membersDb.get( req.user._id, { revs_info: true }, function(err, doc) {
                 if ( err ) {
                     throw new Error( 'services::profile_edit::updatePicture::error fetching document');
                 } else {
@@ -77,9 +76,10 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
 
     profileUpdator.getMember = function ( req, res ) {
         console.log('\nreq.user: ', req.user, '\n');
-        membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
+        var userId = req.params.id == 'me' ? req.user._id : req.params.id;
+        membersDb.get( userId, {revs_info: true}, function (err, doc) {
             if (!err) {
-                if(req.params.id === req.user._id){
+                if( userId === req.user._id ) {
                     doc['canEdit']=1;
                 }
                 else{

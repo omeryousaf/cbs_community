@@ -7,7 +7,7 @@ angular.module('baghiansfromtheheart').factory('UtilityFunctions', [ '$location'
         return {
             visitMemberProfile: function ( data ) {
                 //alert(data._id);
-                $location.path('/profile/' + ( data._id || data.id ) );
+                $location.path('/profile/' + ( data && data._id || 'me' ) );
             }
         };
     }
