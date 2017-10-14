@@ -1,107 +1,106 @@
 <div class="container">
     <div ng-controller="Profile as profile">
-        <div class="row">
-            <!-- twitter layout -->
-            <script type="text/ng-template" id="displayPicEditModal.html">
-                <div class="modal-header">
-                    <h5 class="modal-title">Choose Display Area of Image</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="js_image_upload image-container">
-                        <img id="js_profile_pic" src="{{newUploadedImage}}" alt="image could not be loaded.. please try again!" />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="center-align-above-xs left-align-xs"> <!-- image rotate options -->
-                        <button class="btn btn-clear" ng-click="rotateImage('L')">
-                            <span class="fa fa-rotate-left"></span>
-                        </button>
-                        <button class="btn btn-clear" ng-click="rotateImage('R')">
-                            <span class="fa fa-rotate-right"></span>
-                        </button>
-                    </div>
-                    <button class="btn btn-inverse" ng-click="confirmCrop()">apply</button>
-                    <button class="btn btn-warning" ng-click="cancelCrop()">cancel</button>
-                </div>
-            </script>
-            <div class="row">
-                <h3>Profile</h3>
+        <div ng-include src="layout.url"></div>
+        <!-- twitter layout -->
+        <script type="text/ng-template" id="displayPicEditModal.html">
+            <div class="modal-header">
+                <h5 class="modal-title">Choose Display Area of Image</h5>
             </div>
-            <div class="col-xs-7 col-sm-3 col-md-3"> <!-- image column -->
-                <div class="row margin-bottom-10">
-                    <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
-                         ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image types by ngf-accept="'.png,.jpg'" -->
-                        <img src={{image}} class="profile-img"/>
-                    </div>
+            <div class="modal-body">
+                <div class="js_image_upload image-container">
+                    <img id="js_profile_pic" src="{{newUploadedImage}}" alt="image could not be loaded.. please try again!" />
                 </div>
             </div>
-            <div class="col-xs-10 col-sm-6 col-md-6">
-                <div class="row">
-                    <ul class="nav nav-tabs">
-                        <li ng-repeat="tab in tabArray" ng-class="{active: tab.value==profile.tab}" ng-click="profile.setTab(tab.value)"><a href="">{{tab.name}}</a></li>
-                    </ul>
-                </div> <!--row-->
-                <div class="row">
-                    <div  ng-class="{'profile-element-padding' : tab.value ==profile.tab, 'hidden':profile.tab !=tab.value}" ng-repeat="tab in tabArray">
-                        <div ng-show="profile.tab==1">
-                            <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
-                            <textarea id="new-post" class="new-post"> </textarea>
-                            <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
-                            <!-- previous posts by the user should go below -->
-                            <div class="prev-posts"></div>
-                        </div>
-                        <div ng-show="profile.tab==2">
-                            <div class="row">
-                                <div class="col-md-6">High School</div>
-                                <div class="col-md-6">{{education}}</div>
-                            </div>
-                        </div>
-                        <div ng-show="profile.tab==3">
-                            <div class="row"  ng-repeat="exp in work" ng-show="controlBtnMoreWork==0" ng-hide="controlBtnMoreWork==1">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table>
-                                            <tr>
-                                                <td><span class="wokr_profile_labels">Company Name</span></td><td><span class="work_values">{{exp.companyName}}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="wokr_profile_labels">Designation</span></td><td><span class="work_values">{{exp.designation}}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="wokr_profile_labels">Industry</span></td><td><span class="work_values">{{exp.industry}}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="wokr_profile_labels">Location</span></td><td><span class="work_values" >{{exp.location}}</span></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="row" ng-show="canEdit==1">
-                                <button class="btn btn-primary del-more-work-btn" ng-click="showMoreWork(1)" ng-show="controlBtnMoreWork==0" ng-hide="controlBtnMoreWork==1">Edit</button>
-                            </div>
-                            <div class="row " ng-repeat="item in moreWork" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">
-                                <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name" value="item.companyName" ng-model="item.companyName">
-                                    <input type="text" class="form-control more-work-fields" placeholder="Designation" value="item.designation" ng-model="item.designation">
-                                    <input type="text" class="form-control more-work-fields" placeholder="Industry" value="item.industry" ng-model="item.industry">
-                                    <input type="text" class="form-control more-work-fields" placeholder="Location" value="item.location" ng-model="item.location">
-                                    <button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br>
-                                </div>
-                            </div>
-                            <button ng-click="appendWork()" class="btn btn-success" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">+</button>
-                            <button class="btn btn-success save-cancel-btn" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0" ng-click="saveProgress()">Save</button>
-                            <button class="btn btn-danger save-cancel-btn" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0" ng-click="showMoreWork(0)">Cancel</button>
-                        </div>
-                        <div ng-show="profile.tab==4">
-                            About
-                        </div>
-                    </div>
-                </div> <!--row-->
-            </div> <!--col-xs-6 col-md-6 the central content area twitter style -->
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <a ng-href="/#/members">Directory</a>
-            </div> <!-- the right column -->
+            <div class="modal-footer">
+                <div class="center-align-above-xs left-align-xs"> <!-- image rotate options -->
+                    <button class="btn btn-clear" ng-click="rotateImage('L')">
+                        <span class="fa fa-rotate-left"></span>
+                    </button>
+                    <button class="btn btn-clear" ng-click="rotateImage('R')">
+                        <span class="fa fa-rotate-right"></span>
+                    </button>
+                </div>
+                <button class="btn btn-inverse" ng-click="confirmCrop()">apply</button>
+                <button class="btn btn-warning" ng-click="cancelCrop()">cancel</button>
+            </div>
+        </script>
+        <div>
+            <h3>Profile</h3>
         </div>
+        <div class="col-xs-7 col-sm-3 col-md-3"> <!-- image column -->
+            <div class="row margin-bottom-10">
+                <div ngf-drop ngf-select ng-model="files" class="drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
+                     ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image types by ngf-accept="'.png,.jpg'" -->
+                    <img src={{image}} class="profile-img"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-6 col-md-6">
+            <div class="row">
+                <ul class="nav nav-tabs">
+                    <li ng-repeat="tab in tabArray" ng-class="{active: tab.value==profile.tab}" ng-click="profile.setTab(tab.value)"><a href="">{{tab.name}}</a></li>
+                </ul>
+            </div> <!--row-->
+            <div class="row">
+                <div  ng-class="{'profile-element-padding' : tab.value ==profile.tab, 'hidden':profile.tab !=tab.value}" ng-repeat="tab in tabArray">
+                    <div ng-show="profile.tab==1">
+                        <!-- how abt having a tinymce panel bound to a textarea here for creating a new feed -->
+                        <textarea id="new-post" class="new-post"> </textarea>
+                        <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="post"/>
+                        <!-- previous posts by the user should go below -->
+                        <div class="prev-posts"></div>
+                    </div>
+                    <div ng-show="profile.tab==2">
+                        <div class="row">
+                            <div class="col-md-6">High School</div>
+                            <div class="col-md-6">{{education}}</div>
+                        </div>
+                    </div>
+                    <div ng-show="profile.tab==3">
+                        <div class="row"  ng-repeat="exp in work" ng-show="controlBtnMoreWork==0" ng-hide="controlBtnMoreWork==1">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table>
+                                        <tr>
+                                            <td><span class="wokr_profile_labels">Company Name</span></td><td><span class="work_values">{{exp.companyName}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="wokr_profile_labels">Designation</span></td><td><span class="work_values">{{exp.designation}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="wokr_profile_labels">Industry</span></td><td><span class="work_values">{{exp.industry}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="wokr_profile_labels">Location</span></td><td><span class="work_values" >{{exp.location}}</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="row" ng-show="canEdit==1">
+                            <button class="btn btn-primary del-more-work-btn" ng-click="showMoreWork(1)" ng-show="controlBtnMoreWork==0" ng-hide="controlBtnMoreWork==1">Edit</button>
+                        </div>
+                        <div class="row " ng-repeat="item in moreWork" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">
+                            <div class="col-md-12"><input type="text" class="form-control more-work-fields" placeholder="Company Name" value="item.companyName" ng-model="item.companyName">
+                                <input type="text" class="form-control more-work-fields" placeholder="Designation" value="item.designation" ng-model="item.designation">
+                                <input type="text" class="form-control more-work-fields" placeholder="Industry" value="item.industry" ng-model="item.industry">
+                                <input type="text" class="form-control more-work-fields" placeholder="Location" value="item.location" ng-model="item.location">
+                                <button class="btn btn-danger del-more-work-btn" id="{{item.id}}" ng-click="removeField(this)">-</button></br>
+                            </div>
+                        </div>
+                        <button ng-click="appendWork()" class="btn btn-success" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0">+</button>
+                        <button class="btn btn-success save-cancel-btn" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0" ng-click="saveProgress()">Save</button>
+                        <button class="btn btn-danger save-cancel-btn" ng-show="controlBtnMoreWork==1" ng-hide="controlBtnMoreWork==0" ng-click="showMoreWork(0)">Cancel</button>
+                    </div>
+                    <div ng-show="profile.tab==4">
+                        About
+                    </div>
+                </div>
+            </div> <!--row-->
+        </div> <!--col-xs-6 col-md-6 the central content area twitter style -->
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <a ng-href="/#/members">Directory</a>
+        </div> <!-- the right column -->
     </div>
 </div>

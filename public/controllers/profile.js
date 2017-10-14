@@ -5,6 +5,11 @@ var controller = angular.module('profileController',['ui.bootstrap']);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams', '$uibModal',
     function (ConfigService, $scope, $http, Upload, $routeParams, $uibModal) {
 
+        $scope.layout = {
+            name: "layout.html",
+            url: "views/layout.html"
+        };
+
         var editModal, photoToEdit;
         $scope.tabArray = [
             {name:"Profile","value":1},
