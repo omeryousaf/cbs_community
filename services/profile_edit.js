@@ -35,20 +35,19 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
     };
 
     profileUpdator.updatePicture = function(req, res) {
-        var memberId = req.body.memberId;
         // write file in a local folder
         var imageNameTokens = req.body.filename.split('.');
         // add a random number to filename so that simultaneous image uploads can be handled easily / uniquely
         var imageExt = '.' + imageNameTokens.pop();
         var imageName = imageNameTokens.join('.') + '-' + new Date().getTime() + imageExt;
-        var imagePath = 'uploads/' + imageName;
+        var imagePath = global.appRoot + '/uploads/' + imageName;
         /* TASKS:
         * 1 - can we make all async calls using promises here ?
         * */
         return profileUpdator.createImageAccordingToEditSpecs( req.files.file, req.body.imageTransformData, imagePath ).then ( function () {
             return readFile( imagePath);
         }).then( function ( file) {
-            membersDb.get( memberId, { revs_info: true }, function(err, doc) {
+            membersDb.get( req.user._id, { revs_info: true }, function(err, doc) {
                 if ( err ) {
                     throw new Error( 'services::profile_edit::updatePicture::error fetching document');
                 } else {
