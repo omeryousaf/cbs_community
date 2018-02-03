@@ -76,10 +76,9 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
 
     profileUpdator.getMember = function ( req, res ) {
         console.log('\nreq.user: ', req.user, '\n');
-        var userId = req.params.id == 'me' ? req.user._id : req.params.id;
-        membersDb.get( userId, {revs_info: true}, function (err, doc) {
+        membersDb.get( req.params.id, {revs_info: true}, function (err, doc) {
             if (!err) {
-                if( userId === req.user._id ) {
+                if(req.params.id === req.user._id){
                     doc['canEdit']=1;
                 }
                 else{
