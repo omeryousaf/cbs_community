@@ -23,8 +23,9 @@
                 <label class="pull-right">year of joining</label>
             </div>
             <div class="col-xs-4 col-md-4">
-                <input type="text" ng-model="yearOfJoining" placeholder="yearOfJoining" required />
-                <select class="select-gen-layout" ng-model="yearOfJoining" ng-options="year for year in years"></select>
+                <select ng-model="yearOfJoining" ng-options="year for year in years">
+                    <option value="">select year</option>
+                </select>
             </div>
         </div>
         <br>
@@ -33,8 +34,9 @@
                 <label class="pull-right">boarding house</label>
             </div>
             <div class="col-xs-4 col-md-4">
-                <input type="text" ng-model="boardingHouse" placeholder="boardingHouse" required />
-                <select class="select-gen-layout" ng-model="boardingHouse" ng-options="houseName for houseName in boardingHouseNames"></select>
+                <select ng-model="boardingHouse" ng-options="houseName for houseName in boardingHouseNames">
+                    <option value="">select your house</option>
+                </select>
             </div>
         </div>
         <br>
