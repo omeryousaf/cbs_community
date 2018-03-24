@@ -54,7 +54,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
                     doc.currentImage = imageName;
                     membersDb.multipart.insert( doc, [{name: imageName, data: file, content_type: 'image'}], doc._id, function(err, body) {
                         if ( !err ) {
-                            var imageCouchPath = config.App.server.ip + ':' + config.App.server.port + '/profileimage?docid=' + doc._id + '&picname=' + imageName;
+                            var imageCouchPath = '/profileimage?docid=' + doc._id + '&picname=' + imageName;
                             res.send({
                                 serverResponse: 'image uploaded!!!',
                                 filePath: imageCouchPath

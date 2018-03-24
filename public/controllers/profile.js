@@ -85,7 +85,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                     file: $scope.files[0]
                 }
             }).success(function(response) {
-                $scope.image = $scope.imageBackupPath = response.filePath + '?' + new Date().valueOf();
+                $scope.image = $scope.imageBackupPath = ConfigService.serverIp + response.filePath + '?' + new Date().valueOf();
                 $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
                 destroyCropPanel();
             }).error(function (err) {
