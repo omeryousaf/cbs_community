@@ -7,3 +7,4 @@ uploads/
 npm-debug.log
 tests/
 nodejs_config/
+package-lock.json
