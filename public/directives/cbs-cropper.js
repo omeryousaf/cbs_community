@@ -1,5 +1,5 @@
-angular.module('directives', [])
-	.directive('cropper', function(ConfigService, Upload) {
+angular.module('customDirectives', [])
+	.directive('cbsCropper', function(ConfigService, Upload) {
 
 	    var prepareImageTransformDataForBackend = function ( photo, scalingFactor ) {
 	        // save the width and height to scale the image to (needed by imagemagick at backend), and also save x,y of top left corner of scaled image which
