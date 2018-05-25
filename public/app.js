@@ -6,6 +6,7 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'loginSignupController',
     'profileController',
     'membersController',
+    'customDirectives',
     'ngFileUpload'
 ]);
 

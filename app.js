@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var passport = require('./services/authentication.js');
 var expressSession = require('express-session');
 var routes = require('./routes/index.js');
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
+// var multipart = require('connect-multiparty');
+// var multipartMiddleware = multipart();
 var path = require('path');
 
 global.appRoot = path.resolve(__dirname);
@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 
 app.post('/isUsernameUnique', routes.isUsernameUnique);
 app.post('/authenticateLogin', routes.authenticateLogin);
-app.post('/upload-profile-image', multipartMiddleware, routes.uploadProfileImage);
+app.post('/upload-profile-image', routes.uploadProfileImage);
 app.get('/getMember/:id', routes.getMember);
 app.get('/profileimage', routes.getProfileImage);
 app.get('/members', routes.getMembers);
