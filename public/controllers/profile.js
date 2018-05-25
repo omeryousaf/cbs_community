@@ -96,14 +96,20 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 reader.readAsDataURL( files[0]);
                 // listen to image transformation data ready event from the custom 'cropper' directive
                 $scope.$on('imgTransformDataReady', function(){
-                  console.log('root link move player ', arguments[1]);
                   var transformationData = arguments[1]; // arguments array contains data passed by event source (directive)
                   var url = ConfigService.serverIp + '/upload-profile-image';
                     return Upload.upload({
                         url: url,
                         fields: {
-                            filename: $scope.filename,
-                            imageTransformData: transformationData,
+                            x: transformationData.x,
+                            y: transformationData.y,
+                            width: transformationData.width,
+                            height: transformationData.height,
+                            scaleX: transformationData.scaleX,
+                            scaleY: transformationData.scaleY,
+                            rotate: transformationData.rotate,
+                            scaleToHeight: transformationData.scaleToHeight,
+                            scaleToWidth: transformationData.scaleToWidth,
                             file: $scope.files[0]
                         }
                     }).success(function(response) {
