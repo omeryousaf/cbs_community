@@ -7,14 +7,19 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'profileController',
     'membersController',
     'ngFileUpload',
-    'adminPanel'
+    'adminPanel',
+    'customDirectives'
 ]);
 
 // define configurations here
-baghiansfromtheheart.factory('ConfigService', [
-    function() {
+baghiansfromtheheart.factory('ConfigService', ['$location',
+    function($location) {
         return {
-            serverIp : 'http://localhost:3000'
+            serverIp : $location.protocol() + "://" + $location.host()  + ':' + $location.port(),
+            topNavActiveTab: {
+                myProfile: 'myProfile',
+                directory: 'directory'
+            }
         };
     }
 ]);

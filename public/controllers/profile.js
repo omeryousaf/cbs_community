@@ -5,7 +5,12 @@ var controller = angular.module('profileController',['ui.bootstrap']);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams', '$uibModal',
     function (ConfigService, $scope, $http, Upload, $routeParams, $uibModal) {
 
-        var cropHandle, editModal;
+        $scope.layout = {
+            name: "layout.html",
+            url: "views/layout.html"
+        };
+        $scope.topNavActiveTab = ConfigService.topNavActiveTab.myProfile;
+
         $scope.tabArray = [
             {name:"Profile","value":1},
             {name:"Education","value":2},
@@ -15,7 +20,6 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.more_work_counter; //counter to add objects containing ids inside moreWork array and add dynamic ids to the more buttons fields
         $scope.moreWork = []; //added the very first id which is 0 at index 0
         $scope.controlBtnMoreWork =0; //used to show hide the plus (more work) button
-
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
 
         $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
@@ -56,7 +60,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 $scope.isAdmin = member.doc.isAdmin;
             }
             if ( member.doc.currentImage ) {
-                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + $routeParams.id + '&picname=' + member.doc.currentImage;
+                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + member.doc._id + '&picname=' + member.doc.currentImage;
                 $scope.imageBackupPath = $scope.image;
             } else {
                 $scope.image = "../images/default-profile-3.png";
@@ -65,41 +69,12 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             $scope.image = "../images/default-profile-3.png";
         });
 
-        $scope.confirmCrop = function () {
-            return cropHandle.croppie('result', {
-                type: 'canvas',
-                size: 'viewport',
-                format: 'jpeg'|'png'|'webp'
-            }).then( function ( result) {
-                var url = ConfigService.serverIp + '/upload-profile-image';
-                Upload.upload({
-                    url: url,
-                    fields: {
-                        memberId: $routeParams.id,
-                        filename: $scope.filename,
-                        encodedImage: result
-                    }
-                }).success(function(response) {
-                    $scope.image = $scope.imageBackupPath = response.filePath + '?' + new Date().valueOf();
-                    $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
-                    console.log('image uploaded successfully! response from server: ', response.serverResponse);
-                    destroyCropPanel();
-                }).error(function (err) {
-                    alert('error occurred while uploading image: ' + err);
-                    console.log( '\n', err, '\n');
-                });
-            }).catch( function ( error) {
-                console.log( '\n', error, '\n');
-            });
-        };
-
-        var destroyCropPanel = function () {
-            cropHandle.croppie('destroy');
-            editModal.dismiss('canceled');
+        var destroyCropPanel = function (modal) {
+            modal.dismiss('canceled');
         };
 
         $scope.cancelCrop = function () {
-            destroyCropPanel();
+            destroyCropPanel($scope.editModal);
         };
 
         $scope.onFileSelected = function (files, events) {
@@ -111,25 +86,44 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 $scope.filename = files[0].name;
                 var reader = new FileReader();
                 reader.onloadend = function (e) {
-                    // open newly uploaded image in crop-edit panel
-                    if( cropHandle) {
-                        cropHandle.croppie('destroy');
-                    }
-                    editModal = $uibModal.open({
+                    $scope.uploadPath = e.target.result;
+                    $scope.editModal = $uibModal.open({
                         templateUrl: 'displayPicEditModal.html',
-                        scope: $scope
+                        scope: $scope,
+                        windowClass: 'photo-edit-modal'
                     });
-                    editModal.rendered.then(function () {
-                        cropHandle = $('.image-upload').croppie({
-                            url: e.target.result,
-                            viewport: {
-                                width: 200,
-                                height: 200
-                            }
-                        });
+                    $scope.editModal.rendered.then(function () {
+                        $scope.isPhotoLoaded = true; // our custom 'cropper' directive is already watching this var and gets activated
                     });
                 };
                 reader.readAsDataURL( files[0]);
+                // listen to image transformation data ready event from the custom 'cropper' directive
+                $scope.$on('imgTransformDataReady', function(){
+                  var transformationData = arguments[1]; // arguments array contains data passed by event source (directive)
+                  var url = ConfigService.serverIp + '/upload-profile-image';
+                    return Upload.upload({
+                        url: url,
+                        fields: {
+                            x: transformationData.x,
+                            y: transformationData.y,
+                            width: transformationData.width,
+                            height: transformationData.height,
+                            scaleX: transformationData.scaleX,
+                            scaleY: transformationData.scaleY,
+                            rotate: transformationData.rotate,
+                            scaleToHeight: transformationData.scaleToHeight,
+                            scaleToWidth: transformationData.scaleToWidth,
+                            file: $scope.files[0]
+                        }
+                    }).success(function(response) {
+                        $scope.image = $scope.imageBackupPath = ConfigService.serverIp + response.filePath + '?' + new Date().valueOf();
+                        $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
+                        destroyCropPanel($scope.editModal);
+                    }).error(function (err) {
+                        alert('error occurred while uploading image: ' + err);
+                        console.log( '\n', err, '\n');
+                    });
+                });
             }
         };
 
@@ -171,7 +165,9 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
 
         $scope.saveProgress = function(){
             var url = ConfigService.serverIp + '/saveProgress';
-            $http.put(url,{editedWork: $scope.moreWork, userId : $routeParams.id}).success(function(response){
+            $http.put(url, {
+                editedWork: $scope.moreWork
+            }).success(function(response){
                 $scope.work = [];
                 for(var i=0;i<response.value.length;i++){
                     $scope.work.push(response.value[i]);
@@ -183,5 +179,3 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         };
     }
 ]);
-
-

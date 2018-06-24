@@ -67,19 +67,19 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
     }
 ]);
 
-controller.controller('Login', ['ConfigService', '$scope', '$http', '$location','$routeParams','$window',
-    function (ConfigService, $scope, $http, $location,$routeParams,$window) {
+controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '$http', '$location','$routeParams','$window',
+    function (ConfigService, UtilityFunctions, $scope, $http, $location, $routeParams, $window) {
         $scope.username = '';
         $scope.password = '';
         $scope.forgottenUsername = '';
 
-        $scope.navigateToMemberProfile = function ( data ) {
-            $location.path('/profile/' + data.id );
-        };
         $scope.login = function () {
             var url = ConfigService.serverIp + '/authenticateLogin';
             $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
-                $scope.navigateToMemberProfile( { id: response.member.memberId } );
+                console.log('\nlogin successful!!\nuser: ', response.member, '\n');
+                UtilityFunctions.visitMemberProfile({
+                    id: response.member.memberId 
+                });
             }).error(function (err) {
                 alert("login failed, reason: " + err.reason);
             });

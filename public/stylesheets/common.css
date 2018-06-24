@@ -1,0 +1,69 @@
+.button-gen-layout {
+    border-radius: 0px;
+    background-color: #616061;
+    width: inherit;
+}
+.button-gen-layout:hover {
+    background: #616061 none;
+}
+.button-gen-layout:focus {
+    background-color: #616061;
+}
+.button-gen-layout:active {
+    background: #616061 none;
+}
+.select-gen-layout {
+    border-radius: 0px;
+}
+.margin-top-10 {
+    margin-top: 10px;
+}
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+.pr15 {
+    padding-right: 15px;
+}
+.profile-img {
+    height: 180px;
+}
+.profile-image-preview {
+    max-width: 100px;
+}
+.circular-img {
+    width: 100%;
+    border-radius: 50%;
+}
+.margin-top-10 {
+    margin-top: 10px;
+}
+.photo-edit-modal .modal-dialog {
+    width: auto;
+    max-width: 75%;
+    margin: 15px auto;
+}
+.photo-edit-modal .modal-body {
+    text-align: center;
+}
+.photo-edit-modal .image-container > img {
+    max-width: 100%;
+    height: 400px;
+}
+@media (max-width: 500px) {
+    .photo-edit-modal .image-container > img {
+        max-width: 100%;
+        height: 300px;
+    }
+}
+.center-align-above-xs {
+    position: fixed;
+    bottom: 15px;
+    left: 45%;
+}
+@media (max-width: 767px) { /* ipad mini is 768px in portrait mode */
+    .left-align-xs {
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+    }
+}

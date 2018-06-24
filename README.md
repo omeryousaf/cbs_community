@@ -16,7 +16,8 @@ we are using connect-multiparty as file upload middleware instead of multer sinc
 4. Install and run couchdb
 5. Create database "members"
 6. Run the following command from project home directory
-   - node_modules/.bin/couchapp push databases/members.js http://127.0.0.1:5984/members
+   - node_modules/.bin/couchapp push databases/members.js http://127.0.0.1:5984/members (Linux/Mac)
+   - node_modules\.bin\couchapp push databases\members.js http://127.0.0.1:5984/members (Windows)
 7.Start Apllication
    - node app.js
    - (Server will start listening on port 3000 )  
