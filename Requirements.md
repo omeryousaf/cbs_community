@@ -4,7 +4,6 @@
 2. fix urls remove #
 3. if user is already logged in, login page should redirect to user home page
 4. logout option on every page
-5. put nav bar on every page
 6. make members searchable
 7. show user name on profile page
 8. in members area/search results, show user name and class details per member
