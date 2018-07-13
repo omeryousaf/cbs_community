@@ -20,7 +20,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
         // width, and height. upload the resulting image
         return new Promise( function (resolve, reject) {
             gm.subClass({
-                imageMagick: false
+                imageMagick: true
             })( filePath )
                 .rotate( 'white', imageTransformData.rotate )
                 .scale( imageTransformData.scaleToWidth, imageTransformData.scaleToHeight )

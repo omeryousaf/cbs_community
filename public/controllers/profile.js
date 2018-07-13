@@ -74,6 +74,36 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             destroyCropPanel($scope.editModal);
         };
 
+        // listen to image transformation data ready event from the custom 'cropper' directive
+        $scope.$on('imgTransformDataReady', function(event, data){
+            var transformationData = arguments[1]; // arguments array contains data passed by event source (directive)
+            var url = ConfigService.serverIp + '/upload-profile-image';
+            return Upload.upload({
+                url: url,
+                fields: {
+                    x: transformationData.x,
+                    y: transformationData.y,
+                    width: transformationData.width,
+                    height: transformationData.height,
+                    scaleX: transformationData.scaleX,
+                    scaleY: transformationData.scaleY,
+                    rotate: transformationData.rotate,
+                    scaleToHeight: transformationData.scaleToHeight,
+                    scaleToWidth: transformationData.scaleToWidth,
+                    file: $scope.files[0]
+                }
+            }).success(function(response) {
+                $scope.isConfirmCropDisabled = false;
+                $scope.image = $scope.imageBackupPath = ConfigService.serverIp + response.filePath + '?' + new Date().valueOf();
+                $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
+                destroyCropPanel($scope.editModal);
+            }).error(function (err) {
+                $scope.isConfirmCropDisabled = false;
+                alert('error occurred while uploading image: ' + err);
+                console.log( '\n', err, '\n');
+            });
+        });
+
         $scope.onFileSelected = function (files, events) {
             if ( files ){
                 $scope.files = files; // for the view to replace the prev value of the ng-model var "files" with its newest value, we must assign the model the new value here
@@ -94,33 +124,6 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                     });
                 };
                 reader.readAsDataURL( files[0]);
-                // listen to image transformation data ready event from the custom 'cropper' directive
-                $scope.$on('imgTransformDataReady', function(){
-                  var transformationData = arguments[1]; // arguments array contains data passed by event source (directive)
-                  var url = ConfigService.serverIp + '/upload-profile-image';
-                    return Upload.upload({
-                        url: url,
-                        fields: {
-                            x: transformationData.x,
-                            y: transformationData.y,
-                            width: transformationData.width,
-                            height: transformationData.height,
-                            scaleX: transformationData.scaleX,
-                            scaleY: transformationData.scaleY,
-                            rotate: transformationData.rotate,
-                            scaleToHeight: transformationData.scaleToHeight,
-                            scaleToWidth: transformationData.scaleToWidth,
-                            file: $scope.files[0]
-                        }
-                    }).success(function(response) {
-                        $scope.image = $scope.imageBackupPath = ConfigService.serverIp + response.filePath + '?' + new Date().valueOf();
-                        $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
-                        destroyCropPanel($scope.editModal);
-                    }).error(function (err) {
-                        alert('error occurred while uploading image: ' + err);
-                        console.log( '\n', err, '\n');
-                    });
-                });
             }
         };
 
