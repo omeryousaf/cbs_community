@@ -6,8 +6,9 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'loginSignupController',
     'profileController',
     'membersController',
-    'customDirectives',
-    'ngFileUpload'
+    'ngFileUpload',
+    'adminPanel',
+    'customDirectives'
 ]);
 
 // define configurations here
@@ -40,6 +41,9 @@ baghiansfromtheheart.config(['$routeProvider',
             }).
             when('/resetPassword/:id',{
                 templateUrl: 'views/resetpassword.html'
+            }).
+            when('/adminPanel/',{
+                templateUrl: 'views/adminPanel.html'
             }).
             otherwise({
                 redirectTo: '/'

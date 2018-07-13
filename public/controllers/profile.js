@@ -56,6 +56,9 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             else{
                 $scope.education = "No education defined!";
             }
+            if(member.doc.isAdmin){
+                $scope.isAdmin = member.doc.isAdmin;
+            }
             if ( member.doc.currentImage ) {
                 $scope.image = ConfigService.serverIp + '/profileimage?docid=' + member.doc._id + '&picname=' + member.doc.currentImage;
                 $scope.imageBackupPath = $scope.image;

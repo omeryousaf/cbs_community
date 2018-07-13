@@ -33,6 +33,7 @@
                      ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image types by ngf-accept="'.png,.jpg'" -->
                     <img src={{image}} class="profile-img"/>
                 </div>
+                 <a ng-show="isAdmin ==true" href="#/adminPanel">Admin Panel</a>
             </div>
         </div>
         <div class="col-xs-10 col-sm-6 col-md-6">
