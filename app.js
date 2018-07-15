@@ -4,8 +4,6 @@ var bodyParser = require('body-parser');
 var passport = require('./services/authentication.js');
 var expressSession = require('express-session');
 var routes = require('./routes/index.js');
-// var multipart = require('connect-multiparty');
-// var multipartMiddleware = multipart();
 var path = require('path');
 
 global.appRoot = path.resolve(__dirname);
@@ -39,6 +37,7 @@ app.get('/members', routes.getMembers);
 app.put('/saveProgress',routes.saveProgressRoute);
 app.post('/forgotPassword',routes.forgotPassword);
 app.post('/resetPassword',routes.resetPassword);
+app.get('/isLoggedIn', passport.isLoggedIn);
 
 
 app.get('*', function(req, res) {

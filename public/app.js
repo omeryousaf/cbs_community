@@ -11,13 +11,18 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
 ]);
 
 // define configurations here
-baghiansfromtheheart.factory('ConfigService', ['$location',
-    function($location) {
+baghiansfromtheheart.factory('ConfigService', ['$location', '$http',
+    function($location, $http) {
         return {
             serverIp : $location.protocol() + "://" + $location.host()  + ':' + $location.port(),
             topNavActiveTab: {
                 myProfile: 'myProfile',
                 directory: 'directory'
+            },
+            isLoggedIn: function() {
+                return $http.get(this.serverIp + '/isLoggedIn').error(function(err) {
+                    $location.path('/login');
+                });
             }
         };
     }
@@ -33,7 +38,12 @@ baghiansfromtheheart.config(['$routeProvider',
                 templateUrl: 'views/signup.html'
             }).
             when('/profile/:id', {
-                templateUrl: 'views/profile.html'
+                templateUrl: 'views/profile.html',
+                resolve: {
+                    isLoggedIn: function(ConfigService) {
+                       return ConfigService.isLoggedIn();
+                    }
+                }
             }).
             when('/members', {
                 templateUrl: 'views/members.html'
