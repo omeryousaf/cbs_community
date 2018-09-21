@@ -11,8 +11,8 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
 ]);
 
 // define configurations here
-baghiansfromtheheart.factory('ConfigService', ['$location', '$http',
-    function($location, $http) {
+baghiansfromtheheart.factory('ConfigService', ['$location',
+    function($location) {
         return {
             serverIp : $location.protocol() + "://" + $location.host()  + ':' + $location.port(),
             topNavActiveTab: {
