@@ -18,11 +18,6 @@ baghiansfromtheheart.factory('ConfigService', ['$location', '$http',
             topNavActiveTab: {
                 myProfile: 'myProfile',
                 directory: 'directory'
-            },
-            isLoggedIn: function() {
-                return $http.get(this.serverIp + '/isLoggedIn').error(function(err) {
-                    $location.path('/login');
-                });
             }
         };
     }
