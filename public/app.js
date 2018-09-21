@@ -18,13 +18,17 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
             topNavActiveTab: {
                 myProfile: 'myProfile',
                 directory: 'directory'
+            },
+            httpStatuses: {
+                OK: 200,
+                SESSION_EXPIRED: 419
             }
         };
     }
-]).factory('sessionHandler', ['$location', '$q', function($location, $q) {
+]).factory('sessionHandler', ['$location', '$q', 'ConfigService', function($location, $q, ConfigService) {
     return {
         responseError: function(response) {
-            if (response.status == 419) {
+            if (response.status == ConfigService.httpStatuses.SESSION_EXPIRED) {
                 // prompt user to reauthenticate
                 alert('Your session has expired with the server. Please relogin to proceed!');
                 $location.path('/login');

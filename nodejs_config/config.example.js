@@ -7,5 +7,9 @@ exports.App = {
 
     mailGunApiKey: 'mailGunKeyHere',
     mailGunDomain : 'mailGunDomainHere',
-    secretKey : 'secretKeyHere'
+    secretKey : 'secretKeyHere',
+    httpStatuses: {
+    	OK: 200,
+    	SESSION_EXPIRED: 419
+    }
 };

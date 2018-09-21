@@ -57,11 +57,11 @@ passport.deserializeUser(
     }
 );
 
-passport.isLoggedIn = function(req, res) {
+passport.isLoggedIn = function(req, res, next) {
     if (req.user && req.user._id) {
-        return res.send();
+        return next();
     }
-    return res.status(401).send();
+    return res.status(config.App.httpStatuses.SESSION_EXPIRED).send();
 };
 
 module.exports = passport;
