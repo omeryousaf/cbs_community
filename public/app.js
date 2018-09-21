@@ -26,10 +26,22 @@ baghiansfromtheheart.factory('ConfigService', ['$location', '$http',
             }
         };
     }
-]);
+]).factory('sessionHandler', ['$location', '$q', function($location, $q) {
+    return {
+        responseError: function(response) {
+            if (response.status == 419) {
+                // prompt user to reauthenticate
+                alert('Your session has expired with the server. Please relogin to proceed!');
+                $location.path('/login');
+            }
+            return $q.reject(response);
+        }
+    };
+}]);
 
-baghiansfromtheheart.config(['$routeProvider',
-    function($routeProvider) {
+baghiansfromtheheart.config(['$routeProvider', '$httpProvider',
+    function($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('sessionHandler');
         $routeProvider.
             when('/login', {
                 templateUrl: 'views/login.html' //The controller for handling this route is mentioned in the ng-controller directive in the html file
@@ -38,12 +50,7 @@ baghiansfromtheheart.config(['$routeProvider',
                 templateUrl: 'views/signup.html'
             }).
             when('/profile/:id', {
-                templateUrl: 'views/profile.html',
-                resolve: {
-                    isLoggedIn: function(ConfigService) {
-                       return ConfigService.isLoggedIn();
-                    }
-                }
+                templateUrl: 'views/profile.html'
             }).
             when('/members', {
                 templateUrl: 'views/members.html'
