@@ -4,8 +4,6 @@ var bodyParser = require('body-parser');
 var passport = require('./services/authentication.js');
 var expressSession = require('express-session');
 var routes = require('./routes/index.js');
-// var multipart = require('connect-multiparty');
-// var multipartMiddleware = multipart();
 var path = require('path');
 
 global.appRoot = path.resolve(__dirname);
@@ -30,16 +28,17 @@ app.use(bodyParser.urlencoded({ extended: false })); // omitting the "{ extended
 // warning "body-parser deprecated undefined extended: provide extended option" on executing the 'node app.js' command
 app.use(bodyParser.json());
 
-app.post('/isUsernameUnique', routes.isUsernameUnique);
+// keep routes that do not require to go through the 'isLoggedIn' middleware above its binding cuz it will be called for all routes after it
 app.post('/authenticateLogin', routes.authenticateLogin);
+app.post('/isUsernameUnique', routes.isUsernameUnique);
+app.post('/forgotPassword', routes.forgotPassword);
+app.post('/resetPassword', routes.resetPassword);
+app.use(passport.isLoggedIn); // middleware, will be called on all routes defined hereafter
 app.post('/upload-profile-image', routes.uploadProfileImage);
 app.get('/getMember/:id', routes.getMember);
 app.get('/profileimage', routes.getProfileImage);
 app.get('/members', routes.getMembers);
-app.put('/saveProgress',routes.saveProgressRoute);
-app.post('/forgotPassword',routes.forgotPassword);
-app.post('/resetPassword',routes.resetPassword);
-
+app.put('/saveProgress', routes.saveProgressRoute);
 
 app.get('*', function(req, res) {
     res.render('index.html'); // load the single view file from 'public' folder as that's been configured as the default

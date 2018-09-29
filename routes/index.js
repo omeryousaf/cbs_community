@@ -11,7 +11,7 @@ router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
     authenticator.authenticate('local', function(err, user, info) {
         if (err) { // when something goes wrong with the database server or in connecting to it
-            console.log('status: 500');
+            console.log('status: 500', err.stack);
             res.status(500).send({ reason: 'database error' });
         } else if (info) { // when credentials were rejected by authentication module (authentication.js)
             console.log('status: 401, unauthorised');

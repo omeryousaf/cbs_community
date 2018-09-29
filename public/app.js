@@ -18,13 +18,29 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
             topNavActiveTab: {
                 myProfile: 'myProfile',
                 directory: 'directory'
+            },
+            httpStatuses: {
+                OK: 200,
+                SESSION_EXPIRED: 419
             }
         };
     }
-]);
+]).factory('sessionHandler', ['$location', '$q', 'ConfigService', function($location, $q, ConfigService) {
+    return {
+        responseError: function(response) {
+            if (response.status == ConfigService.httpStatuses.SESSION_EXPIRED) {
+                // prompt user to reauthenticate
+                alert('Your session has expired with the server. Please relogin to proceed!');
+                $location.path('/login');
+            }
+            return $q.reject(response);
+        }
+    };
+}]);
 
-baghiansfromtheheart.config(['$routeProvider',
-    function($routeProvider) {
+baghiansfromtheheart.config(['$routeProvider', '$httpProvider',
+    function($routeProvider, $httpProvider) {
+        $httpProvider.interceptors.push('sessionHandler');
         $routeProvider.
             when('/login', {
                 templateUrl: 'views/login.html' //The controller for handling this route is mentioned in the ng-controller directive in the html file

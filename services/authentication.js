@@ -50,9 +50,18 @@ passport.serializeUser(
         done(null, sessionUser);
     }
 );
+
 passport.deserializeUser(
     function (sessionUser, done) {
         done(null, sessionUser);
     }
 );
+
+passport.isLoggedIn = function(req, res, next) {
+    if (req.user && req.user._id) {
+        return next();
+    }
+    return res.status(config.App.httpStatuses.SESSION_EXPIRED).send();
+};
+
 module.exports = passport;

@@ -16,7 +16,7 @@ controller.controller('Members', ['ConfigService', 'UtilityFunctions', '$scope',
             $scope.members = result.members;
         }).error(function (err) {
             console.log('\nerror: ', err, '\n');
-            alert(err.error.message);
+            alert(err && err.error && err.error.message || 'An error occurred!');
         });
 
         $scope.visitMemberProfile = function ( member ) {
