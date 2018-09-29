@@ -9,6 +9,7 @@ var updateService = require('../services/updatework.js');
 var forgetPassword = require('../services/forgetPasswordService');
 router.authenticateLogin = function (req, res, next) {
     console.log("b4 authentication.. " + req.body.username + ' ' + req.body.password);
+    // call the configured auth strategy's callback/definition in the passportJS
     authenticator.authenticate('local', function(err, user, info) {
         if (err) { // when something goes wrong with the database server or in connecting to it
             console.log('status: 500', err.stack);
