@@ -102,7 +102,7 @@ controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '
                 var url = ConfigService.serverIp + '/resetPassword';
                 $scope.userId = $routeParams.id;
                 $http.post(url, {pass: $scope.pass1,userId: $scope.userId}).success(function(response) {
-                    $window.location.href = '#/login';
+                    $window.location.href = '/login';
                     $window.alert("Password has been reset successfully");
                 }).error(function (err) {
                     alert("Some Error occured: " + err.reason);

@@ -38,8 +38,8 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
     };
 }]);
 
-baghiansfromtheheart.config(['$routeProvider', '$httpProvider',
-    function($routeProvider, $httpProvider) {
+baghiansfromtheheart.config(['$routeProvider', '$httpProvider', '$locationProvider',
+    function($routeProvider, $httpProvider, $locationProvider) {
         $httpProvider.interceptors.push('sessionHandler');
         $routeProvider.
             when('/login', {
@@ -58,7 +58,8 @@ baghiansfromtheheart.config(['$routeProvider', '$httpProvider',
                 templateUrl: 'views/resetpassword.html'
             }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/login'
             });
+        $locationProvider.html5Mode(true);
     }
 ]);
