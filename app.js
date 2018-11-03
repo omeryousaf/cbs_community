@@ -9,6 +9,7 @@ var path = require('path');
 global.appRoot = path.resolve(__dirname);
 
 var config = require( path.join( global.appRoot, '/nodejs_config/config.js'));
+const MW = require(path.join(global.appRoot, '/middleware.js'));
 
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
@@ -28,20 +29,17 @@ app.use(bodyParser.urlencoded({ extended: false })); // omitting the "{ extended
 // warning "body-parser deprecated undefined extended: provide extended option" on executing the 'node app.js' command
 app.use(bodyParser.json());
 
-// keep routes that do not require to go through the 'isLoggedIn' middleware above its binding cuz it will be called for all routes after it
 app.post('/authenticateLogin', routes.authenticateLogin);
 app.post('/isUsernameUnique', routes.isUsernameUnique);
 app.post('/forgotPassword', routes.forgotPassword);
 app.post('/resetPassword', routes.resetPassword);
-app.use(passport.isLoggedIn); // middleware, will be called on all routes defined hereafter
-app.post('/upload-profile-image', routes.uploadProfileImage);
-app.get('/getMember/:id', routes.getMember);
-app.get('/profileimage', routes.getProfileImage);
-app.get('/members', routes.getMembers);
-app.put('/saveProgress', routes.saveProgressRoute);
-
+app.post('/upload-profile-image', MW.isLoggedIn, routes.uploadProfileImage);
+app.get('/getMember/:id', MW.isLoggedIn, routes.getMember);
+app.get('/profileimage', MW.isLoggedIn, routes.getProfileImage);
+app.get('/members', MW.isLoggedIn, routes.getMembers);
+app.put('/saveProgress', MW.isLoggedIn, routes.saveProgressRoute);
 app.get('*', function(req, res) {
-    res.render('index.html'); // load the single view file from 'public' folder as that's been configured as the default
+    res.render('indexx.html'); // load the single view file from 'public' folder as that's been configured as the default
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
 });
 
