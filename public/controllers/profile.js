@@ -2,8 +2,8 @@
  * Created by shujaatali on 01/02/16.
  */
 var controller = angular.module('profileController',['ui.bootstrap']);
-controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$routeParams', '$uibModal',
-    function (ConfigService, $scope, $http, Upload, $routeParams, $uibModal) {
+controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$uibModal', '$stateParams',
+    function (ConfigService, $scope, $http, Upload, $uibModal, $stateParams) {
 
         $scope.layout = {
             name: "layout.html",
@@ -22,7 +22,7 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.controlBtnMoreWork =0; //used to show hide the plus (more work) button
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
 
-        $http.get( ConfigService.serverIp + '/getMember/' + $routeParams.id ).success( function ( member ) {
+        $http.get( ConfigService.serverIp + '/getMember/' + $stateParams.id ).success( function ( member ) {
             $scope.canEdit=member.doc.canEdit;
             if(member.doc.work){
                 $scope.work=member.doc.work;
