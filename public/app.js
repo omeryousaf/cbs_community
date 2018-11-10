@@ -3,6 +3,7 @@
  */
 var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
+    'ui.router',
     'loginSignupController',
     'profileController',
     'membersController',
@@ -38,27 +39,30 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
     };
 }]);
 
-baghiansfromtheheart.config(['$routeProvider', '$httpProvider', '$locationProvider',
-    function($routeProvider, $httpProvider, $locationProvider) {
+baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider',
+    function($httpProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
         $httpProvider.interceptors.push('sessionHandler');
-        $routeProvider.
-            when('/login', {
-                templateUrl: 'views/login.html' //The controller for handling this route is mentioned in the ng-controller directive in the html file
-            }).
-            when('/signup', {
+        $urlRouterProvider.otherwise('/login');
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                templateUrl: 'views/login.html'
+            })
+            .state('signup', {
+                url: '/signup',
                 templateUrl: 'views/signup.html'
-            }).
-            when('/profile/:id', {
+            })
+            .state('profile', {
+                url: '/profile/:id',
                 templateUrl: 'views/profile.html'
-            }).
-            when('/members', {
+            })
+            .state('members', {
+                url: '/members',
                 templateUrl: 'views/members.html'
-            }).
-            when('/resetPassword/:id',{
+            })
+            .state('resetPassword', {
+                url: '/resetPassword/:id',
                 templateUrl: 'views/resetpassword.html'
-            }).
-            otherwise({
-                redirectTo: '/login'
             });
         $locationProvider.html5Mode(true);
     }
