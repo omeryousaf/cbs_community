@@ -27,6 +27,9 @@
 .profile-img {
     height: 180px;
 }
+.mw-180px {
+    max-width: 180px;
+}
 .profile-image-preview {
     max-width: 100px;
 }
