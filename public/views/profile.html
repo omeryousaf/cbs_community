@@ -29,7 +29,7 @@
         </div>
         <div class="col-xs-7 col-sm-3 col-md-3"> <!-- image column -->
             <div class="row margin-bottom-10">
-                <div ngf-drop ngf-select ng-model="files" class="mw-180px drop-area" id="drop-area" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
+                <div ngf-drop ngf-select ng-model="files" class="mw-180px" ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="true"
                      ngf-accept="'image/*'" ngf-change="onFileSelected($files, $event)"> <!-- narrow acceptable image types by ngf-accept="'.png,.jpg'" -->
                     <img src={{image}} class="profile-img"/>
                 </div>
