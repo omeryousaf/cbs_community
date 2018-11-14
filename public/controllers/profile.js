@@ -22,10 +22,11 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $scope.controlBtnMoreWork =0; //used to show hide the plus (more work) button
         $scope.preview = ""; // initialising value of a label in the view to empty string so it does not show at start
 
-        $http.get( ConfigService.serverIp + '/getMember/' + $stateParams.id ).success( function ( member ) {
-            $scope.canEdit=member.doc.canEdit;
-            if(member.doc.work){
-                $scope.work=member.doc.work;
+        $http.get( ConfigService.serverIp + '/getMember/' + $stateParams.id ).then( function ( response ) {
+            let member = response.data.doc;
+            $scope.canEdit=member.canEdit;
+            if(member.work){
+                $scope.work=member.work;
                 var i;
                 for(i=0; i< $scope.work.length; i++){
                     $scope.moreWork.push( {id:i,
@@ -50,28 +51,24 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                 ];
                 $scope.more_work_counter = 0;
             }
-            if(member.doc.education){
-                $scope.education = member.doc.education;
+            if(member.education){
+                $scope.education = member.education;
             }
             else{
                 $scope.education = "No education defined!";
             }
-            if ( member.doc.currentImage ) {
-                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + member.doc._id + '&picname=' + member.doc.currentImage;
+            if ( member.currentImage ) {
+                $scope.image = ConfigService.serverIp + '/profileimage?docid=' + member._id + '&picname=' + member.currentImage;
                 $scope.imageBackupPath = $scope.image;
             } else {
                 $scope.image = "../images/default-profile-3.png";
             }
-        }).error(function (err) {
+        }).catch(function (err) {
             $scope.image = "../images/default-profile-3.png";
         });
 
-        var destroyCropPanel = function (modal) {
-            modal.dismiss('canceled');
-        };
-
         $scope.cancelCrop = function () {
-            destroyCropPanel($scope.editModal);
+            $scope.editModal.dismiss('canceled');
         };
 
         // listen to image transformation data ready event from the custom 'cropper' directive
@@ -92,12 +89,12 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                     scaleToWidth: transformationData.scaleToWidth,
                     file: $scope.files[0]
                 }
-            }).success(function(response) {
+            }).then(function(response) {
                 $scope.isConfirmCropDisabled = false;
-                $scope.image = $scope.imageBackupPath = ConfigService.serverIp + response.filePath + '?' + new Date().valueOf();
+                $scope.image = $scope.imageBackupPath = ConfigService.serverIp + response.data.filePath + '?' + new Date().valueOf();
                 $scope.preview = ""; // is this var redundant now ? if yes, remove it from everywhere in this file
-                destroyCropPanel($scope.editModal);
-            }).error(function (err) {
+                $scope.editModal.close('done');
+            }).catch(function (err) {
                 $scope.isConfirmCropDisabled = false;
                 alert('error occurred while uploading image: ' + err);
                 console.log( '\n', err, '\n');
@@ -118,6 +115,11 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
                         templateUrl: 'displayPicEditModal.html',
                         scope: $scope,
                         windowClass: 'photo-edit-modal'
+                    });
+                    $scope.editModal.result.then(function(result){
+                        // modal closed via resolve (e.g. using .close api)
+                    }, function () {
+                        // modal closed via rejection (e.g. using .dismiss api)
                     });
                     $scope.editModal.rendered.then(function () {
                         $scope.isPhotoLoaded = true; // our custom 'cropper' directive is already watching this var and gets activated
@@ -167,13 +169,13 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
             var url = ConfigService.serverIp + '/saveProgress';
             $http.put(url, {
                 editedWork: $scope.moreWork
-            }).success(function(response){
+            }).then(function(response){
                 $scope.work = [];
-                for(var i=0;i<response.value.length;i++){
-                    $scope.work.push(response.value[i]);
+                for(var i=0;i<response.data.value.length;i++){
+                    $scope.work.push(response.data.value[i]);
                 }
                 $scope.controlBtnMoreWork=0;
-            }).error(function(err){
+            }).catch(function(err){
                 alert("Could not Complete you request at the moment, Please try again later");
             });
         };
