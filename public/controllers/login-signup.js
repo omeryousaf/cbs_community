@@ -76,23 +76,23 @@ controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '
         $scope.login = function () {
             var url = ConfigService.serverIp + '/authenticateLogin';
             console.log("input credentials: " + $scope.username + ' ' + $scope.password);
-            $http.post(url, {username: $scope.username, password: $scope.password}).success(function(response) {
-                console.log('\nlogin successful!!\nuser: ', response.member, '\n');
+            $http.post(url, {username: $scope.username, password: $scope.password}).then(function(response) {
+                console.log('\nlogin successful!!\nuser: ', response.data.member, '\n');
                 UtilityFunctions.visitMemberProfile({
-                    id: response.member.memberId 
+                    id: response.data.member.memberId 
                 });
-            }).error(function (err) {
+            }).catch(function (err) {
                 alert("login failed, reason: " + err.reason);
             });
         };
         $scope.forgotPassword = function(){
             var url = ConfigService.serverIp + '/forgotPassword';
-            $http.post(url, {username: $scope.forgottenUsername}).success(function(response) {
+            $http.post(url, {username: $scope.forgottenUsername}).then(function(response) {
                 $(function () {
                     $('#myModal').modal('toggle');
                 });
                 alert(response);
-            }).error(function (err) {
+            }).catch(function (err) {
                 alert("Some Error occured: " + err.reason);
             });
         };
@@ -101,10 +101,10 @@ controller.controller('Login', ['ConfigService', 'UtilityFunctions', '$scope', '
             if($scope.pass1!= null && $scope.pass2!= null && $scope.pass1===$scope.pass2){
                 var url = ConfigService.serverIp + '/resetPassword';
                 $scope.userId = $routeParams.id;
-                $http.post(url, {pass: $scope.pass1,userId: $scope.userId}).success(function(response) {
+                $http.post(url, {pass: $scope.pass1,userId: $scope.userId}).then(function(response) {
                     $window.location.href = '/login';
                     $window.alert("Password has been reset successfully");
-                }).error(function (err) {
+                }).catch(function (err) {
                     alert("Some Error occured: " + err.reason);
                 });
 

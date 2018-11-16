@@ -12,9 +12,9 @@ controller.controller('Members', ['ConfigService', 'UtilityFunctions', '$scope',
         $scope.topNavActiveTab = ConfigService.topNavActiveTab.directory;
 
         $scope.serverIp = ConfigService.serverIp;
-        $http.get( ConfigService.serverIp + '/members' ).success( function ( result ) {
-            $scope.members = result.members;
-        }).error(function (err) {
+        $http.get( ConfigService.serverIp + '/members' ).then( function ( result ) {
+            $scope.members = result.data.members;
+        }).catch(function (err) {
             console.log('\nerror: ', err, '\n');
             alert(err && err.error && err.error.message || 'An error occurred!');
         });
