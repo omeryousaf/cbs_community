@@ -8,21 +8,26 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'profileController',
     'membersController',
     'customDirectives',
-    'ngFileUpload'
+    'ngFileUpload',
+    'navigationComponent'
 ]);
+
 
 // define configurations here
 baghiansfromtheheart.factory('ConfigService', ['$location',
     function($location) {
+        let userId = '';
         return {
             serverIp : $location.protocol() + "://" + $location.host()  + ':' + $location.port(),
-            topNavActiveTab: {
-                myProfile: 'myProfile',
-                directory: 'directory'
-            },
             httpStatuses: {
                 OK: 200,
                 SESSION_EXPIRED: 419
+            },
+            setInSessionUserId: function(id) {
+                userId = id;
+            },
+            getInSessionUserId: function() {
+                return userId;
             }
         };
     }
