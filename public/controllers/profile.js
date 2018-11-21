@@ -5,12 +5,6 @@ var controller = angular.module('profileController',['ui.bootstrap']);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$uibModal', '$stateParams',
     function (ConfigService, $scope, $http, Upload, $uibModal, $stateParams) {
 
-        $scope.layout = {
-            name: "layout.html",
-            url: "views/layout.html"
-        };
-        $scope.topNavActiveTab = ConfigService.topNavActiveTab.myProfile;
-
         $scope.tabArray = [
             {name:"Profile","value":1},
             {name:"Education","value":2},
@@ -25,6 +19,9 @@ controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', 
         $http.get( ConfigService.serverIp + '/getMember/' + $stateParams.id ).then( function ( response ) {
             let member = response.data.doc;
             $scope.canEdit=member.canEdit;
+            if (!!member.canEdit) {
+                ConfigService.setInSessionUserId(member._id);
+            }
             if(member.work){
                 $scope.work=member.work;
                 var i;
