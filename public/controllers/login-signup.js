@@ -46,11 +46,11 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
                 username: $scope.username,
                 password: $scope.password
             };
-            $http.post(url, {newUser: newUser}).success(function(response) {
-                if (response.error) { // some error occurred while running the username uniqueness checking service
-                    alert('error code: ' + response.error.code + ',         ' + 'description: ' + response.error.description);
-                } else if (response.isUnique === true) { // username input by membership candidate is unique
-                    if (response.reason) { // error occurred while persisting membership candidate's signup data
+            $http.post(url, {newUser: newUser}).then(function(response) {
+                if (response.data.error) { // some error occurred while running the username uniqueness checking service
+                    alert('error code: ' + response.data.error.code + ',         ' + 'description: ' + response.data.error.description);
+                } else if (response.data.isUnique === true) { // username input by membership candidate is unique
+                    if (response.data.reason) { // error occurred while persisting membership candidate's signup data
                         alert('username is unique but encountered an error while saving ur signup credentials.');
                     } else { // success. candidate's signup data persisted. candidate is now a member
                         alert('signup successful, congratulations! you will now be routed to the page where you can login with the credentials just created');
@@ -60,7 +60,7 @@ controller.controller('Signup', ['ConfigService', '$scope', '$http', '$location'
                 } else { // username input by candidate is NOT unique
                     alert('username must be unique, please try again.');
                 }
-            }).error(function (err) {
+            }).catch(function (err) {
                 alert('error occurred while checking availablity of username: ' + $scope.username);
             });
         };
