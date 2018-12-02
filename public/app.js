@@ -21,7 +21,8 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
             serverIp : $location.protocol() + "://" + $location.host()  + ':' + $location.port(),
             httpStatuses: {
                 OK: 200,
-                SESSION_EXPIRED: 419
+                SESSION_EXPIRED: 419,
+                LOGOUT: 420
             },
             setInSessionUserId: function(id) {
                 userId = id;
@@ -34,10 +35,16 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
 ]).factory('sessionHandler', ['$location', '$q', 'ConfigService', function($location, $q, ConfigService) {
     return {
         responseError: function(response) {
-            if (response.status == ConfigService.httpStatuses.SESSION_EXPIRED) {
+            switch (response.status) {
+              case ConfigService.httpStatuses.SESSION_EXPIRED:
                 // prompt user to reauthenticate
                 alert('Your session has expired with the server. Please relogin to proceed!');
                 $location.path('/login');
+                break;
+              case ConfigService.httpStatuses.LOGOUT:
+                $location.path('/login');
+                break;
+              default:
             }
             return $q.reject(response);
         }
@@ -52,6 +59,9 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
             .state('login', {
                 url: '/login',
                 templateUrl: 'views/login.html'
+            })
+            .state('logout', {
+                url: '/logout'
             })
             .state('signup', {
                 url: '/signup',
@@ -69,6 +79,6 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
                 url: '/resetPassword/:id',
                 templateUrl: 'views/resetpassword.html'
             });
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true); // to get rid of hashbanged (/#/) routing
     }
 ]);

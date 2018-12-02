@@ -38,6 +38,10 @@ app.get('/getMember/:id', MW.isLoggedIn, routes.getMember);
 app.get('/profileimage', MW.isLoggedIn, routes.getProfileImage);
 app.get('/members', MW.isLoggedIn, routes.getMembers);
 app.put('/saveProgress', MW.isLoggedIn, routes.saveProgressRoute);
+app.get('/api/logout', function(req, res){
+  req.logout();
+  return res.status(config.App.httpStatuses.LOGOUT).send();
+});
 app.get('*', function(req, res) {
     res.render('indexx.html'); // load the single view file from 'public' folder as that's been configured as the default
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
