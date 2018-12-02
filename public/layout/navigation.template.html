@@ -4,13 +4,21 @@
     </div>
     <div class="collapse navbar-collapse ">
         <ul class="navbar-nav nav">
-            <li ui-sref="profile({id: 'me'})" ui-sref-active="active">
-                <a href="" class="navbar-link">My Profile</a>
+            <li ui-sref="members" ui-sref-active="active">
+                <a href="" class="navbar-link" ng-click="$ctrl.selectOther();">Directory</a>
             </li>
         </ul>
         <ul class="navbar-nav nav navbar-right pr15">
-            <li ui-sref="members" ui-sref-active="active">
-                <a href="" class="navbar-link">Directory</a>
+            <li class="dropdown" ng-class='{"active": $ctrl.selected != "Account"}'>
+                <a href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{$ctrl.selected}} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li ui-sref="profile({id: 'me'})">
+                        <a href="" class="navbar-link" ng-click="$ctrl.selectFromDropdown('My Profile');">My Profile</a>
+                    </li>
+                    <li ui-sref="logout">
+                        <a href="" class="navbar-link" ng-click="$ctrl.selectFromDropdown('Logout');">Logout</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
