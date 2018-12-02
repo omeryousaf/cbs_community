@@ -10,6 +10,7 @@ exports.App = {
     secretKey : 'secretKeyHere',
     httpStatuses: {
     	OK: 200,
-    	SESSION_EXPIRED: 419
+    	SESSION_EXPIRED: 419,
+        LOGOUT: 421
     }
 };
