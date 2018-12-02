@@ -11,6 +11,6 @@ exports.App = {
     httpStatuses: {
     	OK: 200,
     	SESSION_EXPIRED: 419,
-        LOGOUT: 421
+        LOGOUT: 420
     }
 };

@@ -1,15 +1,13 @@
 function navigationController(ConfigService, $http) {
 	this.selected = 'Account';
 
-	this.selectFromDropdown = function(newSelected) {
-		this.selected = newSelected;
-		if (newSelected === 'Logout') {
-			$http.get(ConfigService.serverIp + '/api/logout');
+	this.selectNavbarItem = function(newSelected, isInsideDropdown) {
+		if (isInsideDropdown) {
+			this.selected = newSelected;
 		}
-	};
-
-	this.selectOther = function() {
-		this.selected = 'Account';
+		if (newSelected === 'Logout') {
+			$http.get(ConfigService.serverIp + '/api/logout').catch(function(error) {});
+		}
 	};
 }
 

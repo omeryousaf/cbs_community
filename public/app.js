@@ -22,7 +22,7 @@ baghiansfromtheheart.factory('ConfigService', ['$location',
             httpStatuses: {
                 OK: 200,
                 SESSION_EXPIRED: 419,
-                LOGOUT: 421
+                LOGOUT: 420
             },
             setInSessionUserId: function(id) {
                 userId = id;
