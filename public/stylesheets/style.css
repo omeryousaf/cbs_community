@@ -1,7 +1,67 @@
+
+
 body {
+  
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-size: cover;
+  text-align: center;
+  background-image: url("../bg.jpg");
+  
+
 }
+.container{
+  position: relative;
+  width: 25%;
+  height: 400px;
+  padding: 10px 25px;
+  margin: 10vh auto;
+  background: #fff;
+  border-radius: 8px;
+}
+h1{ 
+  color: #606060;
+  font-weight: bold;
+  font-size: 40px;
+  margin: 5px auto;
+}
+
+
+.user, .password{ 
+  text-align: center;
+  display: block;
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: lighter;
+  margin-bottom: 30px;
+  
+
+}
+
+.user, .password{ background: #ecf0f1; }
+
+.roow:hover{ 
+  background: #3570dc;
+ }
+
+ .roow{
+  color: #fff;
+  cursor: pointer;
+  margin-top: 20px;
+  background: #3598dc;
+  transition: background 0.4s ease;
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: lighter;
+  margin-bottom: 30px;
+ }
+.
 
 a {
   color: #00B7FF;
@@ -35,4 +95,23 @@ a {
 }
 .work_values{
   padding-left: 50px;
+}
+
+.forgetPasswordModelBody{
+  width: 60%
+}
+@media only screen and (min-width : 280px) {
+  .cont{ width: 90% }
+}
+
+@media only screen and (min-width : 480px) {
+  .cont{ width: 60% }
+}
+
+@media only screen and (min-width : 768px) {
+  .cont{ width: 40% }
+}
+
+@media only screen and (min-width : 992px) {
+  .cont{ width: 30% }
 }
