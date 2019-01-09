@@ -1,16 +1,15 @@
-
 <div class="container">
     <form ng-controller="Login">
-        <div class="row">
-            <h3>Login</h3>
+        <div class="roww">
+            <h1>Login</h1>
         </div>
-        <div class="row">
+        <div class="user">
             <input type="text" ng-model="username" placeholder="username" required />
         </div>
-        <div class="row">
+        <div class="password">
             <input type="password" ng-model="password" placeholder="password" required />
         </div>
-        <div class="row">
+        <div class="roow">
             <input class="btn btn-primary button-gen-layout margin-top-10" type="submit" value="login" ng-click="login()"/>
         </div>
         <div class="row">
@@ -18,8 +17,7 @@
             <a href="/signup">Become a Member</a>
         </div>
         </form>
-
-    <form ng-controller="Login">
+ <form ng-controller="Login">
         <div class="row">
             <label style="display: inline">Forgot password ? </label> <a  data-toggle="modal" data-target="#myModal" href="">Reset it</a>
 
