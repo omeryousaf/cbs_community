@@ -43,11 +43,11 @@ h1{
 
 .user, .password{ background: #ecf0f1; }
 
-.roow:hover{ 
+.roww:hover{ 
   background: #3570dc;
  }
 
- .roow{
+ .roww{
   color: #fff;
   cursor: pointer;
   margin-top: 20px;
@@ -101,17 +101,17 @@ a {
   width: 60%
 }
 @media only screen and (min-width : 280px) {
-  .cont{ width: 90% }
+  .container{ width: 90% }
 }
 
 @media only screen and (min-width : 480px) {
-  .cont{ width: 60% }
+  .container{ width: 60% }
 }
 
 @media only screen and (min-width : 768px) {
-  .cont{ width: 40% }
+  .container{ width: 40% }
 }
 
 @media only screen and (min-width : 992px) {
-  .cont{ width: 30% }
+  .container{ width: 30% }
 }
