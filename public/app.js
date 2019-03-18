@@ -9,7 +9,8 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'membersController',
     'customDirectives',
     'ngFileUpload',
-    'navigationComponent'
+    'navigationComponent',
+    'calendarComponent'
 ]);
 
 
@@ -78,6 +79,10 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
             .state('resetPassword', {
                 url: '/resetPassword/:id',
                 templateUrl: 'views/resetpassword.html'
+            })
+            .state('calendar', {
+                url: '/calendar',
+                templateUrl: 'calendar/calendar.html'
             });
         $locationProvider.html5Mode(true); // to get rid of hashbanged (/#/) routing
     }
