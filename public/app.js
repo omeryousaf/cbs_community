@@ -81,7 +81,7 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
                 templateUrl: 'views/resetpassword.html'
             })
             .state('calendar', {
-                url: '/calendar',
+                url: '/calendar/index',
                 templateUrl: 'calendar/calendar.html'
             });
         $locationProvider.html5Mode(true); // to get rid of hashbanged (/#/) routing
