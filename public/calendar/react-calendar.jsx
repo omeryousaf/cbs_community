@@ -14,7 +14,7 @@ class CBSReactCalendarApp extends React.Component {
 			events:[{
 				title: 'All Day Event',
 				start: moment('2019-03-15').toDate(),
-				end: moment('2019-03-15').endOf('day').toDate()
+				end: moment('2019-03-15').add(2, 'hours').toDate()
 			}, {
 				title: 'Long Event',
 				start: moment('2019-03-16').toDate(),
