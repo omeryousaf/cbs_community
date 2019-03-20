@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FullCalendar from 'fullcalendar-reactwrapper';
-import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
+import BigCalendar from 'react-big-calendar';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+import './calendar.css';
+
+const localizer = BigCalendar.momentLocalizer(moment);
 
 class CBSReactCalendarApp extends React.Component {
   constructor(props) {
@@ -9,28 +13,21 @@ class CBSReactCalendarApp extends React.Component {
     this.state = {
 			events:[{
 				title: 'All Day Event',
-				start: '2019-03-15'
+				start: moment('2019-03-15').toDate(),
+				end: moment('2019-03-15').endOf('day').toDate()
 			}, {
 				title: 'Long Event',
-				start: '2019-03-16',
-				end: '2019-03-18'
+				start: moment('2019-03-16').toDate(),
+				end: moment('2019-03-18').toDate()
 			}]
     }
   }
 
   render() {
     return (
-			<div id="cbs-cal-component">
-				<FullCalendar
-					id = "your-custom-ID"
-					header = {{
-						left: 'prev,next today myCustomButton',
-						center: 'title',
-						right: 'month,basicWeek,basicDay'
-					}}
-					navLinks= {true} // can click day/week names to navigate views
-					editable= {true}
-					eventLimit= {true} // allow "more" link when too many events
+			<div className='h-90vh'>
+				<BigCalendar
+					localizer = {localizer}
 					events = {this.state.events}
 				/>
 			</div>
