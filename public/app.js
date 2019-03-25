@@ -1,6 +1,14 @@
 /**
  * Created by omeryousaf on 16/03/15.
  */
+import "./controllers/login-signup.js";
+import "./controllers/profile.js";
+import "./controllers/members.js";
+import "./directives/cbs-cropper.js";
+import "./layout/navigation.component.js";
+import "./calendar/calendar.component.js";
+import angular from 'angular';
+
 var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'ngRoute',
     'ui.router',
@@ -10,12 +18,20 @@ var baghiansfromtheheart = angular.module('baghiansfromtheheart', [
     'customDirectives',
     'ngFileUpload',
     'navigationComponent',
-    'calendarComponent'
+    'calendarModule'
 ]);
 
 
 // define configurations here
-baghiansfromtheheart.factory('ConfigService', ['$location',
+baghiansfromtheheart.factory('UtilityFunctions', [ '$location', 'ConfigService',
+    function( $location, ConfigService ) {
+        return {
+            visitMemberProfile: function ( data ) {
+                $location.path('/profile/' + (data._id === ConfigService.getInSessionUserId() ? 'me' : data._id));
+            }
+        };
+    }
+]).factory('ConfigService', ['$location',
     function($location) {
         let userId = '';
         return {
@@ -81,7 +97,7 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
                 templateUrl: 'views/resetpassword.html'
             })
             .state('calendar', {
-                url: '/calendar/index',
+                url: '/calendar/:param',
                 templateUrl: 'calendar/calendar.html'
             });
         $locationProvider.html5Mode(true); // to get rid of hashbanged (/#/) routing

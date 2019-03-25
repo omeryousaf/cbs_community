@@ -1,6 +1,8 @@
 /**
  * Created by omeryousaf on 16/03/15.
  */
+import angular from 'angular';
+
 var controller = angular.module('loginSignupController', []);
 
 // get the UI to ensure filling of mandatory fields before calling the backend

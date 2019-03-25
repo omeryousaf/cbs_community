@@ -1,6 +1,8 @@
 /**
  * Created by shujaatali on 01/02/16.
  */
+import angular from 'angular';
+
 var controller = angular.module('profileController',['ui.bootstrap']);
 controller.controller('Profile', ['ConfigService', '$scope', '$http', 'Upload', '$uibModal', '$stateParams',
     function (ConfigService, $scope, $http, Upload, $uibModal, $stateParams) {
