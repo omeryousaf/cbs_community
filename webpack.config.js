@@ -1,6 +1,6 @@
 
 const config = {
-  entry: __dirname + '/public/app.js',
+  entry: ['babel-polyfill', __dirname + '/public/app.js'],
   output: {
     path: __dirname + '/public/dist',
     filename: 'bundle.js'
