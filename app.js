@@ -10,6 +10,7 @@ global.appRoot = path.resolve(__dirname);
 
 var config = require( path.join( global.appRoot, '/nodejs_config/config.js'));
 const MW = require(path.join(global.appRoot, '/middleware.js'));
+const calendarControllers = require(path.join(global.appRoot, '/services/calendar.js'));
 
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
@@ -42,6 +43,8 @@ app.get('/api/logout', function(req, res){
   req.logout();
   return res.status(config.App.httpStatuses.LOGOUT).send();
 });
+app.post('/api/events', calendarControllers.save);
+app.get('/api/events', calendarControllers.fetchAll);
 app.get('*', function(req, res) {
     res.render('indexx.html'); // load the single view file from 'public' folder as that's been configured as the default
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
