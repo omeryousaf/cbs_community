@@ -107,7 +107,7 @@ module.exports = function ( nano ) { // var nano is passed in from caller routes
     };
 
     profileUpdator.getProfileImage = function ( docId, attachmentName ) {
-        return membersDb.attachment.get(docId, attachmentName);
+        return membersDb.attachment.getAsStream(docId, attachmentName);
     };
 
     return profileUpdator;
