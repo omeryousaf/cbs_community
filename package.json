@@ -38,6 +38,7 @@
     "react-datepicker": "^2.4.0",
     "react-dom": "^16.8.4",
     "react-router-dom": "^5.0.0",
+    "react-toastify": "^5.1.0",
     "react2angular": "^4.0.6",
     "serve-favicon": "^2.5.0",
     "style-loader": "^0.23.1",

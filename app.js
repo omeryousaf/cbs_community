@@ -40,10 +40,10 @@ app.get('/profileimage', MW.isLoggedIn, routes.getProfileImage);
 app.get('/members', MW.isLoggedIn, routes.getMembers);
 app.put('/saveProgress', MW.isLoggedIn, routes.saveProgressRoute);
 app.get('/api/logout', function(req, res){
-  req.logout();
+  req.logout(); // method exposed by PassportJS, terminates user's session
   return res.status(config.App.httpStatuses.LOGOUT).send();
 });
-app.post('/api/events', calendarControllers.save);
+app.post('/api/events', MW.isLoggedIn, calendarControllers.save);
 app.get('/api/events', calendarControllers.fetchAll);
 app.get('*', function(req, res) {
     res.render('indexx.html'); // load the single view file from 'public' folder as that's been configured as the default

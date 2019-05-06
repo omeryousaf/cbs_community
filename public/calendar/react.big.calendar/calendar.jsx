@@ -46,7 +46,7 @@ class CbsFullCalendar extends React.Component {
 			<BrowserRouter>
 				<div className='h-80vh'>
 					<div>
-						<Link className='btn' to="/calendar/edit/event">Add New Event</Link>
+						<Link className='btn' to="/calendar/event">Add New Event</Link>
 					</div>
 					<BigCalendar
 						localizer = {localizer}

@@ -100,8 +100,8 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
                 url: '/calendar/index',
                 templateUrl: 'calendar/react.big.calendar/calendar.html'
             })
-            .state('edit-event', {
-                url: '/calendar/edit/event',
+            .state('create-event', {
+                url: '/calendar/event',
                 templateUrl: 'calendar/event.edit/event.edit.html'
             });
         $locationProvider.html5Mode(true); // to get rid of hashbanged (/#/) routing

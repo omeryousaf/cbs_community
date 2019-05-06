@@ -3,8 +3,10 @@ import { BrowserRouter, Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import * as moment from 'moment';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 class EditEvent extends React.Component {
 	constructor(props) {
@@ -55,8 +57,14 @@ class EditEvent extends React.Component {
 				end: moment(this.state.endDate).unix(),
 				location: this.state.location
 			}
-		}).catch(function (error) {
-			console.log(error);
+		}).then(() => {
+			toast.success('New Event Created Successfully!', {
+				position: toast.POSITION.TOP_CENTER
+			});
+		}).catch((error) => {
+			toast.error('Something went wrong. Please try again or contact the Admin!', {
+				position: toast.POSITION.TOP_CENTER
+			});
 		});
 	}
 
@@ -64,6 +72,7 @@ class EditEvent extends React.Component {
 		return (
 			<BrowserRouter>
 				<div>
+					<ToastContainer />
 					<div>
 						<Link className='btn' to="/calendar/index">Back to Calendar</Link>
 					</div>
