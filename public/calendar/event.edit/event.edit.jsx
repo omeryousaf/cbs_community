@@ -61,7 +61,16 @@ class EditEvent extends React.Component {
 			toast.success('New Event Created Successfully!', {
 				position: toast.POSITION.TOP_CENTER
 			});
-		}).catch(() => {
+		}).catch((err) => {
+			if (err.response.status === 419) {
+				toast.error('Your session has expired. Routing you to login page!', {
+					position: toast.POSITION.TOP_CENTER
+				});
+				setTimeout(() => {
+					window.location = window.location.origin + '/login';
+				}, 3000);
+				return;
+			}
 			toast.error('Something went wrong. Please try again or contact the Admin!', {
 				position: toast.POSITION.TOP_CENTER
 			});
