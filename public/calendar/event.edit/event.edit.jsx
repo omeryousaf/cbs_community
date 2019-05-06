@@ -61,7 +61,7 @@ class EditEvent extends React.Component {
 			toast.success('New Event Created Successfully!', {
 				position: toast.POSITION.TOP_CENTER
 			});
-		}).catch((error) => {
+		}).catch(() => {
 			toast.error('Something went wrong. Please try again or contact the Admin!', {
 				position: toast.POSITION.TOP_CENTER
 			});

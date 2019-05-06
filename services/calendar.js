@@ -12,6 +12,7 @@ exports.save = async (req, res) => {
     await eventsDb.insert(req.body.event);
     res.send();
   } catch(err) {
+    console.log(err);
     res.status(500).send();
   }
 };
