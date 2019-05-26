@@ -4,6 +4,7 @@ import BigCalendar from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import * as moment from 'moment';
 import axios from 'axios';
+import EventOverlay from '../event.edit/event.overlay.jsx';
 
 import './calendar.css';
 
@@ -21,8 +22,15 @@ class CbsFullCalendar extends React.Component {
 				title: 'Long Event',
 				start: moment('2019-03-16').toDate(),
 				end: moment('2019-03-18').toDate()
-			}]
+			}],
+			clickedEvent: {
+				start: new Date(),
+				end: new Date()
+			},
+			showEvent: false
     };
+    this.openEventOverlay = this.openEventOverlay.bind(this);
+    this.closeEventOverlay = this.closeEventOverlay.bind(this);
 	}
 
 	async componentDidMount() {
@@ -41,9 +49,32 @@ class CbsFullCalendar extends React.Component {
 		}
 	}
 
+	openEventOverlay(e) {
+		this.setState({
+			clickedEvent: {
+				title: e.title,
+				start: e.start,
+				end: e.end,
+				location: e.location
+			},
+			showEvent: true
+		});
+	}
+
+	closeEventOverlay() {
+		this.setState({
+			showEvent: false
+		});
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
+				<EventOverlay
+					open = {this.state.showEvent}
+					close = {this.closeEventOverlay}
+					event = {this.state.clickedEvent}
+				></EventOverlay>
 				<div className='h-80vh'>
 					<div>
 						<Link className='btn' to="/calendar/event">Add New Event</Link>
@@ -51,7 +82,9 @@ class CbsFullCalendar extends React.Component {
 					<BigCalendar
 						localizer = {localizer}
 						events = {this.state.events}
-						views={['month', 'week', 'day']}
+						views = {['month', 'week', 'day']}
+						popup = {true}
+						onSelectEvent = {this.openEventOverlay}
 					/>
 				</div>
 			</BrowserRouter>
