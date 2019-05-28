@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 angular.module('customDirectives', [])
 	.directive('cbsCropper', function(ConfigService, Upload) {
 

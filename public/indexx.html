@@ -25,24 +25,15 @@
         <script src="https://code.angularjs.org/1.7.5/angular-route.min.js"></script>
         <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="core.js"></script>
         <!-- add other 3rd party libraries/modules -->
         <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
         <script src="bower_components/cropper/dist/cropper.js"></script>
 
-        <!-- add modules defined in this app -->
-        <script src="controllers/login-signup.js"></script>
-        <script src="controllers/profile.js"></script>
-        <script src="controllers/members.js"></script>
-        <script src="directives/cbs-cropper.js"></script>
-        <script src="layout/navigation.component.js"></script>
-        <script src="calendar/calendar.component.js"></script>
-        <script src="app.js"></script>
-        <script src="helper.js"></script>
         <title>Baghians</title>
     </head>
     <body>
         <navigation></navigation>
         <ui-view></ui-view>
+        <script src="dist/bundle.js"></script>
     </body>
 </html>

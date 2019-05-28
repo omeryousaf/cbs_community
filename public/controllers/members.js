@@ -1,6 +1,8 @@
 /**
  * Created by omeryousaf on 06/02/16.
  */
+import angular from 'angular';
+
 var controller = angular.module('membersController',[]);
 controller.controller('Members', ['ConfigService', 'UtilityFunctions', '$scope', '$http', 'Upload', '$routeParams',
     function (ConfigService, UtilityFunctions, $scope, $http, Upload, $routeParams) {
