@@ -14,23 +14,15 @@ class CbsFullCalendar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			events:[{
-				title: 'All Day Event',
-				start: moment('2019-03-15').toDate(),
-				end: moment('2019-03-15').add(2, 'hours').toDate()
-			}, {
-				title: 'Long Event',
-				start: moment('2019-03-16').toDate(),
-				end: moment('2019-03-18').toDate()
-			}],
+			events:[],
 			clickedEvent: {
 				start: new Date(),
 				end: new Date()
 			},
 			showEvent: false
-    };
-    this.openEventOverlay = this.openEventOverlay.bind(this);
-    this.closeEventOverlay = this.closeEventOverlay.bind(this);
+		};
+		this.openEventOverlay = this.openEventOverlay.bind(this);
+		this.closeEventOverlay = this.closeEventOverlay.bind(this);
 	}
 
 	async componentDidMount() {

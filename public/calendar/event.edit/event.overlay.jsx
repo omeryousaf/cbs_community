@@ -60,8 +60,8 @@ class EventOverlay extends React.Component {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={this.goToEventEditScreen} color="primary" style={{ fontSize: '1em'}}>
-            Edit
-          </Button>
+						Edit
+					</Button>
 				</DialogActions>
 			</Dialog>
 			);
