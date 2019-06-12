@@ -20,7 +20,7 @@ class EventOverlay extends React.Component {
 
 	goToEventEditScreen() {
 		this.props.close();
-		window.location = '/calendar/event';
+		window.location = `/calendar/event/${this.props.event._id}`;
 	}
 
 	render() {
@@ -72,6 +72,7 @@ EventOverlay.propTypes = {
 	open: PropTypes.bool,
 	close: PropTypes.func,
 	event: PropTypes.shape({
+		_id: PropTypes.string,
 		title: PropTypes.string,
 		start: PropTypes.instanceOf(Date),
 		end: PropTypes.instanceOf(Date),

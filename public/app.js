@@ -103,6 +103,10 @@ baghiansfromtheheart.config(['$httpProvider', '$locationProvider', '$stateProvid
             .state('create-event', {
                 url: '/calendar/event',
                 templateUrl: 'calendar/event.edit/event.edit.html'
+            })
+            .state('edit-event', {
+                url: '/calendar/event/:id',
+                templateUrl: 'calendar/event.edit/event.edit.html'
             });
         $locationProvider.html5Mode(true); // to get rid of hashbanged (/#/) routing
     }
