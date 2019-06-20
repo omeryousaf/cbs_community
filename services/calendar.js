@@ -2,7 +2,7 @@ const path = require('path');
 const moment = require('moment');
 const config = require(path.join(global.appRoot, '/nodejs_config/config.js'));
 const nano = require('nano')(config.App.CouchServerIp);
-const db = 'events';
+const db = process.env.NODE_ENV == 'test' ? `${process.env.NODE_ENV}-events` : 'events';
 const eventsDb = nano.db.use(db);
 
 exports.save = async (req, res) => {
@@ -47,9 +47,10 @@ exports.updateEvent = async (req, res) => {
     if (!eventInDb) {
       throw new Error('Event not found in DB');
     }
-    req.body.event.updatedAt = moment().unix();
-    req.body.event.updatedBy = req.user._id;
-    await eventsDb.insert(req.body.event);
+    Object.assign(eventInDb, req.body.event);
+    eventInDb.updatedAt = moment().unix();
+    eventInDb.updatedBy = req.user._id;
+    await eventsDb.insert(eventInDb);
     res.send({});
   } catch(error) {
     console.log(error);
