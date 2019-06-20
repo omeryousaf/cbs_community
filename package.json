@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test-server": "mocha */*.mocha.js"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
@@ -49,10 +50,13 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "chai": "^4.2.0",
     "eslint": "^5.15.3",
     "eslint-config-recommended": "^4.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "mocha": "^6.1.4",
+    "supertest": "^4.0.2"
   }
 }
