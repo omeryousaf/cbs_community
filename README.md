@@ -22,7 +22,6 @@ we are using connect-multiparty as file upload middleware instead of multer sinc
 7. Start Apllication
    - node app.js
    - (Server will start listening on port 3001 )  
-   node_modules\.bin\webpack -d
 8. Hit http://localhost:3001 in browser
 9. you can also use "nodemon"
     -to run application using nodemon
