@@ -24,9 +24,9 @@ const loginUser = async (server) => {
 		.expect(200);
 };
 
-describe('calendar controllers', async () => {
+describe('calendar controllers', () => {
 	beforeEach(async () => {
-		console.log('creating test db..');
+		console.log(`creating test db.. ${dbName}`);
 		const testEventsDbExists = await testDbExistsAlready(dbName);
 		if (testEventsDbExists) {
 			await nano.db.destroy(dbName);

@@ -52,8 +52,11 @@ app.get('*', function(req, res) {
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)
 });
 
-app.set('port', process.env.PORT || config.App.server.port);
-var server = app.listen( app.get('port'), function() {
-    console.log('Express server listening on port %d', server.address().port);
-});
+if(process.env.NODE_ENV !== 'test') { // spin off our http server only when NOT running in test env cuz the testing env sets one up automatically
+	app.set('port', process.env.PORT || config.App.server.port);
+	var server = app.listen( app.get('port'), function() {
+		console.log('Express server listening on port %d', server.address().port);
+	});
+}
+
 module.exports = app;
