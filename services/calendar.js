@@ -47,6 +47,9 @@ exports.updateEvent = async (req, res) => {
     if (!eventInDb) {
       throw new Error('Event not found in DB');
     }
+    if(req.user._id !== eventInDb.createdBy) {
+      throw new Error('This event can only be edited by its creator');
+    }
     Object.assign(eventInDb, req.body.event);
     eventInDb.updatedAt = moment().unix();
     eventInDb.updatedBy = req.user._id;

@@ -6,7 +6,7 @@ const config = require(path.join(global.appRoot, '/nodejs_config/config.js'));
 
 let dbName = `${process.env.NODE_ENV}-events`;
 let nano = require('nano')(config.App.CouchServerIp);
-const user = {
+const userOomer = {
 	username: 'oomer',
 	password: 'oomer123'
 };
@@ -16,12 +16,18 @@ const testDbExistsAlready = async (testDbName) => {
 	return dbList.indexOf(testDbName) !== -1;
 };
 
-const loginUser = async (server) => {
+const loginUser = async (server, user) => {
 	await server
 		.post('/authenticateLogin')
 		.send(user)
 		.set('Accept', 'application/json')
 		.expect(200);
+};
+
+const createEvent = async (server, event) => {
+	await server
+		.post('/api/events')
+		.send(event);
 };
 
 describe('calendar controllers', () => {
@@ -59,24 +65,18 @@ describe('calendar controllers', () => {
 		const testEventsDb = nano.use(dbName);
 		let result = await testEventsDb.list();
 		expect(result.rows.length).to.equal(0);
-		await loginUser(server);
+		await loginUser(server, userOomer);
 		const data = getNewEventData();
-		await server
-			.post('/api/events')
-			.send(data)
-			.set('Accept', 'application/json')
-			.expect(200);
+		await createEvent(server, data);
 		result = await testEventsDb.list();
 		expect(result.rows.length).to.equal(1);
 	});
 
 	it('should edit event attribute: `location`', async () => {
 		const server = request.agent(app);
-		await loginUser(server);
+		await loginUser(server, userOomer);
 		const data = getNewEventData();
-		await server
-			.post('/api/events')
-			.send(data);
+		await createEvent(server, data);
 		const testEventsDb = nano.use(dbName);
 		let result = await testEventsDb.list();
 		let eventFromDb = await testEventsDb.get(result.rows[0].id);
@@ -93,5 +93,35 @@ describe('calendar controllers', () => {
 			.expect(200);
 		eventFromDb = await testEventsDb.get(result.rows[0].id);
 		expect(eventFromDb.location).to.equal('Yankees Stadium');
+	});
+
+	it('should NOT allow anyone to edit the event EXCEPT the event creator him/her self', async () => {
+		const server = request.agent(app);
+		const userAli = {
+			username: 'tabraiz',
+			password: 'tabraiz'
+		};
+		await loginUser(server, userOomer);
+		const data = getNewEventData();
+		await createEvent(server, data);
+		const testEventsDb = nano.use(dbName);
+		let result = await testEventsDb.list({include_docs: true});
+		let eventFromDb = await testEventsDb.get(result.rows[0].id);
+		expect(eventFromDb.location).to.equal(data.event.location);
+		// change user
+		await loginUser(server, userAli);
+		// try to update event and assert that the new user's attempt to do so does not go through
+		await server
+			.put(`/api/events/${eventFromDb.id}`)
+			.send({
+				event: {
+					_id: eventFromDb._id,
+					_rev: eventFromDb._rev,
+					location: 'Gaddafi Stadium'
+				}
+			})
+			.expect(500);
+		eventFromDb = await testEventsDb.get(result.rows[0].id);
+		expect(eventFromDb.location).to.not.equal('Gaddafi Stadium');
 	});
 });
