@@ -47,6 +47,7 @@ app.post('/api/events', MW.isLoggedIn, calendarControllers.save);
 app.get('/api/events', calendarControllers.fetchAll);
 app.get('/api/events/:id', calendarControllers.fetchEvent);
 app.put('/api/events/:id', MW.isLoggedIn, calendarControllers.updateEvent);
+app.delete('/api/events/:id', MW.isLoggedIn, calendarControllers.deleteEvent);
 app.get('*', function(req, res) {
     res.render('indexx.html'); // load the single view file from 'public' folder as that's been configured as the default
     // lookup location for views. (after this first load, angular will handle the page changes on the front-end)

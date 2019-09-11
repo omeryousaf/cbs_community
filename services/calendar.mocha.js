@@ -124,4 +124,21 @@ describe('calendar controllers', () => {
 		eventFromDb = await testEventsDb.get(result.rows[0].id);
 		expect(eventFromDb.location).to.not.equal('Gaddafi Stadium');
 	});
+
+	it('should delete an event from db', async () => {
+		const server = request.agent(app);
+		const testEventsDb = nano.use(dbName);
+		await loginUser(server, userOomer);
+		const data = getNewEventData();
+		await createEvent(server, data);
+		let result = await testEventsDb.list();
+		expect(result.rows.length).to.equal(1);
+		let eventFromDb = await testEventsDb.get(result.rows[0].id);
+		await server
+			.delete(`/api/events/${eventFromDb._id}`)
+			.send()
+			.expect(200);
+		result = await testEventsDb.list();
+		expect(result.rows.length).to.equal(0);
+	});
 });

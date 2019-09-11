@@ -60,3 +60,20 @@ exports.updateEvent = async (req, res) => {
     res.status(500).send();
   }
 };
+
+exports.deleteEvent = async (req, res) => {
+  try {
+    const eventInDb = await eventsDb.get(req.params.id);
+    if (!eventInDb) {
+      throw new Error('Event not found in DB');
+    }
+    if(req.user._id !== eventInDb.createdBy) {
+      throw new Error('This event can only be deleted by its creator');
+    }
+    await eventsDb.destroy(eventInDb._id, eventInDb._rev);
+    res.send({});
+  } catch(error) {
+    console.log(error);
+    res.status(500).send();
+  }
+};
