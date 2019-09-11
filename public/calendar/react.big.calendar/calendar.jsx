@@ -44,6 +44,7 @@ class CbsFullCalendar extends React.Component {
 	openEventOverlay(e) {
 		this.setState({
 			clickedEvent: {
+				_id: e._id,
 				title: e.title,
 				start: e.start,
 				end: e.end,
