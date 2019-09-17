@@ -12,6 +12,20 @@ var config = require( path.join( global.appRoot, '/nodejs_config/config.js'));
 const MW = require(path.join(global.appRoot, '/middleware.js'));
 const calendarControllers = require(path.join(global.appRoot, '/services/calendar.js'));
 
+if(config.App.server.env === 'dev') {
+	let cors = require('cors');
+	const whitelist = ['http://localhost:3000', 'http://127.0.0.1:3000']
+	app.use(cors({
+		origin: function (origin, callback) {
+			if (whitelist.indexOf(origin) !== -1) {
+				return callback(null, true);
+			}
+			return callback(new Error('Not allowed by CORS'), false);
+		},
+		credentials: true
+	}));
+}
+
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');

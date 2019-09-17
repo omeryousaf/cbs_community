@@ -21,6 +21,13 @@ ddoc.views = {
                 emit(doc.username, { name: doc.name, email: doc.email, boardingHouse: doc.boardingHouse});
             }
         }
+    },
+    getAdmins: {
+        map: function (doc) {
+            if (doc.isAdmin) {
+                emit(doc.username, { name: doc.name, email: doc.email, boardingHouse: doc.boardingHouse});
+            }
+        }
     }
 }
 
